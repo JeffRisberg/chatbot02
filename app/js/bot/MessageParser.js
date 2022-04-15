@@ -7,11 +7,11 @@ class MessageParser {
     const lowerCaseMessage = message.toLowerCase();
 
     if (lowerCaseMessage.includes("hello")) {
-      this.actionProvider.greet();
+      this.actionProvider.handleHello();
     }
 
-    if (lowerCaseMessage.includes("javascript")) {
-      this.actionProvider.handleJavascriptList();
+    if (lowerCaseMessage.includes("exit")) {
+      this.actionProvider.handleExit();
     }
   }
 }

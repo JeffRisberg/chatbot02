@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import './App.css';
 import Chatbot from 'react-chatbot-kit';
 import 'react-chatbot-kit/build/main.css';
 
@@ -7,7 +7,7 @@ import config from './bot/config';
 import MessageParser from './bot/MessageParser';
 import ActionProvider from './bot/ActionProvider';
 
-class AppRoot extends Component {
+class App extends Component {
   render() {
 
     return (
@@ -24,4 +24,4 @@ class AppRoot extends Component {
   }
 }
 
-export default AppRoot;
+export default App;
