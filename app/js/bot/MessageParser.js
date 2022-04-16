@@ -10,6 +10,10 @@ class MessageParser {
       this.actionProvider.handleHello();
     }
 
+    if (lowerCaseMessage.includes("next")) {
+      this.actionProvider.handleNextState();
+    }
+
     if (lowerCaseMessage.includes("exit")) {
       this.actionProvider.handleExit();
     }
