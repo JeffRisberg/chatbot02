@@ -6,29 +6,14 @@ class ActionProvider {
     this.setState = setStateFunc;
   }
 
-  handleHello() {
-    const botMessage = this.createChatBotMessage('Hello. Nice to meet you.');
-
-    this.updateChatbotState(botMessage);
-  }
-
-  handleNextState() {
-    axios.get('http://localhost:3000/api/inquiry')
+  handleMessage(inquiry) {
+    axios.get('http://localhost:3000/api/inquiry/' + inquiry)
       .then(resp => {
         console.log(resp.data);
 
-        const botMessage = this.createChatBotMessage('Message 2');
+        const botMessage = this.createChatBotMessage(resp.data.data);
         this.updateChatbotState(botMessage);
       });
-
-    const botMessage = this.createChatBotMessage('Message 1');
-    this.updateChatbotState(botMessage);
-  }
-
-  handleExit() {
-    const botMessage = this.createChatBotMessage('Ok, let\'s start over.');
-
-    this.updateChatbotState(botMessage);
   }
 
   handleJavascriptList() {

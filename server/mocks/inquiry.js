@@ -11,10 +11,22 @@ module.exports = (app) => {
 
   inquiryRouter.use(bodyParser.json());
 
-  const itemsDB = app.itemsDB;
+  inquiryRouter.get('/:inquiry', function (req, res) {
+    const inquiry = req.params.inquiry;
+    var answer = 'I didn\'t understand that';
 
-  inquiryRouter.get('/', function (req, res) {
-    const answer = 'I found the following items';
+    if (inquiry.includes('skills')) {
+      answer = 'I found the following items';
+    }
+
+    else if (inquiry.includes('hello')) {
+      answer = 'Hello, nice to meet you';
+    }
+
+    else if (inquiry.includes('reset')) {
+      answer = 'Ok, let\'s start over';
+    }
+
     res.send({
       'status': 'ok',
       'data': answer
