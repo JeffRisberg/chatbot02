@@ -15,12 +15,12 @@ module.exports = (app) => {
     const inquiry = req.params.inquiry;
     var answer = 'I didn\'t understand that';
 
-    if (inquiry.includes('skills')) {
-      answer = 'I found the following items';
+    if (inquiry.includes('hello')) {
+      answer = 'Hello, nice to meet you';
     }
 
-    else if (inquiry.includes('hello')) {
-      answer = 'Hello, nice to meet you';
+    else if (inquiry.includes('skills')) {
+      answer = 'I found the following items';
     }
 
     else if (inquiry.includes('reset')) {
