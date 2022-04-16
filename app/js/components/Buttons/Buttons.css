@@ -1,10 +1,10 @@
-.learning-options-container {
+.buttons-container {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
 }
 
-.learning-option-button {
+.button {
   padding: 0.5rem;
   border-radius: 25px;
   background: transparent;

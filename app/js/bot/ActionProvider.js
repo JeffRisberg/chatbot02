@@ -7,24 +7,21 @@ class ActionProvider {
   }
 
   handleMessage(inquiry) {
-    axios.get('http://localhost:3000/api/inquiry/' + inquiry)
+    //axios.post('http://34.233.123.70:5001/inquiry?inquiry=' + inquiry)
+    axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
-        console.log(resp.data);
+        var botMessage;
+        console.log(resp);
+        if (resp.data.widget == 'buttons') {
+          console.log(resp.data.choices);
+          //this.setState({'choices': resp.data.choices});
 
-        const botMessage = this.createChatBotMessage(resp.data.data);
+          botMessage = this.createChatBotMessage(resp.data.text, {widget: 'buttons'});
+        } else {
+          botMessage = this.createChatBotMessage(resp.data.text);
+        }
         this.updateChatbotState(botMessage);
       });
-  }
-
-  handleJavascriptList() {
-    const message = this.createChatBotMessage(
-      'Fantastic, I\'ve got the following resources for you on Javascript:',
-      {
-        widget: 'javascriptLinks',
-      }
-    );
-
-    this.updateChatbotState(message);
   }
 
   updateChatbotState(message) {
