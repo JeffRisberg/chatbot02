@@ -4,25 +4,20 @@ import './Buttons.css';
 
 const Buttons = (props) => {
   console.log(props);
-  const options = [
-    { text: 'Javascript', handler: () => {}, id: 1 },
-    { text: "Data visualization", handler: () => {}, id: 2 },
-    { text: "APIs", handler: () => {}, id: 3 },
-    { text: "Security", handler: () => {}, id: 4 },
-    { text: "Interview prep", handler: () => {}, id: 5 },
-  ];
+  const choices = props.choices || [];
 
-  const optionsMarkup = options.map((option) => (
+  const choicesMarkup = choices.map((choice) => (
     <button
-      className="button"
-      key={option.id}
-      onClick={option.handler}
+      className='button'
+      key={choice.id}
     >
-      {option.text}
+      {choice.text}
     </button>
   ));
 
-  return <div className="buttons-container">{optionsMarkup}</div>;
+  console.log(choicesMarkup);
+
+  return <div className="buttons-container">{choicesMarkup}</div>;
 };
 
 export default Buttons;

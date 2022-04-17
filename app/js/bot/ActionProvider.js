@@ -11,12 +11,18 @@ class ActionProvider {
     axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
         var botMessage;
-        console.log(resp);
+        //console.log(resp);
         if (resp.data.widget == 'buttons') {
           console.log(resp.data.choices);
-          //this.setState({'choices': resp.data.choices});
 
           botMessage = this.createChatBotMessage(resp.data.text, {widget: 'buttons'});
+          console.log(botMessage);
+
+          this.setState((prevState) => ({
+            ...prevState,
+            choices: resp.data.choices,
+          }));
+
         } else {
           botMessage = this.createChatBotMessage(resp.data.text);
         }

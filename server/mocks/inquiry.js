@@ -23,7 +23,22 @@ module.exports = (app) => {
       answer = {
         'text': 'I found the following items',
         'widget': 'buttons',
-        'choices': [{'label1':'link1'}, {'label2':'link2'}]
+        'choices': [
+          {'text': 'Data Science', id: 1, 'link': 'data_science'},
+          {'text': 'Javascript', id: 2, 'link': 'javascript'}
+        ]
+      };
+    }
+
+    else if (inquiry.includes('flavors')) {
+      answer = {
+        'text': 'I found the following items',
+        'widget': 'buttons',
+        'choices': [
+          {'text': 'Strawberry', id: 101, 'link': 'strawberry'},
+          {'text': 'Vanilla', id: 102, 'link': 'vanilla'},
+          {'text': 'Chocolate', id: 103, 'link': 'chocolate'}
+        ]
       };
     }
 
