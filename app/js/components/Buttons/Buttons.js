@@ -3,8 +3,7 @@ import React from 'react';
 import './Buttons.css';
 
 const Buttons = (props) => {
-  console.log(props);
-  const choices = props.choices || [];
+  const choices = props.payload || [];
 
   const choicesMarkup = choices.map((choice) => (
     <button
@@ -14,8 +13,6 @@ const Buttons = (props) => {
       {choice.text}
     </button>
   ));
-
-  console.log(choicesMarkup);
 
   return <div className="buttons-container">{choicesMarkup}</div>;
 };

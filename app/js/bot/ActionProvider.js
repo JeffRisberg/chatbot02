@@ -10,21 +10,17 @@ class ActionProvider {
     //axios.post('http://34.233.123.70:5001/inquiry?inquiry=' + inquiry)
     axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
+        const text = resp.data.text;
+        const widget = resp.data.widget;
+        const choices = resp.data.choices;
         var botMessage;
-        //console.log(resp);
-        if (resp.data.widget == 'buttons') {
-          console.log(resp.data.choices);
 
-          botMessage = this.createChatBotMessage(resp.data.text, {widget: 'buttons'});
-          console.log(botMessage);
-
-          this.setState((prevState) => ({
-            ...prevState,
-            choices: resp.data.choices,
-          }));
-
+        if (widget === 'buttons') {
+          botMessage = this.createChatBotMessage(text, {widget: 'buttons', payload: choices});
+        } else if (widget === 'linkList') {
+          botMessage = this.createChatBotMessage(text, {widget: 'linkList', payload: choices});
         } else {
-          botMessage = this.createChatBotMessage(resp.data.text);
+          botMessage = this.createChatBotMessage(text);
         }
         this.updateChatbotState(botMessage);
       });

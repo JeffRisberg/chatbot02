@@ -18,26 +18,38 @@ module.exports = (app) => {
     if (inquiry.includes('hello')) {
       answer = {'text': 'Hello, nice to meet you'};
     }
-
     else if (inquiry.includes('skills')) {
       answer = {
-        'text': 'I found the following items',
+        'text': 'I found the following skills:',
         'widget': 'buttons',
         'choices': [
-          {'text': 'Data Science', id: 1, 'link': 'data_science'},
-          {'text': 'Javascript', id: 2, 'link': 'javascript'}
+          {'text': 'Database', id: 1, 'link': 'https://www.tutorialspoint.com/dbms/index.htm'},
+          {'text': 'Natural Language Processing', id: 2, 'link': 'https://www.nltk.org/'},
+          {'text': 'JavaScript', id: 3, 'link': 'https://www.javascript.com/'},
+          {'text': 'DevOps', id: 4, 'link': 'https://www.devops.com/'}
         ]
       };
     }
-
+    else if (inquiry.includes('courses')) {
+      answer = {
+        'text': 'We offer the following courses',
+        'widget': 'linkList',
+        'choices': [
+          {'text': 'Accounting', id: 1, 'url': 'accounting'},
+          {'text': 'Marketing', id: 2, 'url': 'marketing'},
+          {'text': 'Strategy', id: 3, 'url': 'strategy'},
+          {'text': 'New Venture Formation', id: 4, 'url': 'new_venture_formation'}
+        ]
+      };
+    }
     else if (inquiry.includes('flavors')) {
       answer = {
-        'text': 'I found the following items',
+        'text': 'Yum! here are some flavors:',
         'widget': 'buttons',
         'choices': [
-          {'text': 'Strawberry', id: 101, 'link': 'strawberry'},
-          {'text': 'Vanilla', id: 102, 'link': 'vanilla'},
-          {'text': 'Chocolate', id: 103, 'link': 'chocolate'}
+          {'text': 'Strawberry', id: 1, 'link': 'strawberry'},
+          {'text': 'Vanilla', id: 2, 'link': 'vanilla'},
+          {'text': 'Chocolate', id: 3, 'link': 'chocolate'}
         ]
       };
     }
