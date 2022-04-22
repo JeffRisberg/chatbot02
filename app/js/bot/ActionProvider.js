@@ -4,13 +4,13 @@ class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
     this.setState = setStateFunc;
+    this.handleClickButton = this.handleClickButton.bind(this);
   }
 
   handleMessage(inquiry) {
-    console.log(this);
     console.log(inquiry);
-    axios.post('http://coach.ai:5001/inquiry?inquiry=' + inquiry)
-    //axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
+    //axios.post('http://coach.ai:5001/inquiry?inquiry=' + inquiry)
+    axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
         const text = resp.data.text;
         const widget = resp.data.widget;
@@ -29,10 +29,8 @@ class ActionProvider {
   }
 
   handleClickButton(e) {
-    console.log(this);
-    console.log(e);
     var id = e.target.id;
-    //this.handleMessage(id);
+    this.handleMessage(id);
   }
 
   updateChatbotState(message) {

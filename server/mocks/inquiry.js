@@ -23,10 +23,10 @@ module.exports = (app) => {
         'text': 'I found the following skills:',
         'widget': 'buttons',
         'choices': [
-          {'text': 'Database', id: 1, 'link': 'https://www.tutorialspoint.com/dbms/index.htm'},
-          {'text': 'Natural Language Processing', id: 2, 'link': 'https://www.nltk.org/'},
-          {'text': 'JavaScript', id: 3, 'link': 'https://www.javascript.com/'},
-          {'text': 'DevOps', id: 4, 'link': 'https://www.devops.com/'}
+          {'text': 'Database', id: 1, 'url': 'https://www.tutorialspoint.com/dbms/index.htm'},
+          {'text': 'Natural Language Processing', id: 2, 'url': 'https://www.nltk.org/'},
+          {'text': 'JavaScript', id: 3, 'url': 'https://www.javascript.com/'},
+          {'text': 'DevOps', id: 4, 'url': 'https://www.devops.com/'}
         ]
       };
     }
@@ -35,10 +35,10 @@ module.exports = (app) => {
         'text': 'We offer the following courses',
         'widget': 'linkList',
         'choices': [
-          {'text': 'Accounting', id: 1, 'url': 'accounting'},
-          {'text': 'Marketing', id: 2, 'url': 'marketing'},
-          {'text': 'Strategy', id: 3, 'url': 'strategy'},
-          {'text': 'New Venture Formation', id: 4, 'url': 'new_venture_formation'}
+          {'text': 'Accounting', id: 1, 'link': 'accounting'},
+          {'text': 'Marketing', id: 2, 'link': 'marketing'},
+          {'text': 'Strategy', id: 3, 'link': 'strategy'},
+          {'text': 'New Venture Formation', id: 4, 'link': 'new_venture_formation'}
         ]
       };
     }

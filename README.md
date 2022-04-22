@@ -2,13 +2,12 @@
 
 Technologies used:
 
+- Node v14.19.1
 - React
 - Redux
-- Router V5
 - ES6
 - Webpack
-- Babel
-- Jest
+- Axios
 
 ## How to start
 
@@ -25,7 +24,4 @@ node server
 
 Check your http://localhost:3000/ or  `open http://localhost:3000/`
 
-## How to test
-
-`npm test`
 
