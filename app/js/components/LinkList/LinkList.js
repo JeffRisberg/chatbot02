@@ -3,7 +3,7 @@ import React from "react";
 import "./LinkList.css";
 
 const LinkList = (props) => {
-  const choices = props.payload || [];
+  const choices = props.payload.choices || [];
 
   const linkMarkup = choices.map((link) => (
     <li key={link.id} className="link-list-item">
