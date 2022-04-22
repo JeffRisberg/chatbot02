@@ -8,19 +8,21 @@ class ActionProvider {
   }
 
   handleMessage(inquiry) {
-    console.log(inquiry);
     //axios.post('http://coach.ai:5001/inquiry?inquiry=' + inquiry)
     axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
         const text = resp.data.text;
         const widget = resp.data.widget;
         const choices = resp.data.choices;
+        const active = resp.data.active;
         var botMessage;
 
         if (widget === 'buttons') {
-          botMessage = this.createChatBotMessage(text, {widget: 'buttons', payload: choices});
+          botMessage = this.createChatBotMessage(text, {widget: 'buttons',
+            payload: {choices: choices, active: active}});
         } else if (widget === 'linkList') {
-          botMessage = this.createChatBotMessage(text, {widget: 'linkList', payload: choices});
+          botMessage = this.createChatBotMessage(text, {widget: 'linkList',
+            payload: {choices: choices, active: active}});
         } else {
           botMessage = this.createChatBotMessage(text);
         }
