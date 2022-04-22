@@ -7,7 +7,8 @@ class ActionProvider {
   }
 
   handleMessage(inquiry) {
-    //axios.post('http://34.233.123.70:5001/inquiry?inquiry=' + inquiry)
+    console.log(inquiry);
+    //axios.post('http://coach.ai:5001/inquiry?inquiry=' + inquiry)
     axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
         const text = resp.data.text;
