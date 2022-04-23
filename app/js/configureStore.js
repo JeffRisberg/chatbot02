@@ -1,19 +1,19 @@
 // eslint-disable-next-line no-unused-vars
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+//import { routerReducer, routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 
 const configureStore = ({ initialState = {}, history }) => {
 
   const reducer = combineReducers({
-    routing: routerReducer,
+    //routing: routerReducer,
     app: reducers,
   });
 
   // eslint-disable-next-line no-unused-vars
   const middlewares = [
-    routerMiddleware(history),
+    //routerMiddleware(history),
     thunk,
   ];
 
