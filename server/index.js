@@ -19,10 +19,6 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../app/index.html'));
 });
 
-var nedb = require('nedb');
-
-app.itemsDB = new nedb({filename: 'db-content/items', autoload: true});
-
 mocks.forEach(function (route) {
     route(app);
 });
