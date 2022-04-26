@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import items from './items';
+import users from './users';
+import courses from "./courses";
 
 export default combineReducers({
-  items
+  users,
+  courses
 });

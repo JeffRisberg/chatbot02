@@ -1,0 +1,61 @@
+import React, {Component} from 'react';
+import {Card, Table} from "@themesberg/react-bootstrap";
+import {connect} from 'react-redux';
+import {queryCourses} from '../../actions/courses';
+
+class CourseList extends Component {
+
+  componentDidMount() {
+    this.props.queryCourses();
+  }
+
+  render() {
+    if (this.props.courses != undefined) {
+      return (
+        <div>
+          <Card border="light" className="table-wrapper table-responsive shadow-sm">
+            <Card.Body>
+              <Table hover className="courses-table align-items-center">
+                <thead>
+                <tr>
+                  <th className="border-bottom">Name</th>
+                  <th className="border-bottom">Created at</th>
+                </tr>
+                </thead>
+                <tbody>
+                {this.props.courses.map(u => (
+                  <tr key={u.id}>
+                    <td>
+                      <Card.Link className="d-flex align-items-center">
+                        <div className="d-block">
+                          <span className="fw-bold">{u.name}</span>
+
+                        </div>
+                      </Card.Link>
+                    </td>
+                    <td><span className="fw-normal">{u.dateCreated}</span></td>
+                  </tr>
+                ))}
+                </tbody>
+              </Table>
+            </Card.Body>
+          </Card>
+        </div>
+      )
+    } else {
+      return null;
+    }
+  }
+}
+
+const
+  mapStateToProps = (state) => ({
+    courses: state.app.courses.data,
+  });
+
+export default connect(
+  mapStateToProps,
+  {queryCourses}
+)(CourseList);
+
+

@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../app/index.html'));
 });
 
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../app/index.html'));
+});
+
 var nedb = require('nedb');
 
 app.itemsDB = new nedb({filename: 'db-content/items', autoload: true});
