@@ -8,9 +8,9 @@ class ActionProvider {
   }
 
   handleMessage(inquiry) {
-    axios.post('http://3.216.97.226:5001/inquiry?inquiry=' + inquiry)
+    //axios.post('http://3.216.97.226:5001/inquiry?inquiry=' + inquiry)
     //axios.post('http://coach.ai:5001/inquiry?inquiry=' + inquiry)
-    //axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
+    axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
         const text = resp.data.text;
         const widget = resp.data.widget;
