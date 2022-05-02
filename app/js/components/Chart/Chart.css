@@ -1,15 +1,13 @@
-.schedule-container {
+.chart-container {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  height: 200px;
 }
 
-.schedule-container .ct-chart {
-  height: 200px;
+.chart-container .ct-chart {
 }
 
-.schedule-item {
+.chart-item {
   color: black !important;
   fill: black !important;
 }

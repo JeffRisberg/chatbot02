@@ -9,7 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import configureStore from './configureStore';
 import ChatbotPage from "./pages/ChatbotPage";
-import Dashboard from "./pages/Dashboard";
+import UserDashboard from "./pages/UserDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const history = createBrowserHistory({basename: '/'});
 
@@ -20,7 +21,10 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<ChatbotPage/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/myPlan' element={<UserDashboard/>}/>
+        <Route path='/dashboard' element={<UserDashboard/>}/>
+        <Route path='/userDashboard' element={<UserDashboard/>}/>
+        <Route path='/adminDashboard' element={<AdminDashboard/>}/>
       </Routes>
     </BrowserRouter>,
   </Provider>,

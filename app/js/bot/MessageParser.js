@@ -4,9 +4,7 @@ class MessageParser {
   }
 
   parse(message) {
-    const lowerCaseMessage = message.toLowerCase();
-
-    this.actionProvider.handleMessage(lowerCaseMessage);
+    this.actionProvider.handleMessage(message);
   }
 }
 

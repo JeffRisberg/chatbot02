@@ -2,12 +2,14 @@ import React from 'react';
 import {createChatBotMessage} from 'react-chatbot-kit';
 import Buttons from '../components/Buttons/Buttons';
 import LinkList from '../components/LinkList/LinkList';
-import Schedule from '../components/Schedule/Schedule';
+import Chart from '../components/Chart/Chart';
+import Table from '../components/Table/Table';
+import LinkToDashboard from '../components/LinkToDashboard/LinkToDashboard';
 
 const config = {
-  botName: 'chatbot02',
+  botName: 'chatbot02i',
   initialMessages: [
-    createChatBotMessage('Hi, I\'m here to help. What do you want to learn ?')
+    createChatBotMessage('How are you doing today?')
   ],
   customStyles: {
     botMessageBox: {
@@ -27,8 +29,16 @@ const config = {
       widgetFunc: (props) => <LinkList {...props} />
     },
     {
-      widgetName: 'schedule',
-      widgetFunc: (props) => <Schedule {...props} />
+      widgetName: 'chart',
+      widgetFunc: (props) => <Chart {...props} />
+    },
+    {
+      widgetName: 'table',
+      widgetFunc: (props) => <Table {...props} />
+    },
+    {
+      widgetName: 'linkToDashboard',
+      widgetFunc: (props) => <LinkToDashboard {...props} />
     }
   ]
 };

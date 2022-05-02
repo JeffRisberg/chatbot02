@@ -8,8 +8,9 @@ class ActionProvider {
   }
 
   handleMessage(inquiry) {
+    axios.post('http://3.216.97.226:5001/inquiry?inquiry=' + inquiry)
     //axios.post('http://coach.ai:5001/inquiry?inquiry=' + inquiry)
-    axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
+    //axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry)
       .then(resp => {
         const text = resp.data.text;
         const widget = resp.data.widget;
@@ -17,12 +18,20 @@ class ActionProvider {
         const active = resp.data.active;
         var botMessage;
 
+        console.log(resp.data);
+
         if (widget === 'buttons') {
           botMessage = this.createChatBotMessage(text, {widget: 'buttons',
             payload: {choices: choices, active: active}});
         } else if (widget === 'linkList') {
           botMessage = this.createChatBotMessage(text, {widget: 'linkList',
             payload: {choices: choices, active: active}});
+        } else if (widget === 'table') {
+          botMessage = this.createChatBotMessage(text, {widget: 'table', payload: resp.data});
+        } else if (widget === 'chart') {
+          botMessage = this.createChatBotMessage(text, {widget: 'chart', payload: resp.data});
+        } else if (widget === 'linkToDashboard') {
+          botMessage = this.createChatBotMessage(text, {widget: 'linkToDashboard'});
         } else {
           botMessage = this.createChatBotMessage(text);
         }
@@ -36,8 +45,8 @@ class ActionProvider {
   }
 
   updateChatbotState(message) {
-    // NOTICE: This function is set in the constructor, and is passed in from the top level Chatbot component.
-    // The setState function here actually manipulates the top level state of the Chatbot, so it's important
+    // NOTICE: This function is set in the constructor, and is passed in from the top level ChatbotPage component.
+    // The setState function here actually manipulates the top level state of the ChatbotPage, so it's important
     // that we make sure that we preserve the previous state.
 
     this.setState((prevState) => ({

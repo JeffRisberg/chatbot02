@@ -1,11 +1,12 @@
 import React, {Component} from "react";
-import './Dashboard.css';
+import './AdminDashboard.css';
 import ChartistGraph from "react-chartist";
 
 import UserList from "../components/UserList/UserList";
 import CourseList from "../components/CourseList/CourseList";
+import {Link} from "react-router-dom";
 
-class Dashboard extends Component {
+class AdminDashboard extends Component {
   render() {
 
     const data1 = {
@@ -44,35 +45,38 @@ class Dashboard extends Component {
     const type2 = "Pie";
 
     return (
-      <div className="Dashboard">
+      <div className="AdminDashboard">
         <div className="container" id={"chart"}>
 
           <div className="row">
-            <div className="col-md-8">
-              <h3>Active Users</h3>
-              <UserList/>
-            </div>
-            <div className="col-md-4">
+            <div className="col-md-5">
               <h3>Usage Trend</h3>
               <ChartistGraph data={data1} options={options1} type={type1}/>
+            </div>
+            <div className="col-md-7">
+              <h3>Active Users</h3>
+              <UserList/>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-7">
-              <h3>Courses</h3>
-              <CourseList/>
-            </div>
             <div className="col-md-5">
               <h3>Popular Courses</h3>
               <ChartistGraph data={data2} options={options2} type={type2} responsiveOptions={responsiveOptions2}/>
             </div>
+            <div className="col-md-7">
+              <h3>Courses</h3>
+              <CourseList/>
+            </div>
           </div>
 
         </div>
+        <div>&nbsp;</div>
+        <p><Link to="/userDashboard">User Dashboard</Link></p>
+        <p><Link to="/">Chatbot</Link></p>
       </div>
     );
   }
 }
 
-export default Dashboard;
+export default AdminDashboard;
