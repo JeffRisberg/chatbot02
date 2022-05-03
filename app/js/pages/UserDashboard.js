@@ -7,11 +7,11 @@ class UserDashboard extends Component {
   render() {
 
     const data1 = {
-      labels: ["Data Scientist I", "Data Scientist II", "Data Science Lead", "Data Science Director", "CTO"],
-      series: [[20, 30, 40, 50, 60]]
+      labels: ["Adv DB Lesson 1", "Adv DB Lesson 2", "ML Lesson 1", "ML Lesson 2", "ML Lesson 3"],
+      series: [[2, 3, 4, 5, 6]]
     };
     const options1 = {
-      high: 70,
+      high: 7,
       low: 0
     };
     const type1 = "Bar";
@@ -26,7 +26,7 @@ class UserDashboard extends Component {
                 <div>
                   <div className="card-body">
                     <h5 className="card-title">Prepared for John Smith</h5>
-                    <p className="card-text">Updated 02-May-2022</p>
+                    <p className="card-text">Updated 04-May-2022</p>
                     <a href="#" className="btn btn-primary">Coach.ai</a>
                   </div>
                 </div>
@@ -48,7 +48,6 @@ class UserDashboard extends Component {
                     <th scope="col">Course</th>
                     <th scope="col">Section</th>
                     <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
                     <th scope="col">Comments</th>
                   </tr>
                   </thead>
@@ -56,43 +55,37 @@ class UserDashboard extends Component {
                   <tr>
                     <td>Advanced Database</td>
                     <td>Lesson 1</td>
-                    <td>02-May-2022</td>
-                    <td>05-May-2022</td>
+                    <td>04-May-2022</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>Advanced Database</td>
                     <td>Lesson 2</td>
-                    <td>06-May-2022</td>
-                    <td>10-May-2022</td>
+                    <td>05-May-2022</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>Machine Learning</td>
                     <td>Lesson 1</td>
-                    <td>02-May-2022</td>
-                    <td>08-May-2022</td>
+                    <td>06-May-2022</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>Machine Learning</td>
                     <td>Lesson 2</td>
                     <td>09-May-2022</td>
-                    <td>15-May-2022</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>Machine Learning</td>
                     <td>Lesson 3</td>
-                    <td>16-May-2022</td>
-                    <td>25-May-2022</td>
+                    <td>10-May-2022</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>Team Management</td>
                     <td></td>
-                    <td>05-May-2022</td>
-                    <td>06-Jun-2022</td>
+                    <td>11-May-2022</td>
                     <td>&nbsp;</td>
                   </tr>
                   </tbody>

@@ -20,9 +20,8 @@ class UserList extends Component {
                 <tr>
                   <th className="border-bottom">First Name</th>
                   <th className="border-bottom">Last Name</th>
-                  <th className="border-bottom">Email</th>
                   <th className="border-bottom">Title</th>
-                  <th className="border-bottom">User Created at</th>
+                  <th className="border-bottom">Joined on Date</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -30,7 +29,6 @@ class UserList extends Component {
                   <tr key={u.id}>
                     <td><span className="fw-normal"><div className="small text-gray">{u.firstname}</div></span></td>
                     <td><span className="fw-normal"><div className="small text-gray">{u.lastname}</div></span></td>
-                    <td><span className="fw-normal"><div className="small text-gray">{u.email}</div></span></td>
                     <td><span className="fw-normal"><div className="small text-gray">{u.title}</div></span></td>
                     <td><span className="fw-normal">{u.dateCreated}</span></td>
                   </tr>
