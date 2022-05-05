@@ -3,13 +3,13 @@ import {Card, Table} from "@themesberg/react-bootstrap";
 import axios from "axios";
 import regeneratorRuntime from "regenerator-runtime";
 
-function CourseList() {
+function ScheduleList() {
 
  const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:3000/api/courses");
+      const result = await axios("http://localhost:5001/api/schedule/1");
       setData(result.data);
     })();
   }, []);
@@ -21,22 +21,19 @@ function CourseList() {
           <Table hover className="courses-table align-items-center">
             <thead>
             <tr>
-              <th className="border-bottom">Name</th>
-              <th className="border-bottom">Created at</th>
+              <th className="border-bottom">Course</th>
+              <th className="border-bottom">Lesson</th>
+              <th className="border-bottom">Status</th>
+              <th className="border-bottom">Start</th>
             </tr>
             </thead>
             <tbody>
             {data.map(u => (
               <tr key={u.id}>
-                <td>
-                  <Card.Link className="d-flex align-items-center">
-                    <div className="d-block">
-                      <span className="fw-bold">{u.name}</span>
-
-                    </div>
-                  </Card.Link>
-                </td>
-                <td><span className="fw-normal">{u.dateCreated}</span></td>
+                <td><span className="fw-normal">{u.courseName}</span></td>
+                <td><span className="fw-normal">{u.lessonName}</span></td>
+                <td><span className="fw-normal">{u.status}</span></td>
+                <td><span className="fw-normal">{u.scheduledStart}</span></td>
               </tr>
             ))}
             </tbody>
@@ -47,4 +44,4 @@ function CourseList() {
   )
  }
 
- export default CourseList;
+ export default ScheduleList;

@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import './AdminDashboard.css';
 import ChartistGraph from "react-chartist";
+import {Link} from "react-router-dom";
 
 import UserList from "../components/UserList/UserList";
 import CourseList from "../components/CourseList/CourseList";
-import {Link} from "react-router-dom";
 
 class AdminDashboard extends Component {
   render() {

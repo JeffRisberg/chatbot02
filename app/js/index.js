@@ -7,14 +7,15 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import configureStore from './configureStore';
+import {store} from './store';
+//import configureStore from './configureStore';
 import ChatbotPage from "./pages/ChatbotPage";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
 const history = createBrowserHistory({basename: '/'});
 
-const store = configureStore({initialState: {}, history});
+//const store = configureStore({initialState: {}, history});
 
 ReactDOM.render(
   <Provider store={store}>

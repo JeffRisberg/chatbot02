@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import ChartistGraph from "react-chartist";
 import './UserDashboard.css';
 
+import ScheduleList from "../components/ScheduleList/ScheduleList";
+
 class UserDashboard extends Component {
   render() {
 
@@ -41,56 +43,7 @@ class UserDashboard extends Component {
         <div className="container" id={"chart"}>
           <div className="row">
             <div className="col-md-8">
-              <div className="table-responsive">
-                <table className="table table-striped table-sm">
-                  <thead>
-                  <tr>
-                    <th scope="col">Course</th>
-                    <th scope="col">Section</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">Comments</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>Advanced Database</td>
-                    <td>Lesson 1</td>
-                    <td>04-May-2022</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>Advanced Database</td>
-                    <td>Lesson 2</td>
-                    <td>05-May-2022</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>Machine Learning</td>
-                    <td>Lesson 1</td>
-                    <td>06-May-2022</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>Machine Learning</td>
-                    <td>Lesson 2</td>
-                    <td>09-May-2022</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>Machine Learning</td>
-                    <td>Lesson 3</td>
-                    <td>10-May-2022</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  <tr>
-                    <td>Team Management</td>
-                    <td></td>
-                    <td>11-May-2022</td>
-                    <td>&nbsp;</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
+              <ScheduleList />
             </div>
           </div>
         </div>
