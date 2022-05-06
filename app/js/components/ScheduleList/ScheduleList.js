@@ -1,6 +1,7 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Card, Table} from "@themesberg/react-bootstrap";
 import axios from "axios";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import regeneratorRuntime from "regenerator-runtime";
 
 function ScheduleList() {

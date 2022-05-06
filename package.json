@@ -54,7 +54,6 @@
         "debug": "^4.3.4",
         "express": "^4.17.3",
         "glob": "^7.2.0",
-        "history": "^4.10.1",
         "prop-types": "^15.8.1",
         "react": "^17.0.2",
         "react-async": "^10.0.1",

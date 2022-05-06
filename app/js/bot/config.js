@@ -7,7 +7,7 @@ import Table from '../components/Table/Table';
 import LinkToDashboard from '../components/LinkToDashboard/LinkToDashboard';
 
 const config = {
-  botName: 'chatbot02i',
+  botName: 'chatbot02',
   initialMessages: [
     createChatBotMessage('How are you doing today?')
   ],
