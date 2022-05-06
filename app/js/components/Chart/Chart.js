@@ -17,9 +17,6 @@ const Chart = (props) => {
     }
   };
 
-  console.log(series);
-  console.log(options);
-
   const data = {
     labels: labels,
     series: series,

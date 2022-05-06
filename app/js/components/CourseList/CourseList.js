@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Table} from "@themesberg/react-bootstrap";
 import axios from "axios";
-// eslint-disable-next-line no-unused-imports
+// eslint-disable-next-line no-unused-vars
 import regeneratorRuntime from "regenerator-runtime";
 
 function CourseList() {
@@ -10,7 +10,7 @@ function CourseList() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:3000/api/courses");
+      const result = await axios("http://localhost:5001/api/courses");
       setData(result.data);
     })();
   }, []);
@@ -33,7 +33,6 @@ function CourseList() {
                   <Card.Link className="d-flex align-items-center">
                     <div className="d-block">
                       <span className="fw-bold">{u.name}</span>
-
                     </div>
                   </Card.Link>
                 </td>

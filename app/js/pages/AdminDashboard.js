@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 import UserList from "../components/UserList/UserList";
 import CourseList from "../components/CourseList/CourseList";
+import PopularCourseChart from "../components/PopularCourseChart/PopularCourseChart";
 
 class AdminDashboard extends Component {
   render() {
@@ -18,31 +19,6 @@ class AdminDashboard extends Component {
       low: 0
     };
     const type1 = "Bar";
-
-    const data2 = {
-      labels: ["Machine Learning", "Advanced Database", "JavaScript", "Team management", "Public Speaking"],
-      series: [12, 22, 30, 7, 12]
-    };
-    const options2 = {
-      labelInterpolationFnc: function(value) {
-        return value[0]
-      }
-    };
-    const responsiveOptions2 = [
-      ['screen and (min-width: 640px)', {
-        chartPadding: 10,
-        labelOffset: 30,
-        labelDirection: 'explode',
-        labelInterpolationFnc: function(value) {
-          return value;
-        }
-      }],
-      ['screen and (min-width: 1024px)', {
-        labelOffset: 30,
-        chartPadding: 10
-      }]
-    ];
-    const type2 = "Pie";
 
     return (
       <div className="AdminDashboard">
@@ -62,7 +38,7 @@ class AdminDashboard extends Component {
           <div className="row">
             <div className="col-md-5">
               <h3>Popular Courses</h3>
-              <ChartistGraph data={data2} options={options2} type={type2} responsiveOptions={responsiveOptions2}/>
+              <PopularCourseChart />
             </div>
             <div className="col-md-7">
               <h3>Courses</h3>

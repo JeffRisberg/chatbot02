@@ -1,22 +1,12 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import ChartistGraph from "react-chartist";
 import './UserDashboard.css';
 
 import ScheduleList from "../components/ScheduleList/ScheduleList";
+import ScheduleChart from "../components/ScheduleChart/ScheduleChart";
 
 class UserDashboard extends Component {
   render() {
-
-    const data1 = {
-      labels: ["Adv DB Lesson 1", "Adv DB Lesson 2", "ML Lesson 1", "ML Lesson 2", "ML Lesson 3"],
-      series: [[2, 3, 4, 5, 6]]
-    };
-    const options1 = {
-      high: 7,
-      low: 0
-    };
-    const type1 = "Bar";
 
     return (
       <div className="UserDashboard">
@@ -35,7 +25,7 @@ class UserDashboard extends Component {
               </div>
             </div>
             <div className="col-md-8">
-              <ChartistGraph data={data1} options={options1} type={type1}/>
+              <ScheduleChart />
             </div>
           </div>
         </div>
