@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Table} from "@themesberg/react-bootstrap";
 import axios from "axios";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-imports
 import regeneratorRuntime from "regenerator-runtime";
 
 function UserList() {
