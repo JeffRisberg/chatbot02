@@ -11,7 +11,7 @@ function ChatbotPage() {
 
   const [showBot, toggleBot] = useState(false);
 
-  const saveMessages = (messages, HTMLString) => {
+  const saveMessages = (messages /*, HTMLString*/) => {
     console.log("saveMessages");
     localStorage.setItem('chat_messages', JSON.stringify(messages));
   };
