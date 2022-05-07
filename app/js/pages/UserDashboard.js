@@ -18,7 +18,7 @@ class UserDashboard extends Component {
                 <div>
                   <div className="card-body">
                     <h5 className="card-title">Prepared for John Smith</h5>
-                    <p className="card-text">Updated 04-May-2022</p>
+                    <p className="card-text">Updated 06-May-2022</p>
                     <a href="#" className="btn btn-primary">Coach.ai</a>
                   </div>
                 </div>
