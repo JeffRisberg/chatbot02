@@ -4,7 +4,9 @@ import "./LinkToDashboard.css";
 
 const LinkToDashboard = () => {
 
-  return <Link to="/userDashboard">See my dashboard</Link>
+  return <div className="linkToDashboard">
+    <Link to="/userDashboard" target="_blank">See my dashboard</Link>
+  </div>
 };
 
 export default LinkToDashboard;

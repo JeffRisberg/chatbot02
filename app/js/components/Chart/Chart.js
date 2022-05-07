@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 
 import './Chart.css';
 import ChartistGraph from "react-chartist";
@@ -22,9 +23,11 @@ const Chart = (props) => {
     series: series,
   };
 
-  console.log("chart type " +type);
-  return <div className="chart-container">
-    <ChartistGraph data={data} options={options} type={type} />
+  return
+  <div className="chart-container">
+    <Link to="/userDashboard" target="_blank">
+      <ChartistGraph data={data} options={options} type={type} />
+    </Link>
   </div>;
 };
 
