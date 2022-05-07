@@ -14,20 +14,24 @@ function ScheduleChart() {
     (async () => {
       const result = await axios("http://localhost:5001/api/schedule/1");
       var data = result.data.slice(0, 6)
-      var x = data.map(item => {
+
+      var labels = data.map(item => {
          return item.courseName + '\n' + item.lessonName + '\n' + item.scheduledStart
       });
-      var y = [...Array(x.length).keys()];
-      setLabels(x);
-      setSeries([y.map(y => { return y*10 + 10; })]);
-      setOptions({distributeSeries: false,
-                  axisX: {
-                    offset: 40
-                  },
-                  axisY: {
-                    offset: 20
-                  }
-                  });
+      var series = [...Array(labels.length).keys()];
+
+      setLabels(labels);
+      setSeries([series.map(y => { return y*10 + 10; })]);
+
+      setOptions(
+        {distributeSeries: false,
+        axisX: {
+          offset: 40
+        },
+        axisY: {
+          offset: 20
+        }
+        });
     })();
   }, []);
 

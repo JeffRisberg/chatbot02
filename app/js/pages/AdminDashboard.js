@@ -8,8 +8,8 @@ import CourseList from "../components/CourseList/CourseList";
 import PopularCourseChart from "../components/PopularCourseChart/PopularCourseChart";
 
 class AdminDashboard extends Component {
-  render() {
 
+  render() {
     const data1 = {
       labels: ["1Q 2020", "2Q 2020", "3Q 2020", "4Q 2020", "1Q 2021", "2Q 2021", "3Q 2021", "4Q 2021"],
       series: [[125, 264, 309, 366, 401, 499, 589, 694]]

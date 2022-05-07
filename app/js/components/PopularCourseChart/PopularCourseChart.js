@@ -15,31 +15,25 @@ function PopularCourseChart() {
     (async () => {
       const result = await axios("http://localhost:5001/api/popular_courses");
       var data = result.data
-      console.log(data);
 
-      //var x = data.map(item => {
-      //   return item.courseName + '\n' + item.lessonName + '\n' + item.scheduledStart
-      //});
-      //var y = [...Array(x.length).keys()];
-
-      setLabels(["Machine Learning", "Advanced Database", "JavaScript", "Team Management", "Public Speaking"]);
-      setSeries([12, 22, 30, 7, 12]);
-
+      setLabels(data.map(item => { return item.name }));
+      setSeries(data.map(item => { return item.count }));
       setOptions({labelOffset: 30, labelInterpolationFnc: function(value) {return value}});
-      setResponsiveOptions([
-                             ['screen and (min-width: 640px)', {
-                               chartPadding: 10,
-                               labelOffset: 30,
-                               labelDirection: 'explode',
-                               labelInterpolationFnc: function(value) {
-                                 return value;
-                               }
-                             }],
-                             ['screen and (min-width: 1024px)', {
-                               labelOffset: 30,
-                               chartPadding: 10
-                             }]
-                           ]);
+      setResponsiveOptions(
+      [
+       ['screen and (min-width: 640px)', {
+         chartPadding: 10,
+         labelOffset: 30,
+         labelDirection: 'explode',
+         labelInterpolationFnc: function(value) {
+           return value;
+         }
+       }],
+       ['screen and (min-width: 1024px)', {
+         labelOffset: 30,
+         chartPadding: 10
+       }]
+     ]);
     })();
   }, []);
 
