@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import './AdminDashboard.css';
 import ChartistGraph from "react-chartist";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 import UserList from "../components/UserList/UserList";
 import CourseList from "../components/CourseList/CourseList";
@@ -48,8 +48,8 @@ class AdminDashboard extends Component {
 
         </div>
         <div>&nbsp;</div>
-        <p><Link to="/userDashboard">User Dashboard</Link></p>
-        <p><Link to="/">Chatbot</Link></p>
+        <p><NavLink to="/userDashboard">User Dashboard</NavLink></p>
+        <p><NavLink to="/">Chatbot</NavLink></p>
       </div>
     );
   }

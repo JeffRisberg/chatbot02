@@ -39,6 +39,11 @@ class ActionProvider {
       });
   }
 
+  handleAdmin() {
+    const botMessage = this.createChatBotMessage("ok", {widget: 'linkToDashboard'});
+    this.updateChatbotState(botMessage);
+  }
+
   handleClickButton(e) {
     var id = e.target.id;
     this.handleMessage(id);

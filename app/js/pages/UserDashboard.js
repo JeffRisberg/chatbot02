@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import './UserDashboard.css';
 
 import ScheduleList from "../components/ScheduleList/ScheduleList";
@@ -38,8 +38,8 @@ class UserDashboard extends Component {
           </div>
         </div>
         <div>&nbsp;</div>
-        <p><Link to="/adminDashboard">Admin Dashboard</Link></p>
-        <p><Link to="/">Chatbot</Link></p>
+        <p><NavLink to="/adminDashboard">Admin Dashboard</NavLink></p>
+        <p><NavLink to="/">Chatbot</NavLink></p>
       </div>
     );
   }
