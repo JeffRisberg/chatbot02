@@ -24,6 +24,7 @@ function ScheduleList() {
             <tr>
               <th className="border-bottom">Course</th>
               <th className="border-bottom">Lesson</th>
+              <th className="border-bottom">Description</th>
               <th className="border-bottom">Status</th>
               <th className="border-bottom">Start</th>
             </tr>
@@ -33,6 +34,7 @@ function ScheduleList() {
               <tr key={u.id}>
                 <td><span className="fw-normal">{u.courseName}</span></td>
                 <td><span className="fw-normal">{u.lessonName}</span></td>
+                <td><span className="fw-normal">{u.description}</span></td>
                 <td><span className="fw-normal">{u.status}</span></td>
                 <td><span className="fw-normal">{u.scheduledStart}</span></td>
               </tr>

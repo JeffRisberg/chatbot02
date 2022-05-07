@@ -18,8 +18,8 @@ class UserDashboard extends Component {
                 <div>
                   <div className="card-body">
                     <h5 className="card-title">Prepared for John Smith</h5>
-                    <p className="card-text">Updated 06-May-2022</p>
-                    <a href="#" className="btn btn-primary">Coach.ai</a>
+                    <p className="card-text">Updated 07-May-2022</p>
+                    <a href="https://coach.ai" className="btn btn-primary">Coach.ai</a>
                   </div>
                 </div>
               </div>
@@ -32,7 +32,7 @@ class UserDashboard extends Component {
 
         <div className="container" id={"chart"}>
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-10">
               <ScheduleList />
             </div>
           </div>
