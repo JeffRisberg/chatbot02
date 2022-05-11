@@ -1,8 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-
-import './Chart.css';
 import ChartistGraph from "react-chartist";
+import './Chart.css';
 
 const Chart = (props) => {
   const labels = props.payload.labels || [];
@@ -14,7 +13,7 @@ const Chart = (props) => {
       offset: 50
     },
     axisY: {
-      offset: 10
+      offset: 20
     }
   };
 
@@ -23,12 +22,13 @@ const Chart = (props) => {
     series: series,
   };
 
-  return
+  return (
   <div className="chart-container">
     <Link to="/userDashboard" target="_blank">
       <ChartistGraph data={data} options={options} type={type} />
     </Link>
-  </div>;
+  </div>
+  );
 };
 
 export default Chart;
