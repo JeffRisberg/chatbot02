@@ -1,0 +1,13 @@
+.chart-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.chart-container .ct-chart {
+}
+
+.chart-item {
+  color: black !important;
+  fill: black !important;
+}

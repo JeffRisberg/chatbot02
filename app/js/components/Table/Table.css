@@ -1,0 +1,12 @@
+.table-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.table-container table tr td {
+  border: 1px solid black;
+  margin: 2px;
+  color: black;
+  font-size: 14px;
+}
