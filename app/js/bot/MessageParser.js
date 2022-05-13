@@ -4,11 +4,7 @@ class MessageParser {
   }
 
   parse(message) {
-    if (message === "ADMIN") {
-       this.actionProvider.handleLinkToDashboard();
-     } else {
-       this.actionProvider.handleMessage(message);
-     }
+     this.actionProvider.handleMessage(message);
   }
 }
 
