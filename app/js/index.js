@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Outlet} from "react-router-dom";
-import NavBar from './components/NavBar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -17,14 +15,10 @@ import HRTeamDashboard from "./pages/HRTeamDashboard";
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-       <div>
-          <NavBar/>
-          <Outlet/>
-        </div>
       <Routes>
         <Route path='/' element={<UserDashboard/>}/>
         <Route path='/hrTeamsDashboard' element={<HRTeamsDashboard/>}/>
-        <Route path='/htCompletedDashboard' element={<HRCompletedDashboard/>}/>
+        <Route path='/hrCompletedDashboard' element={<HRCompletedDashboard/>}/>
         <Route path='/hrTeamDashboard/:id' element={<HRTeamDashboard/>}/>
       </Routes>
     </BrowserRouter>,
