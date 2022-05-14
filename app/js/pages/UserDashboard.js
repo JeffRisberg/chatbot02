@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import {Card} from "@themesberg/react-bootstrap";
 import Chatbot from 'react-chatbot-kit';
 import axios from "axios";
@@ -24,17 +25,24 @@ function UserDashboard() {
 
   return (
     <div className="UserDashboard">
-      <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Link to="/hrTeamsDashboard">HR Access</Link>
+      <Card border="dark" style={{background: "#f0f0f0", marginBottom: 10}} className="table-wrapper table-responsive shadow-sm">
          <Card.Body>
-            <h5 className="card-title">Prepared for {data.firstname} {data.lastname}</h5>
-            <p className="card-text">Updated 07-May-2022</p>
-            <a href="https://coach.ai" className="btn btn-primary">Coach.ai</a>
+            <div class="row">
+              <div class="col-md-1">
+                <a href="https://coach.ai" className="btn btn-primary">Coach.ai</a>
+              </div>
+              <div class="col-md-11">
+                <h5 className="card-title">Prepared for {data.firstname} {data.lastname}</h5>
+                <p className="card-text">Updated 12-May-2022</p>
+              </div>
+            </div>
          </Card.Body>
       </Card>
       <div className="row">
         <div className="col-md-7">
           <ScheduleChart />
-          <div className="row">
+          <div className="row" style={{marginTop: 20}}>
             <div className="col-md-8">
               <ScheduleList />
             </div>

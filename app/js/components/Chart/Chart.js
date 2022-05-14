@@ -7,7 +7,15 @@ import './Chart.css';
 
 const Chart = (props) => {
   const labels = props.payload.labels || [];
-  const datasets = [props.payload.series]
+  const datasets = [{data: props.payload.series,
+         backgroundColor: [
+            "#ffbb11",
+            "#e7f0d1",
+            "#ec3071",
+            "#b3baaf",
+            "#2a71d0",
+            "#50AF95"
+          ]}]
 
   return (
   <div className="chart-container">
