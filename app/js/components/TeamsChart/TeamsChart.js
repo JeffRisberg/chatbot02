@@ -13,7 +13,7 @@ function TeamsChart() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://3.216.97.226:5001/api/teams");
+      const result = await axios("http://localhost:5000/api/teams");
       var data = result.data.slice(0, 6);
       console.log(data);
 

@@ -10,7 +10,7 @@ function CourseList() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://3.216.97.226:5001/api/courses");
+      const result = await axios("http://localhost:5000/api/courses");
       setData(result.data);
     })();
   }, []);

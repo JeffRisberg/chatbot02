@@ -18,7 +18,7 @@ function UserDashboard() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://3.216.97.226:5001/api/users/1");
+      const result = await axios("http://localhost:5000/api/users/1");
       setData(result.data[0]);
     })();
   }, []);
@@ -28,13 +28,13 @@ function UserDashboard() {
       <Link to="/hrTeamsDashboard">HR Access</Link>
       <Card border="dark" style={{background: "#f0f0f0", marginBottom: 10}} className="table-wrapper table-responsive shadow-sm">
          <Card.Body>
-            <div class="row">
-              <div class="col-md-1">
+            <div className="row">
+              <div className="col-md-1">
                 <a href="https://coach.ai" className="btn btn-primary">Coach.ai</a>
               </div>
-              <div class="col-md-11">
-                <h5 className="card-title">Prepared for {data.firstname} {data.lastname}</h5>
-                <p className="card-text">Updated 12-May-2022</p>
+              <div className="col-md-11">
+                <h5 className="card-title">Prepared for {data.firstName} {data.lastName}</h5>
+                <p className="card-text">Updated 16-May-2022</p>
               </div>
             </div>
          </Card.Body>

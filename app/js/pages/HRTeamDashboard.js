@@ -15,7 +15,7 @@ function HRTeamDashboard() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://3.216.97.226:5001/api/teams/" + id);
+      const result = await axios("http://localhost:5000/api/teams/" + id);
       setData(result.data[0]);
     })();
   }, [id]);

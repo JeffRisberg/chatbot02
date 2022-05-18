@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar } from 'react-chartjs-2'
@@ -6,14 +7,16 @@ import axios from "axios";
 // eslint-disable-next-line no-unused-vars
 import regeneratorRuntime from "regenerator-runtime";
 
-function ScheduleChart() {
+function ScheduleChart(props) {
 
   const [labels, setLabels] = useState([])
   const [datasets, setDatasets] = useState([])
 
+  console.log(props);
+
   useEffect(() => {
     (async () => {
-      const result = await axios("http://3.216.97.226:5001/api/schedule/1");
+      const result = await axios("http://localhost:5000/api/schedule/1");
       var data = result.data.slice(0, 6);
       console.log(data);
 
@@ -58,4 +61,11 @@ function ScheduleChart() {
   );
 }
 
-export default ScheduleChart;
+const mapStateToProps = (state) => ({
+  user: state.app.user,
+});
+
+export default connect(
+  mapStateToProps,
+  { }
+)(ScheduleChart);

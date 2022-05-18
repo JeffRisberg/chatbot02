@@ -11,7 +11,7 @@ function ScheduleList() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://3.216.97.226:5001/api/schedule/1");
+      const result = await axios("http://localhost:5000/api/schedule/1");
       setData(result.data.slice(0, 7));
     })();
   }, []);

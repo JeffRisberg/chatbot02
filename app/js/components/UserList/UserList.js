@@ -10,7 +10,7 @@ function UserList() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://3.216.97.226:5001/api/users");
+      const result = await axios("http://localhost:5000/api/users");
       setData(result.data);
     })();
   }, []);
@@ -31,8 +31,8 @@ function UserList() {
             <tbody>
             {data.map(u => (
               <tr key={u.id}>
-                <td><span className="fw-normal"><div className="small text-gray">{u.firstname}</div></span></td>
-                <td><span className="fw-normal"><div className="small text-gray">{u.lastname}</div></span></td>
+                <td><span className="fw-normal"><div className="small text-gray">{u.firstName}</div></span></td>
+                <td><span className="fw-normal"><div className="small text-gray">{u.lastName}</div></span></td>
                 <td><span className="fw-normal"><div className="small text-gray">{u.title}</div></span></td>
                 <td><span className="fw-normal">{u.dateCreated}</span></td>
               </tr>
