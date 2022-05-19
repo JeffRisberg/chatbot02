@@ -1,6 +1,6 @@
 import {ActionTypes as types} from '../constants';
 
-export const showUpdate = (id) => {
+export const showUpdate = () => {
   return function (dispatch) {
 
     dispatch({
