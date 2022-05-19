@@ -12,13 +12,13 @@ function ScheduleChart(props) {
   const [labels, setLabels] = useState([])
   const [datasets, setDatasets] = useState([])
 
+  console.log("schedule chart props:");
   console.log(props);
 
   useEffect(() => {
     (async () => {
       const result = await axios("http://localhost:5000/api/schedule/1");
       var data = result.data.slice(0, 6);
-      console.log(data);
 
       var labels = data.map(item => {
          return item.courseName + ': ' + item.lessonName

@@ -1,11 +1,16 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar } from 'react-chartjs-2'
+import { showUpdate } from '../../actions';
 import './Chart.css';
 
 const Chart = (props) => {
+
+  console.log("chart props:");
+  console.log(props);
+
   const labels = props.payload.labels || [];
   const datasets = [{data: props.payload.series,
          backgroundColor: [
@@ -17,22 +22,29 @@ const Chart = (props) => {
             "#50AF95"
           ]}]
 
+  props.showUpdate();
+
   return (
   <div className="chart-container">
-    <Link to="/userDashboard" target="_blank">
-      <Bar
-        data={{'labels': labels, 'datasets': datasets}}
-        options={{
-          maintainAspectRatio: false,
-          plugins: {
-            title: { display: false },
-            legend: { display: false },
-          }
-        }}
-      />
-    </Link>
+    <Bar
+      data={{'labels': labels, 'datasets': datasets}}
+      options={{
+        maintainAspectRatio: false,
+        plugins: {
+          title: { display: false },
+          legend: { display: false },
+        }
+      }}
+    />
   </div>
   );
 };
 
-export default Chart;
+const mapStateToProps = (state) => ({
+  user: state.app.user,
+});
+
+export default connect(
+  mapStateToProps,
+  { showUpdate }
+)(Chart);

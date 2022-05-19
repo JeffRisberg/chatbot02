@@ -1,4 +1,5 @@
 export const ActionTypes = {
   LOGIN: 'LOGIN',
-  LOGOUT: 'LOGOUT'
+  LOGOUT: 'LOGOUT',
+  UPDATE: 'UPDATE'
 };
