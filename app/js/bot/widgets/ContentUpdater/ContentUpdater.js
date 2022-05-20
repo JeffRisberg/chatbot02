@@ -14,7 +14,7 @@ const ContentUpdater = (props) => {
   return <div></div>;
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
 });
 
 export default connect(

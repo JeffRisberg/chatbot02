@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {Card} from "@themesberg/react-bootstrap";
 import Chatbot from 'react-chatbot-kit';
 import axios from "axios";
 import 'react-chatbot-kit/build/main.css';
@@ -15,14 +14,6 @@ import MessageParser from '../bot/MessageParser';
 import ActionProvider from '../bot/ActionProvider';
 
 function UserDashboard() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const result = await axios("http://localhost:5000/api/users/1");
-      setData(result.data[0]);
-    })();
-  }, []);
 
   return (
     <div className="UserDashboard">
