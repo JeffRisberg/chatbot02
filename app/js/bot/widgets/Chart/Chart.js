@@ -1,15 +1,10 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect }from 'react';
 // eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from 'chart.js/auto'
 import { Bar } from 'react-chartjs-2'
-import { showUpdate } from '../../actions';
 import './Chart.css';
 
 const Chart = (props) => {
-
-  console.log("chart props:");
-  console.log(props);
 
   const labels = props.payload.labels || [];
   const datasets = [{data: props.payload.series,
@@ -21,8 +16,6 @@ const Chart = (props) => {
             "#2a71d0",
             "#50AF95"
           ]}]
-
-  props.showUpdate();
 
   return (
   <div className="chart-container">
@@ -40,11 +33,4 @@ const Chart = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  user: state.app.user,
-});
-
-export default connect(
-  mapStateToProps,
-  { showUpdate }
-)(Chart);
+export default Chart;

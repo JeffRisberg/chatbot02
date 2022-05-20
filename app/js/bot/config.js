@@ -1,10 +1,10 @@
 import React from 'react';
 import {createChatBotMessage} from 'react-chatbot-kit';
-import Buttons from '../components/Buttons/Buttons';
-import LinkList from '../components/LinkList/LinkList';
-import Chart from '../components/Chart/Chart';
-import Table from '../components/Table/Table';
-import LinkToDashboard from '../components/LinkToDashboard/LinkToDashboard';
+import Buttons from './widgets/Buttons/Buttons';
+import LinkList from './widgets/LinkList/LinkList';
+import Chart from './widgets/Chart/Chart';
+import Table from './widgets/Table/Table';
+import ContentUpdater from './widgets/ContentUpdater/ContentUpdater';
 
 const config = {
   botName: 'chatbot02',
@@ -37,8 +37,8 @@ const config = {
       widgetFunc: (props) => <Table {...props} />
     },
     {
-      widgetName: 'linkToDashboard',
-      widgetFunc: (props) => <LinkToDashboard {...props} />
+      widgetName: 'content_updater',
+      widgetFunc: (props) => <ContentUpdater {...props} />
     }
   ]
 };

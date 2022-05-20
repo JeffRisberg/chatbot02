@@ -30,8 +30,8 @@ class ActionProvider {
           botMessage = this.createChatBotMessage(text, {widget: 'table', payload: resp.data});
         } else if (widget === 'chart') {
           botMessage = this.createChatBotMessage(text, {widget: 'chart', payload: resp.data});
-        } else if (widget === 'linkToDashboard') {
-          botMessage = this.createChatBotMessage(text, {widget: 'linkToDashboard'});
+        } else if (widget === 'text_with_content_update') {
+          botMessage = this.createChatBotMessage(text, {widget: 'content_updater', payload: resp.data});
         } else {
           botMessage = this.createChatBotMessage(text);
         }

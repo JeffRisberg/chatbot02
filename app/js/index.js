@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import { createBrowserHistory } from 'history';
+import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -27,7 +28,11 @@ ReactDOM.render(
         <Route path='/hrCompletedDashboard' element={<HRCompletedDashboard/>}/>
         <Route path='/hrTeamDashboard/:id' element={<HRTeamDashboard/>}/>
       </Routes>
-    </BrowserRouter>,
+    </BrowserRouter>
   </Provider>,
   document.getElementById('app-root')
 );
+
+//axios.get('http://3.216.97.226:5001/api/restart_conversation')
+axios.get('http://localhost:5000/api/restart_conversation')
+//axios.get('http://localhost:3000/api/restart_conversation')

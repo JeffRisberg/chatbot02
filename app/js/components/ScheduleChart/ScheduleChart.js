@@ -12,9 +12,6 @@ function ScheduleChart(props) {
   const [labels, setLabels] = useState([])
   const [datasets, setDatasets] = useState([])
 
-  console.log("schedule chart props:");
-  console.log(props);
-
   useEffect(() => {
     (async () => {
       const result = await axios("http://localhost:5000/api/schedule/1");
@@ -38,7 +35,7 @@ function ScheduleChart(props) {
         ]
       }]);
     })();
-  }, [])
+  }, [props])
 
   return (
     <div className="ScheduleChart" style={{height: 250}}>
@@ -62,7 +59,7 @@ function ScheduleChart(props) {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.app.user,
+  content: state.app.content,
 });
 
 export default connect(

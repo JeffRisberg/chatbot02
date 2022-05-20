@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import { connect } from 'react-redux';
 import {Card, Table} from "@themesberg/react-bootstrap";
 import axios from "axios";
 // eslint-disable-next-line no-unused-vars
 import regeneratorRuntime from "regenerator-runtime";
 import "./ScheduleList.css";
 
-function ScheduleList() {
+function ScheduleList(props) {
 
  const [data, setData] = useState([]);
 
@@ -14,7 +15,7 @@ function ScheduleList() {
       const result = await axios("http://localhost:5000/api/schedule/1");
       setData(result.data.slice(0, 7));
     })();
-  }, []);
+  }, [props]);
 
   return (
     <div>
@@ -46,4 +47,11 @@ function ScheduleList() {
   )
  }
 
- export default ScheduleList;
+const mapStateToProps = (state) => ({
+  content: state.app.content,
+});
+
+export default connect(
+  mapStateToProps,
+  { }
+)(ScheduleList);
