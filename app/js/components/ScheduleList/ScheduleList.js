@@ -27,16 +27,18 @@ function ScheduleList(props) {
               <th className="border-bottom"></th>
               <th className="border-bottom">Course</th>
               <th className="border-bottom">Lesson</th>
+              <th className="border-bottom">Description</th>
               <th className="border-bottom">Start</th>
             </tr>
             </thead>
             <tbody>
-            {data.map((u, index) => (
+            {data.map((s, index) => (
               <tr key={index}>
                 <td><span className="fw-normal"><input type="checkbox" /></span></td>
-                <td><span className="fw-normal">{u.courseName}</span></td>
-                <td><span className="fw-normal">{u.lessonName}</span></td>
-                <td><span className="fw-normal">{u.scheduledStart}</span></td>
+                <td><span className="fw-normal">{s.courseName}</span></td>
+                <td><span className="fw-normal">{s.lessonName}</span></td>
+                <td><span className="fw-normal">{s.description}</span></td>
+                <td><span className="fw-normal">{s.scheduledStart}</span></td>
               </tr>
             ))}
             </tbody>

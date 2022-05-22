@@ -22,7 +22,7 @@ function UserDashboard() {
         <div className="col-md-7">
           <ScheduleChart />
           <div className="row" style={{marginTop: 20}}>
-            <div className="col-md-8">
+            <div className="col-md-10">
               <ScheduleList />
             </div>
            </div>

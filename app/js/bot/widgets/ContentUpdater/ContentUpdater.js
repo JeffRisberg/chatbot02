@@ -5,7 +5,7 @@ import { showUpdate } from '../../../actions/content';
 const ContentUpdater = (props) => {
   const content = props.payload.content || [];
 
- useEffect(() => {
+  useEffect(() => {
     (async () => {
       props.showUpdate(content);
     })();
