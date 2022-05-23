@@ -15,11 +15,11 @@ function TaskList(props) {
   useEffect(() => {
     (async () => {
       if (scope === 'daily') {
-        const result = await axios("http://3.216.97.226:5001/api/daily_tasks/1?done=" + done);
+        const result = await axios("http://localhost:5000/api/daily_tasks/1?done=" + done);
         setData(result.data.slice(0, 7));
       }
       if (scope === 'weekly') {
-        const result = await axios("http://3.216.97.226:5001/api/weekly_tasks/1?done=" + done);
+        const result = await axios("http://localhost:5000/api/weekly_tasks/1?done=" + done);
         setData(result.data.slice(0, 7));
       }
     })();
@@ -58,7 +58,7 @@ function TaskList(props) {
     )
   } else {
     return (
-      <span class="badge bg-success" style={{fontSize: "16px"}}>None</span>
+      <span className="badge bg-success" style={{fontSize: "16px"}}>None</span>
     )
   }
 }

@@ -103,7 +103,7 @@ function HRTeamDashboard() {
   }
 
   return (
-    <div className="HTeamDashboard">
+    <div className="hr-team-dashboard">
       <NavBar/>
 
       <div className="row">

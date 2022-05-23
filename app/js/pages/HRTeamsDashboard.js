@@ -9,7 +9,7 @@ class HRTeamsDashboard extends Component {
 
   render() {
     return (
-      <div className="HRTeamsDashboard">
+      <div className="hr-teams-dashboard">
        <NavBar/>
 
         <div className="container" id={"chart"}>

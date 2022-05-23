@@ -21,7 +21,7 @@ function NavBar() {
   return (
     <div>
       <div>
-        <Link to="/">User Access</Link>
+        <Link to="/userDashboard">User Access</Link>
         <nav
           style={{
             borderBottom: "solid 2px",

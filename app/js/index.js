@@ -8,6 +8,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
+import Home from "./pages/Home";
 import UserDashboard from "./pages/UserDashboard";
 import HRTeamsDashboard from "./pages/HRTeamsDashboard";
 import HRCompletedDashboard from "./pages/HRCompletedDashboard";
@@ -23,7 +24,8 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<UserDashboard/>}/>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/userDashboard' element={<UserDashboard/>}/>
         <Route path='/hrTeamsDashboard' element={<HRTeamsDashboard/>}/>
         <Route path='/hrCompletedDashboard' element={<HRCompletedDashboard/>}/>
         <Route path='/hrTeamDashboard/:id' element={<HRTeamDashboard/>}/>

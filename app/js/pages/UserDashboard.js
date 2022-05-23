@@ -15,7 +15,7 @@ import ActionProvider from '../bot/ActionProvider';
 function UserDashboard() {
 
   return (
-    <div className="UserDashboard">
+    <div className="user-dashboard">
       <Link to="/hrTeamsDashboard">HR Access</Link>
       <UserInfo />
       <div className="row">
