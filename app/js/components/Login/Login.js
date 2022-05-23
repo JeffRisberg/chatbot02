@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import "./Login.css";
 
 import { login } from '../../actions/user';
 
 function Login(props) {
-
-  const msg = "";
 
   return (
      <div className="login-container">
@@ -29,7 +27,7 @@ function Login(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
 });
 
 export default connect(

@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import "./Register.css";
 
 import { register } from '../../actions/user';
 
 function Register(props) {
-
-  const msg = "";
 
   return (
      <div className="register-container">
@@ -29,7 +27,7 @@ function Register(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
 });
 
 export default connect(
