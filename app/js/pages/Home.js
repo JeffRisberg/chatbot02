@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import './HRCompletedDashboard.css';
+import '.Home.css';
 
 import Login from "../components/Login/Login"
 import Register from "../components/Register/Register"
@@ -8,7 +8,7 @@ class Home extends Component {
 
    render() {
      return (
-     <div>
+     <div className="home-container">
        <div className="row">
           <div className="col-md-12">
              <h2>Coach.ai</h2>
