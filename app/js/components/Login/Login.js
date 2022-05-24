@@ -60,7 +60,7 @@ const LoginFormik = withFormik({
 
         props.login(response.data[0]);
         console.log(props);
-        props.navigate.navigate("/dashboard")
+        props.navigate.navigate("/userDashboard")
       } else {
         // HANDLE ERROR
         throw new Error('Something went wrong');
