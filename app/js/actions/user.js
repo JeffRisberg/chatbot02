@@ -1,19 +1,13 @@
 import { ActionTypes as types } from '../constants';
-import axios from "axios";
 
 // eslint-disable-next-line no-unused-vars
-export const login = () => {
-    const email = "john.smith@gmail.com";
+export const login = (user, history) => {
     return function (dispatch) {
 
-        return axios('http://localhost:5000/api/users?email=' + email)
-            .then(response => {
-              console.log(response);
-              dispatch({
-                  type: types.SET_USER,
-                  user: response.data[0]
-              });
-        })
+      return dispatch({
+          type: types.SET_USER,
+          user: user
+      });
     };
 };
 
@@ -38,4 +32,3 @@ export const register = (token) => {
         });
     };
 };
-
