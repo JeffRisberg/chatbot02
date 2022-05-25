@@ -13,7 +13,7 @@ function ScheduleList(props) {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:5000/api/schedule/1");
+      const result = await axios("http://localhost:5000/api/schedule/" + user_id);
       setData(result.data.slice(0, 7));
     })();
   }, [props]);
