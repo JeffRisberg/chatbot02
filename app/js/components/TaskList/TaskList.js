@@ -9,7 +9,7 @@ import "./TaskList.css";
 function TaskList(props) {
   const scope = props.scope;
   const done = props.done;
-  const user_id = props.user.id
+  const user_id = props.user['id']
 
   const [data, setData] = useState([]);
 

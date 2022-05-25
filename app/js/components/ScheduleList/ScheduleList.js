@@ -7,7 +7,7 @@ import regeneratorRuntime from "regenerator-runtime";
 import "./ScheduleList.css";
 
 function ScheduleList(props) {
-  const user_id = props.user.id;
+  const user_id = props.user['id'];
 
  const [data, setData] = useState([]);
 

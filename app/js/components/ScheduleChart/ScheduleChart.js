@@ -8,7 +8,7 @@ import axios from "axios";
 import regeneratorRuntime from "regenerator-runtime";
 
 function ScheduleChart(props) {
-  const user_id = props.user.id;
+  const user_id = props.user['id'];
 
   const [labels, setLabels] = useState([])
   const [datasets, setDatasets] = useState([])
