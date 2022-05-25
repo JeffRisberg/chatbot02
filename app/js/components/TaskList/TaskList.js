@@ -9,17 +9,18 @@ import "./TaskList.css";
 function TaskList(props) {
   const scope = props.scope;
   const done = props.done;
+  const user_id = props.user.id
 
   const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
       if (scope === 'daily') {
-        const result = await axios("http://localhost:5000/api/daily_tasks/1?done=" + done);
+        const result = await axios("http://localhost:5000/api/daily_tasks/" + user_id + "?done=" + done);
         setData(result.data.slice(0, 7));
       }
       if (scope === 'weekly') {
-        const result = await axios("http://localhost:5000/api/weekly_tasks/1?done=" + done);
+        const result = await axios("http://localhost:5000/api/weekly_tasks/" + uawe_is + "?done=" + done);
         setData(result.data.slice(0, 7));
       }
     })();
@@ -65,6 +66,7 @@ function TaskList(props) {
 
 const mapStateToProps = (state) => ({
   content: state.app.content,
+  user: state.app.user
 });
 
 export default connect(

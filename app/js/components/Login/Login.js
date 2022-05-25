@@ -54,16 +54,12 @@ const LoginFormik = withFormik({
   handleSubmit: (values, { props }) => {
     axios.post("http://localhost:5000/login", values)
     .then(response => {
-      console.log(response);
-      if (response.status == 200) {
-        console.log(response.data[0]);
-
+      if (response.status == 200 && response.data != null && response.data.length > 0) {
         props.login(response.data[0]);
-        console.log(props);
         props.navigate.navigate("/userDashboard")
       } else {
         // HANDLE ERROR
-        throw new Error('Something went wrong');
+        alert("Invalid email or password")
       }
     })
   }

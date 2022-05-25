@@ -8,13 +8,14 @@ import axios from "axios";
 import regeneratorRuntime from "regenerator-runtime";
 
 function ScheduleChart(props) {
+  const user_id = props.user.id;
 
   const [labels, setLabels] = useState([])
   const [datasets, setDatasets] = useState([])
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:5000/api/schedule/1");
+      const result = await axios("http://localhost:5000/api/schedule/" + user_id);
       var data = result.data.slice(0, 6);
 
       var labels = data.map(item => {
@@ -60,6 +61,7 @@ function ScheduleChart(props) {
 
 const mapStateToProps = (state) => ({
   content: state.app.content,
+  user: state.app.user
 });
 
 export default connect(

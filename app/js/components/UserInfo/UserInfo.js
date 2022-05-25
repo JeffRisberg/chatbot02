@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {Card} from "@themesberg/react-bootstrap";
 
-import { login } from '../../actions/user';
 import { logout } from '../../actions/user';
 
 function UserInfo(props) {
@@ -10,6 +10,13 @@ function UserInfo(props) {
 
   const firstName = user != null ? user.firstName : "";
   const lastName = user != null ? user.lastName : "";
+
+   const navigate = useNavigate(); // <-- call hook to get navigate function
+
+   function doLogout() {
+     props.logout();
+     navigate("/")
+   }
 
   return (
     <Card border="dark" style={{background: "#f0f0f0", marginBottom: 10}} className="table-wrapper table-responsive shadow-sm">
@@ -25,9 +32,7 @@ function UserInfo(props) {
                 <p className="card-text">Updated 16-May-2022</p>
               </div>
               <div className="col-md-1">
-                <a onClick={props.login}>Login</a>
-                <br/>
-                <a onClick={props.logout}>Logout</a>
+                <a onClick={doLogout}>Logout</a>
               </div>
             </div>
          </Card.Body>
@@ -41,5 +46,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { login, logout }
+  { logout }
 )(UserInfo);

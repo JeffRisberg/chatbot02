@@ -7,6 +7,7 @@ import regeneratorRuntime from "regenerator-runtime";
 import "./ScheduleList.css";
 
 function ScheduleList(props) {
+  const user_id = props.user.id;
 
  const [data, setData] = useState([]);
 
@@ -51,6 +52,7 @@ function ScheduleList(props) {
 
 const mapStateToProps = (state) => ({
   content: state.app.content,
+  user: state.app.user
 });
 
 export default connect(
