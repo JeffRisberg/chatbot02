@@ -54,6 +54,9 @@ const LoginFormik = withFormik({
   handleSubmit: (values, { props }) => {
     axios.post("http://localhost:5000/login", values)
     .then(response => {
+      console.log(response)
+      const cookie = response.headers['set-cookie']
+      console.log(cookie)
       if (response.status == 200 && response.data != null && response.data.length > 0) {
         props.login(response.data[0]);
         props.navigate.navigate("/userDashboard")
