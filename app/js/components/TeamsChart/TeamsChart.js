@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 // eslint-disable-next-line no-unused-vars
-import { Chart as ChartJS } from 'chart.js/auto'
-import { Bar } from 'react-chartjs-2'
+import {Bar} from 'react-chartjs-2'
 import axios from "axios";
+
 // eslint-disable-next-line no-unused-vars
-import regeneratorRuntime from "regenerator-runtime";
 
 function TeamsChart() {
 
@@ -18,7 +17,7 @@ function TeamsChart() {
       console.log(data);
 
       var labels = data.map(item => {
-         return item.name
+        return item.name
       });
 
       setLabels(labels);
@@ -43,17 +42,17 @@ function TeamsChart() {
         options={{
           maintainAspectRatio: false,
           plugins: {
-            title: { display: false },
-            legend: { display: false }
-            },
+            title: {display: false},
+            legend: {display: false}
+          },
           scales: {
             xAxes: [{
-                ticks: {
-                    fontSize: 20
-                }
+              ticks: {
+                fontSize: 20
+              }
             }]
           }
-          }}
+        }}
       />
     </div>
   );

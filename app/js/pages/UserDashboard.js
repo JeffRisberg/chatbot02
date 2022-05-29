@@ -18,15 +18,15 @@ function UserDashboard() {
     <div className="user-dashboard">
       <Link to="/dailyDashboard">Daily Dashboard</Link>
       <Link to="/hrTeamsDashboard">HR Access</Link>
-      <UserInfo />
+      <UserInfo/>
       <div className="row">
         <div className="col-md-7">
-          <ScheduleChart />
+          <ScheduleChart/>
           <div className="row" style={{marginTop: 20}}>
             <div className="col-md-10">
-              <ScheduleList />
+              <ScheduleList/>
             </div>
-           </div>
+          </div>
         </div>
         <div className="col-md-5">
           <div className="Chatbot">

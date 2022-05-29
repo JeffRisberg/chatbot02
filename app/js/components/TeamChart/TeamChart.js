@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import ChartistGraph from "react-chartist";
 import axios from "axios";
+
 // eslint-disable-next-line no-unused-vars
-import regeneratorRuntime from "regenerator-runtime";
 
 function TeamChart() {
 
@@ -16,21 +16,24 @@ function TeamChart() {
       var data = result.data.slice(0, 6)
 
       var labels = data.map(item => {
-         return item.courseName + '\n' + item.lessonName + '\n' + item.scheduledStart
+        return item.courseName + '\n' + item.lessonName + '\n' + item.scheduledStart
       });
       var series = [...Array(labels.length).keys()];
 
       setLabels(labels);
-      setSeries([series.map(y => { return y*10 + 10; })]);
+      setSeries([series.map(y => {
+        return y * 10 + 10;
+      })]);
 
       setOptions(
-        {distributeSeries: false,
-        axisX: {
-          offset: 40
-        },
-        axisY: {
-          offset: 20
-        }
+        {
+          distributeSeries: false,
+          axisX: {
+            offset: 40
+          },
+          axisY: {
+            offset: 20
+          }
         });
     })();
   }, []);
@@ -40,6 +43,6 @@ function TeamChart() {
       <ChartistGraph data={{'labels': labels, 'series': series}} options={options} type="Bar"/>
     </div>
   )
- }
+}
 
- export default TeamChart;
+export default TeamChart;

@@ -1,6 +1,5 @@
 import * as React from "react";
 import {Link, useMatch, useResolvedPath} from "react-router-dom";
-//import type {LinkProps} from "react-router-dom";
 
 function CustomLink({children, to, ...props}) {
   let resolved = useResolvedPath(to);
@@ -21,22 +20,18 @@ function NavBar() {
   return (
     <div>
       <div>
-        <Link to="/userDashboard">User Access</Link>
-        <Link to="/dailyDashboard">Daily Dashboard</Link>
         <nav
           style={{
             borderBottom: "solid 2px",
             paddingBottom: "1rem",
-            background: "wheat",
-            marginBottom: "10px"
+            background: "yellow",
+            marginBottom: "10px",
+            fontWeight: "bold"
           }}
         >
-          <CustomLink to="/hrTeamsDashboard">Main</CustomLink> |{" "}
-          <CustomLink to="/hrCompletedDashboard">Completed</CustomLink> |{" "}
-          <CustomLink to="/hrTeamDashboard/1">Team 1</CustomLink> |{" "}
-          <CustomLink to="/hrTeamDashboard/2">Team 2</CustomLink> |{" "}
-          <CustomLink to="/hrTeamDashboard/3">Team 3</CustomLink> |{" "}
-          <CustomLink to="/hrTeamDashboard/4">Team 4</CustomLink>
+          <CustomLink to="/">Daily</CustomLink> |{" "}
+          <CustomLink to="/weeklyDashboard">Weekly</CustomLink> |{" "}
+          <CustomLink to="/threeMonthDashboard">3 Months</CustomLink>
         </nav>
       </div>
     </div>

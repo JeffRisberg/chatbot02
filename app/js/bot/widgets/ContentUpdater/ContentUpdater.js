@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import { connect } from 'react-redux';
-import { showUpdate } from '../../../actions/content';
+import {connect} from 'react-redux';
+import {showUpdate} from '../../../actions/content';
 
 const ContentUpdater = (props) => {
   const content = props.payload.content || [];
@@ -14,10 +14,9 @@ const ContentUpdater = (props) => {
   return <div></div>;
 };
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,
-  { showUpdate }
+  {showUpdate}
 )(ContentUpdater);

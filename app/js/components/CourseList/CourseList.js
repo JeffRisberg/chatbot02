@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Table} from "@themesberg/react-bootstrap";
 import axios from "axios";
+
 // eslint-disable-next-line no-unused-vars
-import regeneratorRuntime from "regenerator-runtime";
 
 function CourseList() {
 
- const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -21,30 +21,30 @@ function CourseList() {
         <Card.Body>
           <Table hover className="courses-table align-items-center">
             <thead>
-            <tr>
-              <th className="border-bottom">Name</th>
-              <th className="border-bottom">Created at</th>
-            </tr>
+              <tr>
+                <th className="border-bottom">Name</th>
+                <th className="border-bottom">Created at</th>
+              </tr>
             </thead>
             <tbody>
-            {data.map(u => (
-              <tr key={u.id}>
-                <td>
-                  <Card.Link className="d-flex align-items-center">
-                    <div className="d-block">
-                      <span className="fw-bold">{u.name}</span>
-                    </div>
-                  </Card.Link>
-                </td>
-                <td><span className="fw-normal">{u.dateCreated}</span></td>
-              </tr>
-            ))}
+              {data.map(u => (
+                <tr key={u.id}>
+                  <td>
+                    <Card.Link className="d-flex align-items-center">
+                      <div className="d-block">
+                        <span className="fw-bold">{u.name}</span>
+                      </div>
+                    </Card.Link>
+                  </td>
+                  <td><span className="fw-normal">{u.dateCreated}</span></td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Card.Body>
       </Card>
     </div>
   )
- }
+}
 
- export default CourseList;
+export default CourseList;

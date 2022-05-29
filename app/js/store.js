@@ -23,7 +23,7 @@ const configureStore = ({ initialState = {}, history }) => {
     reducer,
     initialState,
     applyMiddleware(...middlewares)
-    );
+  );
 
   return store;
 };

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Card, Table} from "@themesberg/react-bootstrap";
 import axios from "axios";
+
 // eslint-disable-next-line no-unused-vars
-import regeneratorRuntime from "regenerator-runtime";
 
 function UserList() {
 
@@ -21,22 +21,22 @@ function UserList() {
         <Card.Body>
           <Table hover className="user-table align-items-center">
             <thead>
-            <tr>
-              <th className="border-bottom">First Name</th>
-              <th className="border-bottom">Last Name</th>
-              <th className="border-bottom">Title</th>
-              <th className="border-bottom">Joined on Date</th>
-            </tr>
+              <tr>
+                <th className="border-bottom">First Name</th>
+                <th className="border-bottom">Last Name</th>
+                <th className="border-bottom">Title</th>
+                <th className="border-bottom">Joined on Date</th>
+              </tr>
             </thead>
             <tbody>
-            {data.map(u => (
-              <tr key={u.id}>
-                <td><span className="fw-normal"><div className="small text-gray">{u.firstName}</div></span></td>
-                <td><span className="fw-normal"><div className="small text-gray">{u.lastName}</div></span></td>
-                <td><span className="fw-normal"><div className="small text-gray">{u.title}</div></span></td>
-                <td><span className="fw-normal">{u.dateCreated}</span></td>
-              </tr>
-            ))}
+              {data.map(u => (
+                <tr key={u.id}>
+                  <td><span className="fw-normal"><div className="small text-gray">{u.firstName}</div></span></td>
+                  <td><span className="fw-normal"><div className="small text-gray">{u.lastName}</div></span></td>
+                  <td><span className="fw-normal"><div className="small text-gray">{u.title}</div></span></td>
+                  <td><span className="fw-normal">{u.dateCreated}</span></td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Card.Body>
