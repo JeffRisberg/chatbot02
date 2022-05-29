@@ -7,6 +7,7 @@ import './EditUserProfile.css';
 import { setScreen } from '../../actions/screen';
 
 function EditUserProfilePage(props) {
+  console.log(props);
 
   const editUserProfilePageStyle = {
     margin: "32px auto 37px",
@@ -83,6 +84,7 @@ const EditUserProfileFormik = withFormik({
   }),
   handleSubmit: (values, { props }) => {
     console.log("handleSubmit");
+    console.log(values);
   }
 })(EditUserProfilePage);
 
