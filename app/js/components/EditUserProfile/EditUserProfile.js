@@ -85,6 +85,7 @@ const EditUserProfileFormik = withFormik({
   handleSubmit: (values, { props }) => {
     console.log("handleSubmit");
     console.log(values);
+    console.log(props);
   }
 })(EditUserProfilePage);
 
