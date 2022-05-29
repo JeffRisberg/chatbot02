@@ -22,6 +22,7 @@ function NavBar() {
     <div>
       <div>
         <Link to="/userDashboard">User Access</Link>
+        <Link to="/dailyDashboard">Daily Dashboard</Link>
         <nav
           style={{
             borderBottom: "solid 2px",

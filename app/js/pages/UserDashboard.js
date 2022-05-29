@@ -16,6 +16,7 @@ function UserDashboard() {
 
   return (
     <div className="user-dashboard">
+      <Link to="/dailyDashboard">Daily Dashboard</Link>
       <Link to="/hrTeamsDashboard">HR Access</Link>
       <UserInfo />
       <div className="row">

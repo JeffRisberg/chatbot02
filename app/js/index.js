@@ -13,6 +13,7 @@ import UserDashboard from "./pages/UserDashboard";
 import HRTeamsDashboard from "./pages/HRTeamsDashboard";
 import HRCompletedDashboard from "./pages/HRCompletedDashboard";
 import HRTeamDashboard from "./pages/HRTeamDashboard";
+import DailyDashboard from "./pages/DailyDashboard";
 
 import configureStore from './store';
 
@@ -29,12 +30,9 @@ ReactDOM.render(
         <Route path='/hrTeamsDashboard' element={<HRTeamsDashboard/>}/>
         <Route path='/hrCompletedDashboard' element={<HRCompletedDashboard/>}/>
         <Route path='/hrTeamDashboard/:id' element={<HRTeamDashboard/>}/>
+        <Route path='/dailyDashboard' element={<DailyDashboard/>}/>
       </Routes>
     </BrowserRouter>
   </Provider>,
   document.getElementById('app-root')
 );
-
-//axios.get('http://3.216.97.226:5001/api/restart_conversation')
-axios.get('http://localhost:5000/api/restart_conversation')
-//axios.get('http://localhost:3000/api/restart_conversation')
