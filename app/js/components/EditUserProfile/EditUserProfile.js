@@ -8,7 +8,7 @@ import { setScreen } from '../../actions/screen';
 
 function EditUserProfilePage(props) {
 
-  const loginPageStyle = {
+  const editUserProfilePageStyle = {
     margin: "32px auto 37px",
     maxWidth: "530px",
     background: "#fff",
@@ -17,6 +17,14 @@ function EditUserProfilePage(props) {
     boxShadow: "0px 0px 3px 3px rgba(0,0,0,0.15)"
   };
 
+ useEffect(() => {
+    (async () => {
+        const result = await axios("localhost:5000/api/daily_tasks/" + user_id + "?done=" + done);
+        setData(result.data.slice(0, 7));
+      }
+      ))
+  }, [props]);
+
   const { touched, errors } = props;
 
   function do_save() {
@@ -24,7 +32,7 @@ function EditUserProfilePage(props) {
   }
 
   return (
-    <div className="EditUserProfile">
+    <div className="edit-profile-wrapper" style={editUserProfilePageStyle}>
       <div className="row">
         <div className="col-md-2">
         </div>

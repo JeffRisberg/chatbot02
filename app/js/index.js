@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import { createBrowserHistory } from 'history';
-import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
