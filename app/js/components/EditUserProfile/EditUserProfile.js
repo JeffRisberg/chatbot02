@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from 'react-redux';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -16,14 +16,6 @@ function EditUserProfilePage(props) {
     borderRadius: "10px",
     boxShadow: "0px 0px 3px 3px rgba(0,0,0,0.15)"
   };
-
- useEffect(() => {
-    (async () => {
-        const result = await axios("localhost:5000/api/daily_tasks/" + user_id + "?done=" + done);
-        setData(result.data.slice(0, 7));
-      }
-    )
-  }, [props]);
 
   const { touched, errors } = props;
 
