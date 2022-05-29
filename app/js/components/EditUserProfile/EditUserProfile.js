@@ -8,11 +8,18 @@ import { setScreen } from '../../actions/screen';
 
 function EditUserProfilePage(props) {
 
-  useEffect(() => {
-    //axios.post('/change_screen/3_months')
-  }, [props]);
+  const loginPageStyle = {
+    margin: "32px auto 37px",
+    maxWidth: "530px",
+    background: "#fff",
+    padding: "30px",
+    borderRadius: "10px",
+    boxShadow: "0px 0px 3px 3px rgba(0,0,0,0.15)"
+  };
 
- function do_save() {
+  const { touched, errors } = props;
+
+  function do_save() {
     props.setScreen(null);
   }
 
@@ -85,5 +92,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { }
+  { setScreen }
 )(EditUserProfileFormik);
