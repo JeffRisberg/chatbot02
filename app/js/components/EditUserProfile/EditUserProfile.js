@@ -22,7 +22,7 @@ function EditUserProfilePage(props) {
         const result = await axios("localhost:5000/api/daily_tasks/" + user_id + "?done=" + done);
         setData(result.data.slice(0, 7));
       }
-      ))
+    )
   }, [props]);
 
   const { touched, errors } = props;
