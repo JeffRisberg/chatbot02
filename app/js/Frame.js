@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {connect} from 'react-redux';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './Frame.css';
@@ -12,7 +12,6 @@ import Bot from './components/Bot/Bot'
 import DailyDashboard from './pages/DailyDashboard';
 import WeeklyDashboard from './pages/WeeklyDashboard';
 import ThreeMonthDashboard from './pages/ThreeMonthDashboard';
-
 
 function Frame(props) {
 

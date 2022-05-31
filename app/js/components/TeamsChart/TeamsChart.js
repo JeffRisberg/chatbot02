@@ -15,7 +15,6 @@ function TeamsChart() {
     (async () => {
       const result = await axios("http://localhost:5000/api/teams");
       var data = result.data.slice(0, 6);
-      console.log(data);
 
       var labels = data.map(item => {
         return item.name
