@@ -1,12 +1,12 @@
-import React from "react";
-import {Link} from "react-router-dom";
+import React from 'react';
+import {Link} from 'react-router-dom';
 import Chatbot from 'react-chatbot-kit';
 import 'react-chatbot-kit/build/main.css';
 import './UserDashboard.css';
 
-import ScheduleList from "../components/ScheduleList/ScheduleList";
-import ScheduleChart from "../components/ScheduleChart/ScheduleChart";
-import UserInfo from "../components/UserInfo/UserInfo";
+import ScheduleList from '../components/ScheduleList/ScheduleList';
+import ScheduleChart from '../components/ScheduleChart/ScheduleChart';
+import UserInfo from '../components/UserInfo/UserInfo';
 
 import config from '../bot/config';
 import MessageParser from '../bot/MessageParser';

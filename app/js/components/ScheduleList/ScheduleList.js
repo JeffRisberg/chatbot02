@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {Card, Table} from "@themesberg/react-bootstrap";
-import axios from "axios";
+import {Card, Table} from '@themesberg/react-bootstrap';
+import axios from 'axios';
+import './ScheduleList.css';
+
 // eslint-disable-next-line no-unused-vars
-import "./ScheduleList.css";
+import regeneratorRuntime from 'regenerator-runtime';
 
 function ScheduleList(props) {
   const user_id = props.user['id'];

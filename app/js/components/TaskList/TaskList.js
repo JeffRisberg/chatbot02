@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {Card, Table} from "@themesberg/react-bootstrap";
-import axios from "axios";
+import {Card, Table} from '@themesberg/react-bootstrap';
+import axios from 'axios';
+import './TaskList.css';
+
 // eslint-disable-next-line no-unused-vars
-import "./TaskList.css";
+import regeneratorRuntime from 'regenerator-runtime';
 
 import {showUpdate} from '../../actions/content';
 
@@ -48,9 +50,9 @@ function TaskList(props) {
   function submit(task_id) {
     if (checkedTaskIds.includes(task_id)) {
 
-      var url = "http://localhost:5000/api/mark_daily_task_done"
+      var url = 'http://localhost:5000/api/mark_daily_task_done';
       if (scope === 'weekly') {
-        url = "http://localhost:5000/api/mark_weekly_task_done"
+        url = 'http://localhost:5000/api/mark_weekly_task_done';
       }
 
       targets.forEach((t) => {
@@ -65,9 +67,9 @@ function TaskList(props) {
             props.showUpdate(task_id);
           } else {
             // HANDLE ERROR
-            //alert("Failed")
+            alert('Update failed');
           }
-        })
+        });
     }
   }
 

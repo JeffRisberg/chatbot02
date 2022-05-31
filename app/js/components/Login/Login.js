@@ -4,19 +4,24 @@ import axios from "axios";
 import {Field, Form, withFormik} from 'formik';
 import * as Yup from 'yup';
 
-import {login} from '../../actions/user';
+import {set_user} from '../../actions/user';
+import {set_screen} from '../../actions/screen';
 
 const LoginPage = (props) => {
   const loginPageStyle = {
-    margin: "32px auto 37px",
-    maxWidth: "530px",
-    background: "#fff",
-    padding: "30px",
-    borderRadius: "10px",
-    boxShadow: "0px 0px 3px 3px rgba(0,0,0,0.15)"
+    margin: '32px auto 37px',
+    maxWidth: '530px',
+    background: '#fff',
+    padding: '30px',
+    borderRadius: '10px',
+    boxShadow: '0px 0px 3px 3px rgba(0,0,0,0.15)'
   };
 
   const {touched, errors} = props;
+
+  function doRegister() {
+    props.set_screen('register');
+  }
 
   return (
     <div className="container">
@@ -34,6 +39,8 @@ const LoginPage = (props) => {
             {touched.password && errors.password && <span className="help-block text-danger">{errors.password}</span>}
           </div>
           <button type="submit" className="btn btn-primary">Login</button>
+          &nbsp;&nbsp;
+          <button type="button" onClick={doRegister} className="btn btn-primary">Register</button>
         </Form>
       </div>
     </div>
@@ -57,10 +64,10 @@ const LoginFormik = withFormik({
     })
       .then(response => {
         if (response.status == 200 && response.data != null && response.data.length > 0) {
-          props.login(response.data[0]);
+          props.set_user(response.data[0]);
         } else {
           // HANDLE ERROR
-          alert("Invalid email or password")
+          alert('Invalid email or password')
         }
       })
   }
@@ -72,5 +79,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {login}
+  {set_user, set_screen}
 )(LoginFormik);

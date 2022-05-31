@@ -1,18 +1,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Card} from "@themesberg/react-bootstrap";
+import {Card} from '@themesberg/react-bootstrap';
 
-import {logout} from '../../actions/user';
-import {setScreen} from '../../actions/screen';
+import {clear_user} from '../../actions/user';
+import {set_screen} from '../../actions/screen';
 
 function UserInfo(props) {
   const user = props.user;
 
-  const firstName = user != null ? user.firstName : "";
-  const lastName = user != null ? user.lastName : "";
+  const first_name = user !== null ? user.first_name : '';
+  const last_name = user !== null ? user.last_name : '';
 
   function do_edit_profile() {
-    props.setScreen("edit_profile");
+    props.set_screen('edit_profile');
   }
 
   return (
@@ -22,17 +22,17 @@ function UserInfo(props) {
         <div className="row">
           <div className="col-md-2">
             <a href="https://coach.ai">
-              <img src="/images/logo_coach_ai.png" width="150px"/>
+              <img src='/images/logo_coach_ai.png' width='150px'/>
             </a>
           </div>
           <div className="col-md-9">
-            <h5 className="card-title">Prepared for {firstName} {lastName}</h5>
+            <h5 className="card-title">Prepared for {first_name} {last_name}</h5>
             <p className="card-text"></p>
           </div>
           <div className="col-md-1">
             <a onClick={do_edit_profile}>Edit Profile</a>
             <br/>
-            <a onClick={props.logout}>Logout</a>
+            <a onClick={props.clear_user}>Logout</a>
           </div>
         </div>
       </Card.Body>
@@ -46,5 +46,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {logout, setScreen}
+  {clear_user, set_screen}
 )(UserInfo);

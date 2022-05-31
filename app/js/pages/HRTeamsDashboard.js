@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, {Component} from 'react';
 import NavBar from '../components/NavBar';
 import './HRTeamsDashboard.css';
 
-import TeamsChart from "../components/TeamsChart/TeamsChart";
-import PopularCourses from "../components/PopularCourses/PopularCourses";
+import TeamsChart from '../components/TeamsChart/TeamsChart';
+import PopularCourses from '../components/PopularCourses/PopularCourses';
 
 class HRTeamsDashboard extends Component {
 

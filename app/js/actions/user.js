@@ -1,7 +1,6 @@
 import {ActionTypes as types} from '../constants';
 
-// eslint-disable-next-line no-unused-vars
-export const login = (user, history) => {
+export const set_user = (user) => {
   return function (dispatch) {
 
     return dispatch({
@@ -11,8 +10,7 @@ export const login = (user, history) => {
   };
 };
 
-// eslint-disable-next-line no-unused-vars
-export const logout = (token) => {
+export const clear_user = () => {
   return function (dispatch) {
 
     return dispatch({
@@ -22,8 +20,7 @@ export const logout = (token) => {
   };
 };
 
-// eslint-disable-next-line no-unused-vars
-export const register = (token) => {
+export const register = () => {
   return function (dispatch) {
 
     return dispatch({

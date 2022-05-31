@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Card, Table} from "@themesberg/react-bootstrap";
-import axios from "axios";
+import {Card, Table} from '@themesberg/react-bootstrap';
+import axios from 'axios';
 
 // eslint-disable-next-line no-unused-vars
+import regeneratorRuntime from 'regenerator-runtime';
 
 function CourseList() {
 

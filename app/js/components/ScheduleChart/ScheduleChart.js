@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-// eslint-disable-next-line no-unused-vars
-import {Bar} from 'react-chartjs-2'
-import axios from "axios";
+import {Bar} from 'react-chartjs-2';
+import axios from 'axios';
 
 // eslint-disable-next-line no-unused-vars
+import regeneratorRuntime from 'regenerator-runtime';
 
 function ScheduleChart(props) {
   const user_id = props.user['id'];

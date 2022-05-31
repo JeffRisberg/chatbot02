@@ -1,6 +1,6 @@
 import {ActionTypes as types} from '../constants';
 
-export const setScreen = (screen) => {
+export const set_screen = (screen) => {
   return function (dispatch) {
 
     dispatch({

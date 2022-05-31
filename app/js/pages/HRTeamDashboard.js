@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import {Card, Table} from "@themesberg/react-bootstrap";
+import {Card, Table} from '@themesberg/react-bootstrap';
 // eslint-disable-next-line no-unused-vars
-import {Bar} from 'react-chartjs-2'
-import axios from "axios";
+import {Bar} from 'react-chartjs-2';
+import axios from 'axios';
 import './HRTeamDashboard.css';
 
 function HRTeamDashboard() {

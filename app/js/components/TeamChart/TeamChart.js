@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import ChartistGraph from "react-chartist";
-import axios from "axios";
+import ChartistGraph from 'react-chartist';
+import axios from 'axios';
 
 // eslint-disable-next-line no-unused-vars
+import regeneratorRuntime from 'regenerator-runtime';
 
 function TeamChart() {
 
