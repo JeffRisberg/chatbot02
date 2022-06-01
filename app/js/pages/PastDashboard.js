@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
-import './ThreeMonthDashboard.css';
+import TaskSummary from '../components/TaskSummary/TaskSummary';
+import './PastDashboard.css';
 
-function ThreeMonthDashboard(props) {
+function PastDashboard(props) {
 
   useEffect(() => {
-    axios.post('http://localhost:5000/change_screen/3_months', null, {
+    axios.post('http://localhost:5000/change_screen/past', null, {
       withCredentials: true,
     })
   }, [props]);
 
   return (
-    <div className="ThreeMonthDashboard">
+    <div className="PastDashboard">
       <NavBar/>
       <div className="row">
         <div className="col-md-12">
-          <h3>Your 3-month schedule is still pending.</h3>
+          <TaskSummary/>
         </div>
       </div>
     </div>
   )
 }
 
-export default ThreeMonthDashboard;
+export default PastDashboard;

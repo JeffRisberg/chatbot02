@@ -11,7 +11,7 @@ function UserList() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:5000/api/users");
+      const result = await axios('http://localhost:5000/api/users');
       setData(result.data);
     })();
   }, []);

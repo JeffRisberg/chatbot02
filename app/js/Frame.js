@@ -3,15 +3,16 @@ import {connect} from 'react-redux';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './Frame.css';
 
-import Login from './components/Login/Login'
+import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import EditUserProfile from './components/EditUserProfile/EditUserProfile';
-import UserInfo from './components/UserInfo/UserInfo'
-import Bot from './components/Bot/Bot'
+import UserInfo from './components/UserInfo/UserInfo';
+import Bot from './components/Bot/Bot';
 
+import PastDashboard from './pages/PastDashboard';
 import DailyDashboard from './pages/DailyDashboard';
 import WeeklyDashboard from './pages/WeeklyDashboard';
-import ThreeMonthDashboard from './pages/ThreeMonthDashboard';
+import MonthlyDashboard from './pages/MonthlyDashboard';
 
 function Frame(props) {
 
@@ -97,10 +98,11 @@ function Frame(props) {
           <div className="col-md-8">
             <BrowserRouter>
               <Routes>
+                <Route path='/pastDashboard' element={<PastDashboard/>}/>
                 <Route path='/' element={<DailyDashboard/>}/>
                 <Route path='/dailyDashboard' element={<DailyDashboard/>}/>
                 <Route path='/weeklyDashboard' element={<WeeklyDashboard/>}/>
-                <Route path='/threeMonthDashboard' element={<ThreeMonthDashboard/>}/>
+                <Route path='/monthlyDashboard' element={<MonthlyDashboard/>}/>
               </Routes>
             </BrowserRouter>
           </div>

@@ -29,9 +29,10 @@ function NavBar() {
             fontWeight: "bold"
           }}
         >
+          <CustomLink to="/pastDashboard">Past</CustomLink> |{" "}
           <CustomLink to="/">Daily</CustomLink> |{" "}
           <CustomLink to="/weeklyDashboard">Weekly</CustomLink> |{" "}
-          <CustomLink to="/threeMonthDashboard">3 Months</CustomLink>
+          <CustomLink to="/monthlyDashboard">Monthly</CustomLink>
         </nav>
       </div>
     </div>
