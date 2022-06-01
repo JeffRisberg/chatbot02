@@ -70,6 +70,21 @@ function EditUserProfilePage(props) {
               <Field type="text" name="state" className={"form-control"} placeholder="State"/>
               {touched.state && errors.state && <span className="help-block text-danger">{errors.state}</span>}
             </div>
+            <div className="form-group">
+              <label htmlFor="state">Zip</label>
+              <Field type="text" name="zip" className={"form-control"} placeholder="ZipCode"/>
+              {touched.zip && errors.zip && <span className="help-block text-danger">{errors.zip}</span>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="state">Timezone&nbsp;&nbsp;</label>
+              <Field name="timezone" as="select">
+                <option value="America/Los_Angeles">Pacfic</option>
+                <option value="America/Denver">Mountain</option>
+                <option value="America/Chicago">Central</option>
+                <option value="America/New_York">Eastern</option>
+              </Field>
+              {touched.timezone && errors.timeszone && <span className="help-block text-danger">{errors.timezone}</span>}
+            </div>
             <button type="submit" className="btn btn-primary">Save</button>
             &nbsp;&nbsp;
             <button type="button" onClick={doCancel} className="btn btn-default">Cancel</button>
@@ -90,7 +105,8 @@ const EditUserProfileFormik = withFormik({
       street_address2: props.user.street_address2 || '',
       city: props.user.city || '',
       state: props.user.state || '',
-      zip: props.user.zip || ''
+      zip: props.user.zip || '',
+      timezone: props.user.timezone || ''
     }
   },
   validationSchema: Yup.object().shape({
@@ -99,7 +115,7 @@ const EditUserProfileFormik = withFormik({
   }),
   handleSubmit: (values, {props}) => {
     console.log(values);
-    axios.put('http://localhost:5000/api/users', values, {
+    axios.put('/api/users', values, {
       withCredentials: true,
     })
       .then(response => {
