@@ -82,10 +82,8 @@ const RegisterFormik = withFormik({
       withCredentials: true,
     })
       .then(response => {
-        console.log(response)
         if (response.status == 200) {
           values['id'] = response.data
-          props.set_user(values);
           props.set_screen(null);
         } else {
           // HANDLE ERROR

@@ -30,9 +30,8 @@ function TaskSummary(props) {
                 <tr>
                   <th className="border-bottom">Date</th>
                   <th className="border-bottom">Priority</th>
-                  <th className="border-bottom">Type</th>
                   <th className="border-bottom">Task</th>
-                  <th className="border-bottom">Why</th>
+                  <th className="border-bottom">Done?</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,13 +42,8 @@ function TaskSummary(props) {
                     <tr key={index}>
                       <td><span className="fw-normal">{new_date ? t.date : ''}</span></td>
                       <td><span className="fw-normal">{t.priority}</span></td>
-                      <td><span className="fw-normal">{t.type}</span></td>
-                      <td>
-                      <span className="fw-normal">
-                        {t.name} {t.done ? '(done)' : ''}
-                      </span>
-                      </td>
-                      <td><span className="fw-normal">{t.why}</span></td>
+                      <td><span className="fw-normal">{t.name}</span></td>
+                      <td><span className="fw-normal">{t.done ? 'Done' : ''}</span></td>
                     </tr>
                   )}
                 )}

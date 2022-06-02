@@ -78,7 +78,7 @@ function EditUserProfilePage(props) {
             <div className="form-group">
               <label htmlFor="state">Timezone&nbsp;&nbsp;</label>
               <Field name="timezone" as="select">
-                <option value="America/Los_Angeles">Pacfic</option>
+                <option value="America/Los_Angeles">Pacific</option>
                 <option value="America/Denver">Mountain</option>
                 <option value="America/Chicago">Central</option>
                 <option value="America/New_York">Eastern</option>
