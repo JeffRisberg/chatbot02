@@ -9,7 +9,6 @@ import MessageParser from '../../bot/MessageParser';
 import ActionProvider from '../../bot/ActionProvider';
 
 function Bot(props) {
-  config.botName = props.screen_tab;
 
   return (
     <div className="Chatbot">

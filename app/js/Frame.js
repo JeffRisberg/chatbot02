@@ -95,7 +95,10 @@ function Frame(props) {
           <UserInfo/>
         </div>
         <div className="row">
-          <div className="col-md-8">
+          <div className="col-md-4" style={{paddingLeft: 0}}>
+            <Bot/>
+          </div>
+          <div className="col-md-8" style={{paddingRight: 0}}>
             <BrowserRouter>
               <Routes>
                 <Route path='/pastDashboard' element={<PastDashboard/>}/>
@@ -105,9 +108,6 @@ function Frame(props) {
                 <Route path='/monthlyDashboard' element={<MonthlyDashboard/>}/>
               </Routes>
             </BrowserRouter>
-          </div>
-          <div className="col-md-4">
-            <Bot/>
           </div>
         </div>
       </div>

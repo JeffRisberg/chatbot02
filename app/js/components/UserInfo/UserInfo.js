@@ -26,8 +26,8 @@ function UserInfo(props) {
             </a>
           </div>
           <div className="col-md-9">
-            <h5 className="card-title">Prepared for {first_name} {last_name}</h5>
             <p className="card-text"></p>
+            <h5 className="card-title">Prepared for {first_name} {last_name}</h5>
           </div>
           <div className="col-md-1">
             <a onClick={do_edit_profile}>Edit Profile</a>

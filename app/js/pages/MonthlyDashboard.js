@@ -27,8 +27,7 @@ function MonthlyDashboard(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  content: state.app.content
+const mapStateToProps = () => ({
 });
 
 export default connect(

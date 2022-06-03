@@ -7,7 +7,7 @@ function CustomLink({children, to, ...props}) {
 
   return (
     <Link
-      style={{textDecoration: match ? "underline" : "none"}}
+      style={{color: "white", textDecoration: match ? "underline" : "none"}}
       to={to}
       {...props}
     >
@@ -24,9 +24,11 @@ function NavBar() {
           style={{
             borderBottom: "solid 2px",
             paddingBottom: "1rem",
-            background: "yellow",
+            background: "rgb(55, 107, 126)",
+            color: "white",
             marginBottom: "10px",
-            fontWeight: "bold"
+            fontWeight: "bold",
+            padding: "10px"
           }}
         >
           <CustomLink to="/pastDashboard">Past</CustomLink> |{" "}

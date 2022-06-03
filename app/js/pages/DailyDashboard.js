@@ -21,6 +21,7 @@ function DailyDashboard(props) {
       <NavBar/>
       <div className="row">
         <div className="col-md-12">
+          <h3>Pending</h3>
           <TaskList scope={"daily"} done={"0"}/>
         </div>
       </div>
@@ -34,8 +35,7 @@ function DailyDashboard(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  content: state.app.content
+const mapStateToProps = () => ({
 });
 
 export default connect(
