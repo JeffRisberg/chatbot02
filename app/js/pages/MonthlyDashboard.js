@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 import './MonthlyDashboard.css';
+
+import {set_screen_tab} from '../actions/screen';
 
 function MonthlyDashboard(props) {
 
   useEffect(() => {
     axios.post('http://localhost:5000/change_screen/monthly', null, {
       withCredentials: true,
-    })
+    });
+    props.set_screen_tab('monthly');
   }, [props]);
 
   return (
@@ -23,4 +27,12 @@ function MonthlyDashboard(props) {
   )
 }
 
-export default MonthlyDashboard;
+const mapStateToProps = (state) => ({
+  content: state.app.content
+});
+
+export default connect(
+  mapStateToProps,
+  {set_screen_tab}
+)(MonthlyDashboard);
+
