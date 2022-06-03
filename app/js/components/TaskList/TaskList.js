@@ -23,7 +23,7 @@ function TaskList(props) {
         setData(result.data.slice(0, 7));
       }
       if (scope === 'weekly') {
-        const result = await axios("http://locahost:5000/api/weekly_tasks/" + user_id + "?done=" + done);
+        const result = await axios("http://localhost:5000/api/weekly_tasks/" + user_id + "?done=" + done);
         setData(result.data.slice(0, 7));
       }
     })();

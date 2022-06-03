@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
@@ -11,8 +11,10 @@ function MonthlyDashboard(props) {
   useEffect(() => {
     axios.post('http://localhost:5000/change_screen/monthly', null, {
       withCredentials: true,
-    });
-    props.set_screen_tab('monthly');
+    })
+      .then((resp) => {
+        props.set_screen_tab('monthly', resp.data);
+      })
   }, [props]);
 
   return (

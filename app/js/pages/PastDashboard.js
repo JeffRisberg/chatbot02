@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
@@ -12,8 +12,10 @@ function PastDashboard(props) {
   useEffect(() => {
     axios.post('http://localhost:5000/change_screen/past', null, {
       withCredentials: true,
-    });
-    props.set_screen_tab('past');
+    })
+      .then((resp) => {
+        props.set_screen_tab('past', resp.data);
+      })
   }, [props]);
 
   return (
@@ -28,8 +30,7 @@ function PastDashboard(props) {
   )
 }
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Chatbot from 'react-chatbot-kit';
+import {createChatBotMessage} from 'react-chatbot-kit';
 import 'react-chatbot-kit/build/main.css';
 import './Bot.css';
 
@@ -9,12 +10,20 @@ import MessageParser from '../../bot/MessageParser';
 import ActionProvider from '../../bot/ActionProvider';
 
 function Bot(props) {
+  const screen_tab = props.screen_tab || 'unknown|Hello';
+  const index = screen_tab.indexOf('|');
+  const tab_name = screen_tab.substr(0,index-1);
+  const initial_message = screen_tab.substr(index+1);
+
+  config.initialMessages = [
+    createChatBotMessage(initial_message)
+  ];
 
   return (
     <div className="Chatbot">
       <header className="Chatbot-header">
         <Chatbot
-          key={props.screen_tab}
+          key={tab_name}
           config={config}
           messageParser={MessageParser}
           actionProvider={ActionProvider}

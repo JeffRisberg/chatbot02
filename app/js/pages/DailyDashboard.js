@@ -12,8 +12,10 @@ function DailyDashboard(props) {
   useEffect(() => {
     axios.post('http://localhost:5000/change_screen/daily', null, {
       withCredentials: true,
-    });
-    props.set_screen_tab('daily');
+    })
+      .then((resp) => {
+        props.set_screen_tab('daily', resp.data);
+      })
   }, [props]);
 
   return (
@@ -35,8 +37,7 @@ function DailyDashboard(props) {
   )
 }
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,

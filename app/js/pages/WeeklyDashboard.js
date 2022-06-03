@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
@@ -12,8 +12,10 @@ function WeeklyDashboard(props) {
   useEffect(() => {
     axios.post('http://localhost:5000/change_screen/weekly', null, {
       withCredentials: true,
-    });
-    props.set_screen_tab('weekly');
+    })
+      .then((resp) => {
+        props.set_screen_tab('weekly', resp.data);
+      })
   }, [props]);
 
   return (
@@ -34,8 +36,7 @@ function WeeklyDashboard(props) {
   )
 }
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
 export default connect(
   mapStateToProps,
