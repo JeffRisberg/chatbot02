@@ -23,7 +23,7 @@ function Bot(props) {
     <div className="Chatbot">
       <header className="Chatbot-header">
         <Chatbot
-          key={tab_name}
+          key={screen_tab}
           config={config}
           messageParser={MessageParser}
           actionProvider={ActionProvider}
