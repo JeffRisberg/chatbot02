@@ -12,7 +12,6 @@ import ActionProvider from '../../bot/ActionProvider';
 function Bot(props) {
   const screen_tab = props.screen_tab || 'unknown|Hello';
   const index = screen_tab.indexOf('|');
-  const tab_name = screen_tab.substr(0,index-1);
   const initial_message = screen_tab.substr(index+1);
 
   config.initialMessages = [
