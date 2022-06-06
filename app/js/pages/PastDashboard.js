@@ -15,7 +15,7 @@ function PastDashboard(props) {
     })
       .then((resp) => {
         props.set_screen_tab('past', resp.data);
-      })
+      });
   }, [props]);
 
   return (

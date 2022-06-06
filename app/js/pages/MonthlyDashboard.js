@@ -14,7 +14,7 @@ function MonthlyDashboard(props) {
     })
       .then((resp) => {
         props.set_screen_tab('monthly', resp.data);
-      })
+      });
   }, [props]);
 
   return (

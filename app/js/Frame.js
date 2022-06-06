@@ -16,7 +16,7 @@ import MonthlyDashboard from './pages/MonthlyDashboard';
 
 function Frame(props) {
 
-  if (props.screen === "register") {
+  if (props.screen === 'register') {
     return (
       <div className="frame-container">
         <div className="row">
@@ -65,6 +65,7 @@ function Frame(props) {
       </div>
     )
   } else if (props.user === null) {
+
     return (
       <div className="frame-container">
         <div className="row">

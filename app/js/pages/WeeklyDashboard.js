@@ -15,7 +15,7 @@ function WeeklyDashboard(props) {
     })
       .then((resp) => {
         props.set_screen_tab('weekly', resp.data);
-      })
+      });
   }, [props]);
 
   return (

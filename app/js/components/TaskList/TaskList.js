@@ -19,11 +19,11 @@ function TaskList(props) {
   useEffect(() => {
     (async () => {
       if (scope === 'daily') {
-        const result = await axios("http://localhost:5000/api/daily_tasks/" + user_id + "?done=" + done);
+        const result = await axios('http://localhost:5000/api/daily_tasks/' + user_id + '?done=' + done);
         setData(result.data.slice(0, 7));
       }
       if (scope === 'weekly') {
-        const result = await axios("http://localhost:5000/api/weekly_tasks/" + user_id + "?done=" + done);
+        const result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id + '?done=' + done);
         setData(result.data.slice(0, 7));
       }
     })();
@@ -32,9 +32,9 @@ function TaskList(props) {
   function submit(e, task_id) {
     e.target.checked = false;
 
-    var url = 'http://localhost:5000/api/mark_daily_task_done'
+    var url = 'http://localhost:5000/api/mark_daily_task_done';
     if (scope === 'weekly') {
-      url = 'http://localhost:5000/api/mark_weekly_task_done'
+      url = 'http://localhost:5000/api/mark_weekly_task_done';
     }
 
     axios.post(url, {'task_id': task_id}, {

@@ -15,7 +15,7 @@ function DailyDashboard(props) {
     })
       .then((resp) => {
         props.set_screen_tab('daily', resp.data);
-      })
+      });
   }, [props]);
 
   return (
