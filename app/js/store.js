@@ -3,7 +3,7 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 
-const configureStore = ({ initialState = {}, history }) => {
+const configureStore = ({ initialState = {} }) => {
 
   const reducer = combineReducers({
     app: reducers,
