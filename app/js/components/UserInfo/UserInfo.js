@@ -20,16 +20,16 @@ function UserInfo(props) {
           className="table-wrapper table-responsive shadow-sm">
       <Card.Body>
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-2" style={{maxWidth: 190}}>
             <a href="https://coach.ai">
-              <img src='/images/logo_coach_ai.png' width='150px'/>
+              <img src='/images/logo_coach_ai.png' width='95%'/>
             </a>
           </div>
-          <div className="col-md-9">
+          <div className="col-md-6">
             <p className="card-text"></p>
             <h5 className="card-title">Prepared for {first_name} {last_name}</h5>
           </div>
-          <div className="col-md-1">
+          <div className="col-md-4" style={{textAlign: 'right'}}>
             <a onClick={do_edit_profile}>Edit Profile</a>
             <br/>
             <a onClick={props.clear_user}>Logout</a>

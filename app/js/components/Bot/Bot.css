@@ -34,7 +34,7 @@
 }
 
 .react-chatbot-kit-chat-container {
-  width: 375px !important;
+  width: 90% !important;
 }
 
 .react-chatbot-kit-chat-inner-container {
@@ -42,7 +42,7 @@
 }
 
 .react-chatbot-kit-chat-bot-message {
-  width: 280px;
+  width: 90%;
 }
 
 @keyframes Chatbot-logo-spin {

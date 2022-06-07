@@ -59,17 +59,21 @@ const LoginFormik = withFormik({
     password: Yup.string().required('Password is required')
   }),
   handleSubmit: (values, {props}) => {
-    axios.post("http://localhost:5000/login", values, {
-      withCredentials: true,
-    })
-      .then(response => {
-        if (response.status == 200 && response.data != null && response.data.length > 0) {
-          props.set_user(response.data[0]);
-        } else {
-          // HANDLE ERROR
-          alert('Invalid email or password')
-        }
+    try {
+      axios.post("http://localhost:5000/login", values, {
+        withCredentials: true,
       })
+        .then(response => {
+          if (response.status == 200 && response.data != null && response.data.length > 0) {
+            props.set_user(response.data[0]);
+          } else {
+            // HANDLE ERROR
+            alert('Invalid email or password')
+          }
+        })
+    } catch (error) {
+      alert('Unable to login')
+    }
   }
 })(LoginPage);
 
