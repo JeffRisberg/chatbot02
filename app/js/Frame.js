@@ -9,7 +9,8 @@ import EditUserProfile from './components/EditUserProfile/EditUserProfile';
 import UserInfo from './components/UserInfo/UserInfo';
 import Bot from './components/Bot/Bot';
 
-import PastDashboard from './pages/PastDashboard';
+import PastDailyDashboard from './pages/PastDailyDashboard';
+import PastWeeklyDashboard from './pages/PastWeeklyDashboard';
 import DailyDashboard from './pages/DailyDashboard';
 import WeeklyDashboard from './pages/WeeklyDashboard';
 import MonthlyDashboard from './pages/MonthlyDashboard';
@@ -54,18 +55,17 @@ function Frame(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-sm-1 col-lg-3">
           </div>
-          <div className="col-md-6">
+          <div className="col-sm-10 col-lg-6">
             <EditUserProfile/>
           </div>
-          <div className="col-md-3">
+          <div className="col-sm-1 col-lg-3">
           </div>
         </div>
       </div>
     )
   } else if (props.user === null) {
-
     return (
       <div className="frame-container">
         <div className="row">
@@ -79,12 +79,12 @@ function Frame(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-sm-1 col-lg-3">
           </div>
-          <div className="col-md-4">
+          <div className="col-sm-10 col-lg-6">
             <Login/>
           </div>
-          <div className="col-md-4">
+          <div className="col-sm-1 col-lg-3">
           </div>
         </div>
       </div>
@@ -96,13 +96,14 @@ function Frame(props) {
           <UserInfo/>
         </div>
         <div className="row">
-          <div className="col-md-4" style={{paddingLeft: 0}}>
+          <div className="col-md-12 col-lg-4">
             <Bot/>
           </div>
-          <div className="col-md-8" style={{paddingRight: 0}}>
+          <div className="col-md-12 col-lg-8">
             <BrowserRouter>
               <Routes>
-                <Route path='/pastDashboard' element={<PastDashboard/>}/>
+                <Route path='/pastDailyDashboard' element={<PastDailyDashboard/>}/>
+                <Route path='/pastWeeklyDashboard' element={<PastWeeklyDashboard/>}/>
                 <Route path='/' element={<DailyDashboard/>}/>
                 <Route path='/dailyDashboard' element={<DailyDashboard/>}/>
                 <Route path='/weeklyDashboard' element={<WeeklyDashboard/>}/>

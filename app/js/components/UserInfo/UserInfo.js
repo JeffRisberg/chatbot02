@@ -20,7 +20,7 @@ function UserInfo(props) {
           className="table-wrapper table-responsive shadow-sm">
       <Card.Body>
         <div className="row">
-          <div className="col-md-2" style={{maxWidth: 190}}>
+          <div className="col-md-2" style={{maxWidth: 200}}>
             <a href="https://coach.ai">
               <img src='/images/logo_coach_ai.png' width='95%'/>
             </a>

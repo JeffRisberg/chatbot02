@@ -7,14 +7,21 @@ import './TaskSummary.css';
 // eslint-disable-next-line no-unused-vars
 
 function TaskSummary(props) {
+  const scope = props.scope;
   const user_id = props.user.id;
 
   const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const result = await axios('http://localhost:5000/api/tasks_summary/' + user_id);
-      setData(result.data.slice(0, 7));
+      if (scope === 'daily') {
+        const result = await axios("http://localhost:5000/api/tasks_daily_summary/" + user_id);
+        setData(result.data.slice(0, 7));
+      }
+      if (scope === 'weekly') {
+        const result = await axios("http://localhost:5000/api/tasks_weekly_summary/" + user_id);
+        setData(result.data.slice(0, 7));
+      }
     })();
   }, [props]);
 

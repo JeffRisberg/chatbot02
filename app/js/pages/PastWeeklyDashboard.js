@@ -3,27 +3,27 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import NavBar from '../components/NavBar';
 import TaskSummary from '../components/TaskSummary/TaskSummary';
-import './PastDashboard.css';
+import './PastDailyDashboard.css';
 
 import {set_screen_tab} from '../actions/screen';
 
-function PastDashboard(props) {
+function PastDailyDashboard(props) {
 
   useEffect(() => {
-    axios.post('http://localhost:5000/change_screen/past', null, {
+    axios.post('change_screen/past_weekly', null, {
       withCredentials: true,
     })
       .then((resp) => {
-        props.set_screen_tab('past', resp.data);
-      });
+        props.set_screen_tab('past_weekly', resp.data);
+      })
   }, [props]);
 
   return (
-    <div className="PastDashboard">
+    <div className="PastWeeklyDashboard">
       <NavBar/>
       <div className="row">
         <div className="col-md-12">
-          <TaskSummary/>
+          <TaskSummary scope={"weekly"}/>
         </div>
       </div>
     </div>
@@ -35,4 +35,4 @@ const mapStateToProps = () => ({});
 export default connect(
   mapStateToProps,
   {set_screen_tab}
-)(PastDashboard);
+)(PastDailyDashboard);

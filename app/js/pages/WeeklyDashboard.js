@@ -23,6 +23,7 @@ function WeeklyDashboard(props) {
       <NavBar/>
       <div className="row">
         <div className="col-md-12">
+          <h3>Pending</h3>
           <TaskList scope={"weekly"} done={"0"}/>
         </div>
       </div>

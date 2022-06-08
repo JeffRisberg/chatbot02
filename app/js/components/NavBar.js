@@ -31,7 +31,8 @@ function NavBar() {
             padding: "10px"
           }}
         >
-          <CustomLink to="/pastDashboard">Past</CustomLink> |{" "}
+          <CustomLink to="/pastWeeklyDashboard">Past Weekly</CustomLink> |{" "}
+          <CustomLink to="/pastDailyDashboard">Past Daily</CustomLink> |{" "}
           <CustomLink to="/">Daily</CustomLink> |{" "}
           <CustomLink to="/weeklyDashboard">Weekly</CustomLink> |{" "}
           <CustomLink to="/monthlyDashboard">Monthly</CustomLink>
