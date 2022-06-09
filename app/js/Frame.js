@@ -17,7 +17,7 @@ import MonthlyDashboard from './pages/MonthlyDashboard';
 
 function Frame(props) {
 
-  if (props.screen === 'register') {
+  if (props.screen === "register") {
     return (
       <div className="frame-container">
         <div className="row">
@@ -55,12 +55,12 @@ function Frame(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-1 col-lg-3">
+          <div className="d-sm-nonecol-lg-3">
           </div>
-          <div className="col-sm-10 col-lg-6">
+          <div className="col-sm-12 col-lg-6">
             <EditUserProfile/>
           </div>
-          <div className="col-sm-1 col-lg-3">
+          <div className="d-sm-none col-lg-3">
           </div>
         </div>
       </div>
@@ -79,12 +79,12 @@ function Frame(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-1 col-lg-3">
+          <div className="d-sm-none col-lg-3">
           </div>
-          <div className="col-sm-10 col-lg-6">
+          <div className="col-sm-12 col-lg-6">
             <Login/>
           </div>
-          <div className="col-sm-1 col-lg-3">
+          <div className="d-sm-none col-lg-3">
           </div>
         </div>
       </div>

@@ -18,7 +18,7 @@ function UserInfo(props) {
   return (
     <Card border="dark" style={{background: "#f0f0f0", marginBottom: 10}}
           className="table-wrapper table-responsive shadow-sm">
-      <Card.Body>
+      <Card.Body style={{padding: '0px'}}>
         <div className="row">
           <div className="col-md-2" style={{maxWidth: 200}}>
             <a href="https://coach.ai">
