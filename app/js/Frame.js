@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './Frame.css';
 
 import Login from './components/Login/Login';
@@ -15,9 +14,21 @@ import DailyDashboard from './pages/DailyDashboard';
 import WeeklyDashboard from './pages/WeeklyDashboard';
 import MonthlyDashboard from './pages/MonthlyDashboard';
 
+import {set_screen_tab} from './actions/screen';
+
 function Frame(props) {
 
-  if (props.screen === "register") {
+  function pastDailyTasks() {
+    console.log('pastDaily');
+    set_screen_tab('past_daily');
+  }
+
+  function pastWeeklyTasks() {
+    console.log('pastWeekly');
+    set_screen_tab('past_weekly');
+  }
+
+  if (props.screen === 'register') {
     return (
       <div className="frame-container">
         <div className="row">
@@ -95,23 +106,32 @@ function Frame(props) {
         <div className="row">
           <UserInfo/>
         </div>
-        <div className="row">
-          <div className="col-md-12 col-lg-4">
-            <Bot/>
-          </div>
-          <div className="col-md-12 col-lg-8">
-            <BrowserRouter>
-              <Routes>
-                <Route path='/pastDailyDashboard' element={<PastDailyDashboard/>}/>
-                <Route path='/pastWeeklyDashboard' element={<PastWeeklyDashboard/>}/>
-                <Route path='/' element={<DailyDashboard/>}/>
-                <Route path='/dailyDashboard' element={<DailyDashboard/>}/>
-                <Route path='/weeklyDashboard' element={<WeeklyDashboard/>}/>
-                <Route path='/monthlyDashboard' element={<MonthlyDashboard/>}/>
-              </Routes>
-            </BrowserRouter>
-          </div>
-        </div>
+        <table width={"100%"}>
+          <tbody>
+            <tr>
+              <td valign={"top"} width={"33%"} style={{border: "1px solid #888"}}>
+                <WeeklyDashboard/>
+              </td>
+              <td valign={"top"} width={"33%"} rowSpan={"2"}>
+                <Bot/>
+              </td>
+              <td valign={"top"} width={"33%"} style={{border: "1px solid #888"}}>
+                {props.screen == 'past_daily' ? <PastDailyDashboard/> : ''}
+                {props.screen == 'past_weeky' ? <PastWeeklyDashboard/> : ''}
+                {props.screen !== 'past_daily' && props.screen !== 'past_weekly' ? <DailyDashboard/> : ''}
+              </td>
+            </tr>
+            <tr>
+              <td valign={"top"} style={{border: "1px solid #888"}}>
+                <MonthlyDashboard/>
+              </td>
+              <td valign={"top"} style={{border: "1px solid #888"}}>
+                <div><button type="button" onClick={pastDailyTasks} className="btn btn-link">Past Daily Tasks</button></div>
+                <div><button type="button" onClick={pastWeeklyTasks} className="btn btn-link">Past Weekly Tasks</button></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     )
   }
@@ -121,9 +141,10 @@ function Frame(props) {
 const mapStateToProps = (state) => ({
   user: state.app.user,
   screen: state.app.screen,
+  screen_tab: state.app.screen_tab,
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  {set_screen_tab}
 )(Frame);

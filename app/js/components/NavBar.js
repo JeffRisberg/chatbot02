@@ -1,20 +1,6 @@
 import * as React from 'react';
-import {Link, useMatch, useResolvedPath} from 'react-router-dom';
+// import {Link, useMatch, useResolvedPath} from 'react-router-dom';
 
-function CustomLink({children, to, ...props}) {
-  let resolved = useResolvedPath(to);
-  let match = useMatch({path: resolved.pathname, end: true});
-
-  return (
-    <Link
-      style={{color: "white", textDecoration: match ? "underline" : "none"}}
-      to={to}
-      {...props}
-    >
-      {children}
-    </Link>
-  );
-}
 
 function NavBar() {
   return (
@@ -31,11 +17,10 @@ function NavBar() {
             padding: "10px"
           }}
         >
-          <CustomLink to="/pastWeeklyDashboard">Past Weekly</CustomLink> |{" "}
-          <CustomLink to="/pastDailyDashboard">Past Daily</CustomLink> |{" "}
-          <CustomLink to="/">Daily</CustomLink> |{" "}
-          <CustomLink to="/weeklyDashboard">Weekly</CustomLink> |{" "}
-          <CustomLink to="/monthlyDashboard">Monthly</CustomLink>
+          Past Weekly | {" "}
+          Past Daily | {" "}
+          Daily | {" "}
+          Weekly
         </nav>
       </div>
     </div>
