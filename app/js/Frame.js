@@ -28,13 +28,13 @@ function Frame(props) {
   }
 
   function pastDailyTasks() {
-    console.log('pastDaily');
-    props.set_screen_tab('daily', '');
+    console.log('past_daily');
+    props.set_screen_tab('past_daily', '');
   }
 
   function pastWeeklyTasks() {
-    console.log('pastWeekly');
-    props.set_screen_tab('weekly', '');
+    console.log('past_weekly');
+    props.set_screen_tab('past_weekly', '');
   }
 
   if (props.screen === 'register') {

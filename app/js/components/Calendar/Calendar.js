@@ -30,7 +30,7 @@ function Calendar(props) {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("/api/events/" + user.id);
+      const result = await axios('http://localhost:5000/api/events/' + user.id);
       setData(result.data);
     })();
   }, []);
