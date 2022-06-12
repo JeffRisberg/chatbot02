@@ -6,6 +6,8 @@ import * as Yup from 'yup';
 
 import {set_user} from '../../actions/user';
 import {set_screen} from '../../actions/screen';
+import {set_screen_tab} from '../../actions/screen';
+
 
 const LoginPage = (props) => {
   const loginPageStyle = {
@@ -66,6 +68,14 @@ const LoginFormik = withFormik({
         .then(response => {
           if (response.status == 200 && response.data != null && response.data.length > 0) {
             props.set_user(response.data[0]);
+
+            const tab_name = 'daily';
+            axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
+              withCredentials: true,
+            })
+              .then((resp) => {
+                props.set_screen_tab(tab_name, resp.data);
+              })
           } else {
             // HANDLE ERROR
             alert('Invalid email or password')
@@ -83,5 +93,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {set_user, set_screen}
+  {set_user, set_screen, set_screen_tab}
 )(LoginFormik);

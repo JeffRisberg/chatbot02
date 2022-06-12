@@ -1,14 +1,12 @@
 import React from 'react';
-import { EventDetails } from "../EventDetails/EventDetails";
-import "./Day.css";
+import EventDetails from '../EventDetails/EventDetails';
+import './Day.css';
 
 function Day(props) {
-  console.log(props)
-
   const day = props.day;
   const dayNumber = String(day.getDate());
 
-  const events = []
+  const events = [];
 
   return (
     <div className="day">

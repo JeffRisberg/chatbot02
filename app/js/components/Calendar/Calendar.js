@@ -1,32 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import { Day } from "../Day/Day";
-import { generateDates } from "../../actions/time";
 import axios from "axios";
-import "./Calendar.css";
+import Day from '../Day/Day';
+import {generateDates} from '../../actions/time';
+import './Calendar.css';
+
+import {set_screen} from '../../actions/screen';
 
 // eslint-disable-next-line no-unused-vars
 import regeneratorRuntime from 'regenerator-runtime';
 
 function Calendar(props) {
-  const user = props.user
+  const user = props.user;
 
   const [date] = useState(new Date());
   const [days] = useState(generateDates(date));
   const [data, setData] = useState([]);
 
   const daysBefore = [
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-    'saturday',
-    'sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
   ];
-
-  console.log(daysBefore);
-  console.log(generateDates);
 
   useEffect(() => {
     (async () => {
@@ -37,12 +36,29 @@ function Calendar(props) {
 
   console.log(data);
 
+  const name_of_month = date.toLocaleString('default', {
+    month: 'long',
+  });
+
+  const year_of_month = date.getFullYear();
+
+  function done() {
+    props.set_screen(null);
+  }
+
   return (
     <div>
+      <div style={{textAlign: "center", fontWeight: "bold", fontSize: "20px"}}>
+        {name_of_month}
+        &nbsp;
+        {year_of_month}
+        &nbsp;&nbsp;&nbsp;
+        <button type="button" onClick={done} className="btn btn-link">Done</button>
+      </div>
       <div className="dayNamesRow">
         <div className="dayNames">
           {daysBefore.map((day) => (
-            <div>{day}</div>
+            <div key={day}>{day}</div>
           ))}
         </div>
       </div>
@@ -67,5 +83,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {}
+  {set_screen}
 )(Calendar);

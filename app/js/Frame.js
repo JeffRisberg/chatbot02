@@ -15,25 +15,25 @@ import PastDailyDashboard from './pages/PastDailyDashboard';
 import PastWeeklyDashboard from './pages/PastWeeklyDashboard';
 import CalendarDashboard from './pages/CalendarDashboard';
 
+import {set_screen} from './actions/screen';
 import {set_screen_tab} from './actions/screen';
 
 function Frame(props) {
 
-  console.log('screen ' + props.screen);
-  console.log('screen_tab ' + props.screen_tab);
+  var screen_tab = props.screen_tab || '|';
+  const index = screen_tab.indexOf('|');
+  screen_tab = screen_tab.substr(0, index);
 
   function showCalendar() {
     console.log('calendar');
-    props.set_screen_tab('calendar', '');
+    props.set_screen('calendar');
   }
 
   function pastDailyTasks() {
-    console.log('past_daily');
     props.set_screen_tab('past_daily', '');
   }
 
   function pastWeeklyTasks() {
-    console.log('past_weekly');
     props.set_screen_tab('past_weekly', '');
   }
 
@@ -64,6 +64,9 @@ function Frame(props) {
   } else if (props.screen === 'calendar') {
     return (
       <div className="frame-container">
+        <div className="row">
+          <UserInfo/>
+        </div>
         <CalendarDashboard/>
       </div>
     )
@@ -131,9 +134,9 @@ function Frame(props) {
                 <Bot/>
               </td>
               <td valign={"top"} width={"33%"} style={{border: "1px solid #888"}}>
-                {props.screen_tab == 'past_daily' ? <PastDailyDashboard/> : ''}
-                {props.screen_tab == 'past_weeky' ? <PastWeeklyDashboard/> : ''}
-                {props.screen_tab !== 'past_daily' && props.screen_tab !== 'past_weekly' ? <DailyDashboard/> : ''}
+                {screen_tab == 'past_daily' && <PastDailyDashboard/>}
+                {screen_tab == 'past_weekly' && <PastWeeklyDashboard/>}
+                {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' && <DailyDashboard/>}
               </td>
             </tr>
             <tr>
@@ -141,9 +144,13 @@ function Frame(props) {
                 <MonthlyDashboard/>
               </td>
               <td valign={"top"} style={{border: "1px solid #888"}}>
-                <div><button type="button" onClick={showCalendar} className="btn btn-link">Calendar</button></div>
-                <div><button type="button" onClick={pastDailyTasks} className="btn btn-link">Past Daily Tasks</button></div>
-                <div><button type="button" onClick={pastWeeklyTasks} className="btn btn-link">Past Weekly Tasks</button></div>
+                {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' &&
+                  <>
+                  <button type="button" onClick={showCalendar} className="btn btn-link">Calendar</button>
+                  <div><button type="button" onClick={pastDailyTasks} className="btn btn-link">Past Daily Tasks</button></div>
+                  <div><button type="button" onClick={pastWeeklyTasks} className="btn btn-link">Past Weekly Tasks</button></div>
+                  </>
+                }
               </td>
             </tr>
           </tbody>
@@ -162,5 +169,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {set_screen_tab}
+  {set_screen, set_screen_tab}
 )(Frame);

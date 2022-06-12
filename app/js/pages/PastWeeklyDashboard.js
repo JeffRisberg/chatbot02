@@ -21,12 +21,17 @@ function PastWeeklyDashboard(props) {
       });
   }
 
+  function toDailyTasks() {
+    props.set_screen_tab('daily', '');
+  }
+
   return (
     <div className="PastWeeklyDashboard">
       <div className="dashboard-header" onClick={onClick} style={{background: tab_color}}>Past Weekly Tasks</div>
       <div className="row">
         <div className="col-md-12">
           <TaskSummary scope={"weekly"}/>
+          <div><button type="button" onClick={toDailyTasks} className="btn btn-link">Return to Daily Tasks</button></div>
         </div>
       </div>
     </div>
