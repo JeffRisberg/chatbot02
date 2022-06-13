@@ -6,7 +6,7 @@ function Day(props) {
   const day = props.day;
   const dayNumber = String(day.getDate());
 
-  const events = [];
+  const events = day.events;
 
   return (
     <div className="day">
@@ -16,8 +16,8 @@ function Day(props) {
         </div>
       </header>
       <div className="events">
-        {events?.map((event) => (
-          <div key={event.id} className={`event ${event.color}`}>
+        {events?.map(event => (
+          <div key={event.id} className={'event'}>
             <EventDetails
               event={event}
               date={day}

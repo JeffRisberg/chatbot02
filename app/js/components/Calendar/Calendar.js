@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {connect} from "react-redux";
-import axios from "axios";
+import {connect} from 'react-redux';
+import axios from 'axios';
 import Day from '../Day/Day';
 import {generateDates} from '../../actions/time';
 import './Calendar.css';
@@ -36,6 +36,25 @@ function Calendar(props) {
 
   console.log(data);
 
+  days.forEach(day => {
+    var day1 = day;
+    var day2 = new Date(day1);
+    day2.setDate(day.getDate() + 1);
+    day.events = [];
+
+    data.forEach(event_data => {
+      const start_date = new Date(event_data['start_time']);
+      const end_date = new Date(event_data['end_time']);
+      const title = event_data['title'];
+
+      if (start_date <= day2 && end_date >= day1) {
+        console.log('match on ' + title);
+        day.events.push(event_data);
+      }
+    })
+  });
+
+
   const name_of_month = date.toLocaleString('default', {
     month: 'long',
   });
@@ -68,7 +87,7 @@ function Calendar(props) {
             <Day
               key={day.toISOString()}
               day={day}
-              events={[]}  // should be day.events
+              events={day.events}  // should be day.events
             />
           ))}
         </div>

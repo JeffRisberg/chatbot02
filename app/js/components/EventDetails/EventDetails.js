@@ -5,13 +5,9 @@ function EventDetails(props) {
   const event = props.event;
   //const date = props.date;
 
-  function setOpen(props) {
-    console.log(props)
-  }
-
   return (
     <>
-      <div onClick={() => setOpen(true)}>{event.title}</div>
+      <div>{event.title}</div>
     </>
   );
 }

@@ -23,51 +23,6 @@
   border: 1px solid;
 }
 
-.popup form {
-  height: 600px;
-  width: 500px;
-  border: 0.1px solid;
-  border-radius: 1em;
-}
-
-.popup form header {
-  display: flex;
-  justify-content: center;
-  padding: 20px 0;
-  font-size: 32px;
-  font-weight: bold;
-}
-
-.popup form .formItem label {
-  display: block;
-  padding: 10px 20px;
-  font-weight: bold;
-}
-
-.popup form .formItem input,
-textarea {
-  margin: 0px 20px;
-  padding: 8px;
-}
-
-.color-picker {
-  margin: 10px 20px;
-  padding: 8px;
-  display: block;
-}
-
-.popup form .formItem textarea {
-  height: 80px;
-  width: 80%;
-}
-
-.popup form footer {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 60px;
-}
-
 @media only screen and (max-width: 1280px) {
   .calendar-header {
     display: flex;

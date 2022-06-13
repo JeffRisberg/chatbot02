@@ -76,9 +76,6 @@ function Frame(props) {
   } else if (props.screen === 'calendar') {
     return (
       <div className="frame-container">
-        <div className="row">
-          <UserInfo/>
-        </div>
         <CalendarDashboard/>
       </div>
     )
