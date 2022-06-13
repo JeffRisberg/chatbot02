@@ -49,7 +49,7 @@ function RegisterPage(props) {
             </div>
             <div className="form-group">
               <label htmlFor="firstName">Password</label>
-              <Field type="text" name="password" className={"form-control"} placeholder="Password"/>
+              <Field type="password" name="password" className={"form-control"} placeholder="Password"/>
               {touched.password && errors.password &&
               <span className="help-block text-danger">{errors.password}</span>}
             </div>

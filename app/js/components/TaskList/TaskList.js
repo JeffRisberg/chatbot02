@@ -78,7 +78,9 @@ function TaskList(props) {
                     <td><span className="fw-normal">{t.priority}</span></td>
                     <td><span className="fw-normal">{t.name}</span></td>
                     <td><span className="fw-normal">{t.why}</span></td>
-                    {scope === 'weekly' && <td><span className="fw-normal">{t.due_date}</span></td>}
+                    {scope === 'weekly' && <td><span className="fw-normal">
+                      {t.due_date !== null ? t.due_date.substr(5,11) : ''}
+                    </span></td>}
                   </tr>
                 ))}
               </tbody>
