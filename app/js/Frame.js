@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import axios from 'axios';
 import './Frame.css';
 
@@ -16,6 +17,7 @@ import PastWeeklyDashboard from './pages/PastWeeklyDashboard';
 import CalendarDashboard from './pages/CalendarDashboard';
 
 import {set_screen} from './actions/screen';
+import {set_screen_tab} from './actions/screen';
 
 function Frame(props) {
   var screen_tab = props.screen_tab || '|';
