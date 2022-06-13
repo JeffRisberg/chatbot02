@@ -22,7 +22,13 @@ function PastDailyDashboard(props) {
   }
 
   function toDailyTasks() {
-    props.set_screen_tab('daily', '');
+    const tab_name = 'daily';
+    axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
+      withCredentials: true,
+    })
+      .then((resp) => {
+        props.set_screen_tab(tab_name, resp.data);
+      });
   }
 
   return (
@@ -31,7 +37,9 @@ function PastDailyDashboard(props) {
       <div className="row">
         <div className="col-md-12">
           <TaskSummary scope={"daily"}/>
-          <div><button type="button" onClick={toDailyTasks} className="btn btn-link">Return to Daily Tasks</button></div>
+          <div>
+            <button type="button" onClick={toDailyTasks} className="btn btn-link">Return to Daily Tasks</button>
+          </div>
         </div>
       </div>
     </div>

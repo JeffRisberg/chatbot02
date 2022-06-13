@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import axios from 'axios';
 import './Frame.css';
 
 import Login from './components/Login/Login';
@@ -16,10 +16,8 @@ import PastWeeklyDashboard from './pages/PastWeeklyDashboard';
 import CalendarDashboard from './pages/CalendarDashboard';
 
 import {set_screen} from './actions/screen';
-import {set_screen_tab} from './actions/screen';
 
 function Frame(props) {
-
   var screen_tab = props.screen_tab || '|';
   const index = screen_tab.indexOf('|');
   screen_tab = screen_tab.substr(0, index);
@@ -30,11 +28,23 @@ function Frame(props) {
   }
 
   function pastDailyTasks() {
-    props.set_screen_tab('past_daily', '');
+    const tab_name = 'past_daily';
+    axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
+      withCredentials: true,
+    })
+      .then((resp) => {
+        props.set_screen_tab(tab_name, resp.data);
+      })
   }
 
   function pastWeeklyTasks() {
-    props.set_screen_tab('past_weekly', '');
+    const tab_name = 'past_weekly';
+    axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
+      withCredentials: true,
+    })
+      .then((resp) => {
+        props.set_screen_tab(tab_name, resp.data);
+      })
   }
 
   if (props.screen === 'register') {
@@ -145,11 +155,17 @@ function Frame(props) {
               </td>
               <td valign={"top"} style={{border: "1px solid #888"}}>
                 {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' &&
-                  <>
-                  <button type="button" onClick={showCalendar} className="btn btn-link">Calendar</button>
-                  <div><button type="button" onClick={pastDailyTasks} className="btn btn-link">Past Daily Tasks</button></div>
-                  <div><button type="button" onClick={pastWeeklyTasks} className="btn btn-link">Past Weekly Tasks</button></div>
-                  </>
+                <>
+                  <div>
+                    <button type="button" onClick={showCalendar} className="btn btn-link">Calendar</button>
+                  </div>
+                  <div>
+                    <button type="button" onClick={pastDailyTasks} className="btn btn-link">Past Daily Tasks</button>
+                  </div>
+                  <div>
+                    <button type="button" onClick={pastWeeklyTasks} className="btn btn-link">Past Weekly Tasks</button>
+                  </div>
+                </>
                 }
               </td>
             </tr>
@@ -159,7 +175,6 @@ function Frame(props) {
     )
   }
 }
-
 
 const mapStateToProps = (state) => ({
   user: state.app.user,
