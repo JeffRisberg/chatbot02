@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {Card} from '@themesberg/react-bootstrap';
 
 import {clear_user} from '../../actions/user';
@@ -13,6 +14,15 @@ function UserInfo(props) {
 
   function do_edit_profile() {
     props.set_screen('edit_profile');
+  }
+
+  function do_logout() {
+    props.clear_user();
+    const url = 'http://localhost:5000/logout';
+
+    axios.post(url, {}, {
+      withCredentials: true,
+    });
   }
 
   return (
@@ -32,7 +42,7 @@ function UserInfo(props) {
           <div className="col-md-4" style={{textAlign: 'right'}}>
             <a onClick={do_edit_profile}>Edit Profile</a>
             <br/>
-            <a onClick={props.clear_user}>Logout</a>
+            <a onClick={do_logout}>Logout</a>
           </div>
         </div>
       </Card.Body>

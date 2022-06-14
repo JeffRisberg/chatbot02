@@ -32,12 +32,9 @@ function TaskList(props) {
   function submit(e, task_id) {
     e.target.checked = false;
 
-    var url = 'http://localhost:5000/api/mark_daily_task_done';
-    if (scope === 'weekly') {
-      url = 'http://localhost:5000/api/mark_weekly_task_done';
-    }
+    const url = 'http://localhost:5000/api/tasks';
 
-    axios.post(url, {'task_id': task_id}, {
+    axios.put(url, {'id': task_id, 'table': scope, 'done': 1}, {
       withCredentials: true,
     })
       .then(response => {
