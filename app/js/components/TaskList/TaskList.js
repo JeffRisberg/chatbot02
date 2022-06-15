@@ -26,6 +26,10 @@ function TaskList(props) {
         const result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id + '?done=' + done);
         setData(result.data.slice(0, 7));
       }
+      if (scope === 'monthly') {
+        const result = await axios('http://localhost:5000/api/goals/' + user_id + '?done=' + done);
+        setData(result.data.slice(0, 7));
+      }
     })();
   }, [props]);
 
@@ -34,7 +38,9 @@ function TaskList(props) {
 
     const url = 'http://localhost:5000/api/tasks';
 
-    axios.put(url, {'id': task_id, 'table': scope, 'done': 1}, {
+    const table = (scope === 'monthly' ? 'goals' : scope);
+
+    axios.put(url, {'id': task_id, 'table': table, 'done': 1}, {
       withCredentials: true,
     })
       .then(response => {
@@ -50,7 +56,7 @@ function TaskList(props) {
   if (data.length > 0) {
     return (
       <div>
-        <Card border="dark" className="table-wrapper table-responsive shadow-sm">
+        <Card className="table-wrapper table-responsive shadow-sm">
           <Card.Body>
             <Table hover className="tasks-table align-items-center">
               <thead>
@@ -59,7 +65,7 @@ function TaskList(props) {
                   <th className="border-bottom">Priority</th>
                   <th className="border-bottom">Task</th>
                   <th className="border-bottom">Why</th>
-                  {scope === 'weekly' && <th className="border-bottom">Due Date</th>}
+                  {scope !== 'daily' && <th className="border-bottom">Due Date</th>}
                 </tr>
               </thead>
               <tbody>
@@ -75,7 +81,7 @@ function TaskList(props) {
                     <td><span className="fw-normal">{t.priority}</span></td>
                     <td><span className="fw-normal">{t.name}</span></td>
                     <td><span className="fw-normal">{t.why}</span></td>
-                    {scope === 'weekly' && <td><span className="fw-normal">
+                    {scope !== 'daily' && <td><span className="fw-normal">
                       {t.due_date !== null ? t.due_date.substr(5,11) : ''}
                     </span></td>}
                   </tr>

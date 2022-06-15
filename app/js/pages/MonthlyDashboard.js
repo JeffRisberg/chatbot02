@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import TaskList from '../components/TaskList/TaskList';
 import './MonthlyDashboard.css';
 
 import {set_screen_tab} from '../actions/screen';
@@ -25,7 +26,13 @@ function MonthlyDashboard(props) {
       <div className="dashboard-header" onClick={onClick} style={{background: tab_color}}>Monthly Tasks</div>
       <div className="row">
         <div className="col-md-12">
-          <h3>&nbsp;</h3>
+          <TaskList scope={"monthly"} done={"0"}/>
+        </div>
+      </div>
+      <div className="row" style={{marginTop: "14px"}}>
+        <div className="col-md-12">
+          <h4>Completed</h4>
+          <TaskList scope={"monthly"} done={"1"}/>
         </div>
       </div>
     </div>
