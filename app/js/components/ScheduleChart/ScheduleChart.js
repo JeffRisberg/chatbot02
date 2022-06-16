@@ -14,7 +14,7 @@ function ScheduleChart(props) {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:5000/api/schedule/" + user_id);
+      const result = await axios('http://localhost:5000/api/schedule/' + user_id);
       var data = result.data.slice(0, 6);
 
       var labels = data.map(item => {
@@ -28,19 +28,19 @@ function ScheduleChart(props) {
           return y * 10 + 10;
         }),
         backgroundColor: [
-          "#ffbb11",
-          "#e7f0d1",
-          "#ec3071",
-          "#b3baaf",
-          "#2a71d0",
-          "#50AF95"
+          '#ffbb11',
+          '#e7f0d1',
+          '#ec3071',
+          '#b3baaf',
+          '#2a71d0',
+          '#50AF95'
         ]
       }]);
     })();
   }, [props])
 
   return (
-    <div className="ScheduleChart" style={{height: 250}}>
+    <div className='ScheduleChart' style={{height: 250}}>
       {labels.length > 0 ?
         <Bar
           data={{'labels': labels, 'datasets': datasets}}

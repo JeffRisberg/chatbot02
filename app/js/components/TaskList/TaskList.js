@@ -61,16 +61,22 @@ function TaskList(props) {
             <Table hover className="tasks-table align-items-center">
               <thead>
                 <tr>
-                  {done == '0' && <th className="border-bottom"></th>}
                   <th className="border-bottom">Priority</th>
                   <th className="border-bottom">Task</th>
                   <th className="border-bottom">Why</th>
                   {scope !== 'daily' && <th className="border-bottom">Due Date</th>}
+                  {done == '0' && <th className="border-bottom"></th>}
                 </tr>
               </thead>
               <tbody>
                 {data.map((t, index) => (
                   <tr key={index}>
+                    <td><span className="fw-normal">{t.priority}</span></td>
+                    <td><span className="fw-normal">{t.name}</span></td>
+                    <td><span className="fw-normal">{t.why}</span></td>
+                    {scope !== 'daily' && <td><span className="fw-normal">
+                      {t.due_date !== null ? t.due_date.substr(5,11) : ''}
+                    </span></td>}
                     {done == '0' &&
                     <td>
                       <span className="fw-normal">
@@ -78,12 +84,6 @@ function TaskList(props) {
                       </span>
                     </td>
                     }
-                    <td><span className="fw-normal">{t.priority}</span></td>
-                    <td><span className="fw-normal">{t.name}</span></td>
-                    <td><span className="fw-normal">{t.why}</span></td>
-                    {scope !== 'daily' && <td><span className="fw-normal">
-                      {t.due_date !== null ? t.due_date.substr(5,11) : ''}
-                    </span></td>}
                   </tr>
                 ))}
               </tbody>
