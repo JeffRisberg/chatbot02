@@ -33,7 +33,7 @@ function PastDailyDashboard(props) {
 
   return (
     <div className="PastDailyDashboard">
-      <div className="dashboard-header" onClick={onClick} style={{background: tab_color}}>Past Daily Tasks</div>
+      <div className="dashboard-header" onClick={onClick} style={{textDecoration: 'underline', background: tab_color}}>Past Daily Tasks</div>
       <div className="row">
         <div className="col-md-12">
           <TaskSummary scope={"daily"}/>

@@ -23,7 +23,7 @@ function MonthlyDashboard(props) {
 
   return (
     <div className="MonthlyDashboard">
-      <div className="dashboard-header" onClick={onClick} style={{background: tab_color}}>Monthly Tasks</div>
+      <div className="dashboard-header" onClick={onClick} style={{textDecoration: 'underline', background: tab_color}}>Monthly Goals</div>
       <div className="row">
         <div className="col-md-12">
           <TaskList scope={"monthly"} done={"0"}/>
@@ -47,4 +47,3 @@ export default connect(
   mapStateToProps,
   {set_screen_tab}
 )(MonthlyDashboard);
-

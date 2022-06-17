@@ -23,7 +23,7 @@ function DailyDashboard(props) {
 
   return (
     <div className="DailyDashboard">
-      <div className="dashboard-header" onClick={onClick} style={{background: tab_color}}>Daily Tasks</div>
+      <div className="dashboard-header" onClick={onClick} style={{textDecoration: 'underline', background: tab_color}}>Daily Tasks</div>
       <div className="row">
         <div className="col-md-12">
           <TaskList scope={"daily"} done={"0"}/>

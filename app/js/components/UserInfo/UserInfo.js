@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import moment from 'moment';
 import {Card} from '@themesberg/react-bootstrap';
 
 import {clear_user} from '../../actions/user';
@@ -38,8 +39,9 @@ function UserInfo(props) {
           <div className="col-md-6">
             <p className="card-text"></p>
             <h5 className="card-title">Prepared for {first_name} {last_name}</h5>
+            <h6>{moment().format('D MMM YYYY')}</h6>
           </div>
-          <div className="col-md-4" style={{textAlign: 'right'}}>
+          <div className="col-md-4" style={{marginTop: '12px', textAlign: 'right'}}>
             <a onClick={do_edit_profile}>Edit Profile</a>
             <br/>
             <a onClick={do_logout}>Logout</a>
