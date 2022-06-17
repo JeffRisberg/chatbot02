@@ -77,13 +77,9 @@ function TaskList(props) {
                     {scope !== 'daily' && <td><span className="fw-normal">
                       {t.due_date !== null ? t.due_date.substr(5,11) : ''}
                     </span></td>}
-                    {done == '0' &&
-                    <td>
-                      <span className="fw-normal">
-                        <input type="checkbox" onChange={(e) => submit(e, t.id)}/>
-                      </span>
-                    </td>
-                    }
+                    {done == '0' && <td><span className="fw-normal">
+                      <input type="checkbox" onChange={(e) => submit(e, t.id)}/>
+                    </span></td>}
                   </tr>
                 ))}
               </tbody>
