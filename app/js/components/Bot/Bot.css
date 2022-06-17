@@ -16,7 +16,7 @@
 
 .Chatbot-header {
   background-color: #eee;
-  min-height: 80vh;
+  min-height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -37,8 +37,13 @@
   width: 90% !important;
 }
 
+.react-chatbot-kit-chat-message-container {
+  height: 300px;
+}
+
 .react-chatbot-kit-chat-inner-container {
-  height: 500px;
+  min-height: 330px !important;
+  max-height: 370px !important;
 }
 
 .react-chatbot-kit-chat-bot-message {

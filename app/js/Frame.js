@@ -137,10 +137,10 @@ function Frame(props) {
           <tbody>
             <tr>
               <td valign={"top"} width={"33%"} style={{border: "1px solid #888"}}>
-                <WeeklyDashboard/>
+                <MonthlyDashboard/>
               </td>
-              <td valign={"top"} width={"33%"} rowSpan={"2"}>
-                <Bot/>
+              <td valign={"top"} width={"33%"}>
+                <WeeklyDashboard/>
               </td>
               <td valign={"top"} width={"33%"} style={{border: "1px solid #888"}}>
                 {screen_tab == 'past_daily' && <PastDailyDashboard/>}
@@ -150,7 +150,10 @@ function Frame(props) {
             </tr>
             <tr>
               <td valign={"top"} style={{border: "1px solid #888"}}>
-                <MonthlyDashboard/>
+                &nbsp;
+              </td>
+              <td valign={"top"} width={"33%"}>
+                <Bot/>
               </td>
               <td valign={"top"} style={{border: "1px solid #888"}}>
                 {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' &&
