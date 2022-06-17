@@ -62,7 +62,7 @@ function TaskList(props) {
               <thead>
                 <tr>
                   <th className="border-bottom">Priority</th>
-                  <th className="border-bottom">Task</th>
+                  <th className="border-bottom" style={{minWidth: '155px'}}>Name</th>
                   <th className="border-bottom">Why</th>
                   {scope !== 'daily' && <th className="border-bottom">Due Date</th>}
                   {done == '0' && <th className="border-bottom"></th>}
