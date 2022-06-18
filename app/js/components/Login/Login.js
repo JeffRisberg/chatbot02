@@ -69,7 +69,7 @@ const LoginFormik = withFormik({
           if (response.status == 200 && response.data != null && response.data.length > 0) {
             props.set_user(response.data[0]);
 
-            const tab_name = 'daily';
+            const tab_name = 'monthly';
             axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
               withCredentials: true,
             })

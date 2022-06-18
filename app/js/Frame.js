@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import './Frame.css';
@@ -16,13 +16,38 @@ import PastDailyDashboard from './pages/PastDailyDashboard';
 import PastWeeklyDashboard from './pages/PastWeeklyDashboard';
 import CalendarDashboard from './pages/CalendarDashboard';
 
-import {set_screen} from './actions/screen';
-import {set_screen_tab} from './actions/screen';
+import {set_screen, set_screen_tab} from './actions/screen';
 
 function Frame(props) {
+  const user_id = props.user != null ? props.user.id : null;
   var screen_tab = props.screen_tab || '|';
   const index = screen_tab.indexOf('|');
   screen_tab = screen_tab.substr(0, index);
+
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      if (user_id !== null) {
+        const result = await axios('http://localhost:5000/api/daily_tasks/' + user_id);
+        setData1(result.data.slice(0, 7));
+      }
+    })();
+    (async () => {
+      if (user_id !== null) {
+        const result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id);
+        setData2(result.data.slice(0, 7));
+      }
+    })();
+    (async () => {
+      if (user_id !== null) {
+        const result = await axios('http://localhost:5000/api/monthly_goals/' + user_id);
+        setData3(result.data.slice(0, 7));
+      }
+    })();
+  }, [props]);
 
   function showCalendar() {
     console.log('calendar');
@@ -36,7 +61,7 @@ function Frame(props) {
     })
       .then((resp) => {
         props.set_screen_tab(tab_name, resp.data);
-      })
+      });
   }
 
   function pastWeeklyTasks() {
@@ -46,8 +71,18 @@ function Frame(props) {
     })
       .then((resp) => {
         props.set_screen_tab(tab_name, resp.data);
-      })
+      });
   }
+
+  console.log(screen_tab);
+  console.log(data1);
+  console.log(data1.length);
+
+  console.log(data2);
+  console.log(data2.length);
+
+  console.log(data3);
+  console.log(data3.length);
 
   if (props.screen === 'register') {
     return (
@@ -127,6 +162,34 @@ function Frame(props) {
         </div>
       </div>
     )
+  } else if ((data1.length + data2.length + data3.length) == 0) {
+    return (
+      <div className="frame-container">
+        <div className="row">
+          <UserInfo/>
+        </div>
+        <table width={"100%"} height={"500"}>
+          <tbody>
+            <tr>
+              <td width={"40%"}>
+                <Bot/>
+              </td>
+              <td>
+                <div style={{padding: "10px", textAlign: "center"}}>
+                  <a href="https://coach.ai">
+                    <img src='/images/logo_coach_ai.png' width='45%'/>
+                  </a>
+                  <h3>Welcome to Coach.ai</h3>
+                  <p>Your Success Coach, Powered by AI</p>
+                  <p>We provide you with intelligent scheduling and planning to meet your goals</p>
+                  <p>Say hello to the chatbot.</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    )
   } else {
     return (
       <div className="frame-container">
@@ -180,6 +243,7 @@ function Frame(props) {
 
 const mapStateToProps = (state) => ({
   user: state.app.user,
+  content: state.app.content,
   screen: state.app.screen,
   screen_tab: state.app.screen_tab,
 });

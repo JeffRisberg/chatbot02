@@ -27,7 +27,7 @@ function TaskList(props) {
         setData(result.data.slice(0, 7));
       }
       if (scope === 'monthly') {
-        const result = await axios('http://localhost:5000/api/goals/' + user_id + '?done=' + done);
+        const result = await axios('http://localhost:5000/api/monthly_goals/' + user_id + '?done=' + done);
         setData(result.data.slice(0, 7));
       }
     })();
@@ -36,9 +36,9 @@ function TaskList(props) {
   function submit(e, task_id) {
     e.target.checked = false;
 
-    const url = 'http://localhost:5000/api/tasks';
+    const url = '/api/tasks';
 
-    const table = (scope === 'monthly' ? 'goals' : scope);
+    const table = (scope === 'monthly' ? 'monthly_goals' : scope);
 
     axios.put(url, {'id': task_id, 'table': table, 'done': 1}, {
       withCredentials: true,
@@ -63,8 +63,8 @@ function TaskList(props) {
                 <tr>
                   <th className="border-bottom">Priority</th>
                   <th className="border-bottom" style={{minWidth: '155px'}}>Name</th>
-                  <th className="border-bottom">Why</th>
-                  {scope !== 'daily' && <th className="border-bottom">Due Date</th>}
+                  {false && <th className="border-bottom">Why</th>}
+                  {false && scope !== 'daily' && <th className="border-bottom">Due Date</th>}
                   {done == '0' && <th className="border-bottom"></th>}
                 </tr>
               </thead>
@@ -73,8 +73,8 @@ function TaskList(props) {
                   <tr key={index}>
                     <td><span className="fw-normal">{t.priority}</span></td>
                     <td><span className="fw-normal">{t.name}</span></td>
-                    <td><span className="fw-normal">{t.why}</span></td>
-                    {scope !== 'daily' && <td><span className="fw-normal">
+                    {false && <td><span className="fw-normal">{t.why}</span></td>}
+                    {false && scope !== 'daily' && <td><span className="fw-normal">
                       {t.due_date !== null ? t.due_date.substr(5,11) : ''}
                     </span></td>}
                     {done == '0' && <td><span className="fw-normal">
