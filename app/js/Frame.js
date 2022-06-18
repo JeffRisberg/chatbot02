@@ -162,7 +162,7 @@ function Frame(props) {
         </div>
       </div>
     )
-  } else if ((data1.length + data2.length + data3.length) == 0) {
+  } else if ((data1.length + data2.length) == 0) {
     return (
       <div className="frame-container">
         <div className="row">
@@ -174,6 +174,7 @@ function Frame(props) {
               <td width={"40%"}>
                 <Bot/>
               </td>
+              {data3.length == 0 &&
               <td>
                 <div style={{padding: "10px", textAlign: "center"}}>
                   <a href="https://coach.ai">
@@ -182,9 +183,15 @@ function Frame(props) {
                   <h3>Welcome to Coach.ai</h3>
                   <p>Your Success Coach, Powered by AI</p>
                   <p>We provide you with intelligent scheduling and planning to meet your goals</p>
-                  <p>Say hello to the chatbot.</p>
+                  <p>Say hello to Coach Dara.</p>
                 </div>
               </td>
+              }
+              {data3.length > 0 &&
+              <td>
+                <MonthlyDashboard/>
+              </td>
+              }
             </tr>
           </tbody>
         </table>
