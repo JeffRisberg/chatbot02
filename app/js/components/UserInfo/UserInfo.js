@@ -80,12 +80,12 @@ function UserInfo(props) {
               <img src='/images/logo_coach_ai.png' width='100%'/>
             </a>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3">
             <p className="card-text"></p>
             <h5 className="card-title">Prepared for {first_name} {last_name}</h5>
             <h6>{moment().format('MMMM D, YYYY')}</h6>
           </div>
-          <div className="col-md-4" style={{marginTop: '18px'}}>
+          <div className="col-md-5" style={{marginTop: '18px'}}>
             <div className='navigation-header' onClick={onDashboard}>Dashboard</div>
             <div className='navigation-header' onClick={onMonthly}>Monthly</div>
             <div className='navigation-header' onClick={onWeekly}>Weekly</div>
