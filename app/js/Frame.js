@@ -24,37 +24,27 @@ function Frame(props) {
   const index = screen_tab.indexOf('|');
   screen_tab = screen_tab.substr(0, index);
 
-  const [data1, setData1] = useState([]);
-  const [data2, setData2] = useState([]);
-  const [data3, setData3] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
+    var url = '/api/daily_tasks/';
+
+    if (screen_tab === 'weekly') {
+      url = '/api/weekly_tasks/';
+    }
+    if (screen_tab === 'monthly') {
+      url = '/api/monthly_goals/';
+    }
+
     (async () => {
       if (user_id !== null) {
-        const result = await axios('http://localhost:5000/api/daily_tasks/' + user_id);
-        setData1(result.data.slice(0, 7));
-      }
-    })();
-    (async () => {
-      if (user_id !== null) {
-        const result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id);
-        setData2(result.data.slice(0, 7));
-      }
-    })();
-    (async () => {
-      if (user_id !== null) {
-        const result = await axios('http://localhost:5000/api/monthly_goals/' + user_id);
-        setData3(result.data.slice(0, 7));
+        const result = await axios('http://localhost:5000' + url + user_id);
+        setData(result.data.slice(0, 7));
       }
     })();
   }, [props]);
 
-  function showCalendar() {
-    console.log('calendar');
-    props.set_screen('calendar');
-  }
-
-  function pastDailyTasks() {
+  function pastDaily() {
     const tab_name = 'past_daily';
     axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
       withCredentials: true,
@@ -64,7 +54,7 @@ function Frame(props) {
       });
   }
 
-  function pastWeeklyTasks() {
+  function pastWeekly() {
     const tab_name = 'past_weekly';
     axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
       withCredentials: true,
@@ -74,36 +64,26 @@ function Frame(props) {
       });
   }
 
-  console.log(screen_tab);
-  console.log(data1);
-  console.log(data1.length);
-
-  console.log(data2);
-  console.log(data2.length);
-
-  console.log(data3);
-  console.log(data3.length);
-
   if (props.screen === 'register') {
     return (
       <div className="frame-container">
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-3 col-lg-2">
             <a href="https://coach.ai">
               <img src="/images/logo_coach_ai.png" width="150px"/>
             </a>
           </div>
-          <div className="col-md-10">
+          <div className="col-md-9 col-lg-10">
             <h2></h2>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-2 col-lg-3">
           </div>
-          <div className="col-md-6">
+          <div className="col-md-8 col-lg-6">
             <Register/>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-2 col-lg-3">
           </div>
         </div>
       </div>
@@ -111,6 +91,7 @@ function Frame(props) {
   } else if (props.screen === 'calendar') {
     return (
       <div className="frame-container">
+        <UserInfo/>
         <CalendarDashboard/>
       </div>
     )
@@ -128,7 +109,7 @@ function Frame(props) {
           </div>
         </div>
         <div className="row">
-          <div className="d-sm-nonecol-lg-3">
+          <div className="d-sm-none col-lg-3">
           </div>
           <div className="col-sm-12 col-lg-6">
             <EditUserProfile/>
@@ -142,12 +123,12 @@ function Frame(props) {
     return (
       <div className="frame-container">
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-3 col-lg-2">
             <a href="https://coach.ai">
               <img src="/images/logo_coach_ai.png" width="150px"/>
             </a>
           </div>
-          <div className="col-md-10">
+          <div className="col-md-9 col-lg-10">
             <h2></h2>
           </div>
         </div>
@@ -162,42 +143,7 @@ function Frame(props) {
         </div>
       </div>
     )
-  } else if ((data1.length + data2.length) == 0) {
-    return (
-      <div className="frame-container">
-        <div className="row">
-          <UserInfo/>
-        </div>
-        <table width={"100%"} height={"500"}>
-          <tbody>
-            <tr>
-              <td width={"40%"}>
-                <Bot/>
-              </td>
-              {data3.length == 0 &&
-              <td>
-                <div style={{padding: "10px", textAlign: "center"}}>
-                  <a href="https://coach.ai">
-                    <img src='/images/logo_coach_ai.png' width='45%'/>
-                  </a>
-                  <h3>Welcome to Coach.ai</h3>
-                  <p>Your Success Coach, Powered by AI</p>
-                  <p>We provide you with intelligent scheduling and planning to meet your goals</p>
-                  <p>Say hello to Coach Dara.</p>
-                </div>
-              </td>
-              }
-              {data3.length > 0 &&
-              <td>
-                <MonthlyDashboard/>
-              </td>
-              }
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    )
-  } else {
+  } else if (props.screen === 'dashboard') {
     return (
       <div className="frame-container">
         <div className="row">
@@ -229,13 +175,10 @@ function Frame(props) {
                 {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' &&
                 <>
                   <div>
-                    <button type="button" onClick={showCalendar} className="btn btn-link">Calendar</button>
+                    <button type="button" onClick={pastDaily} className="btn btn-link">Past Daily Tasks</button>
                   </div>
                   <div>
-                    <button type="button" onClick={pastDailyTasks} className="btn btn-link">Past Daily Tasks</button>
-                  </div>
-                  <div>
-                    <button type="button" onClick={pastWeeklyTasks} className="btn btn-link">Past Weekly Tasks</button>
+                    <button type="button" onClick={pastWeekly} className="btn btn-link">Past Weekly Goals</button>
                   </div>
                 </>
                 }
@@ -243,6 +186,37 @@ function Frame(props) {
             </tr>
           </tbody>
         </table>
+      </div>
+    )
+  } else { // this is the detail view (for screen_tab), with the 2,4,6 layout
+    return (
+      <div className="frame-container">
+        <div className="row">
+          <UserInfo/>
+        </div>
+        <div className="row">
+          <div className="col-md-1 col-lg-2">
+          </div>
+          <div className="col-md-5 col-lg-4" style={{verticalAlign: "top"}}>
+            <Bot/>
+          </div>
+          <div className="col-md-6 col-lg-6" style={{verticalAlign: "top"}}>
+            {data.length == 0 &&
+            <div style={{padding: "10px", textAlign: "center"}}>
+              <a href="https://coach.ai">
+                <img src='/images/logo_coach_ai.png' width='45%'/>
+              </a>
+              <h3>Welcome to Coach.ai</h3>
+              <p>Your Success Coach, Powered by AI</p>
+              <p>We provide you with intelligent scheduling and planning to meet your goals</p>
+              <p>Say hello to Coach Dara.</p>
+            </div>
+            }
+            {data.length > 0 && screen_tab == 'monthly' && <MonthlyDashboard details={true}/>}
+            {data.length > 0 && screen_tab == 'weekly' && <WeeklyDashboard details={true}/>}
+            {data.length > 0 && screen_tab == 'daily' && <DailyDashboard details={true}/>}
+          </div>
+        </div>
       </div>
     )
   }

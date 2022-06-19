@@ -16,7 +16,8 @@
 }
 
 .dayNamesRow {
-  margin: 40px 0 20px 0;
+  margin: 5px 0 5px 0;
+  background: #f0f0f0;
 }
 
 .parent > div {
@@ -32,6 +33,7 @@
     width: 150%;
   }
 }
+
 @media only screen and (max-width: 1920px) and (min-width: 1281px) {
   .calendar-header {
     display: flex;

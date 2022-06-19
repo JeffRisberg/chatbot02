@@ -7,6 +7,7 @@ import './DailyDashboard.css';
 import {set_screen_tab} from '../actions/screen';
 
 function DailyDashboard(props) {
+  const details = props.details;
   const my_name = 'daily';
   const screen_tab = props.screen_tab || '|';
   const index = screen_tab.indexOf('|');
@@ -26,13 +27,13 @@ function DailyDashboard(props) {
       <div className="dashboard-header" onClick={onClick} style={{textDecoration: 'underline', background: tab_color}}>Daily Tasks</div>
       <div className="row">
         <div className="col-md-12">
-          <TaskList scope={"daily"} done={"0"}/>
+          <TaskList details={details} scope={"daily"} done={"0"}/>
         </div>
       </div>
       <div className="row" style={{marginTop: "14px"}}>
         <div className="col-md-12">
           <h4>Completed</h4>
-          <TaskList scope={"daily"} done={"1"}/>
+          <TaskList details={details} scope={"daily"} done={"1"}/>
         </div>
       </div>
     </div>

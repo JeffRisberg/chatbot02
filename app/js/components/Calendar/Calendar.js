@@ -34,8 +34,6 @@ function Calendar(props) {
     })();
   }, []);
 
-  console.log(data);
-
   days.forEach(day => {
     var day1 = day;
     var day2 = new Date(day1);
@@ -51,9 +49,8 @@ function Calendar(props) {
         console.log('match on ' + title);
         day.events.push(event_data);
       }
-    })
+    });
   });
-
 
   const name_of_month = date.toLocaleString('default', {
     month: 'long',
@@ -61,18 +58,12 @@ function Calendar(props) {
 
   const year_of_month = date.getFullYear();
 
-  function done() {
-    props.set_screen(null);
-  }
-
   return (
     <div>
       <div style={{textAlign: "center", fontWeight: "bold", fontSize: "20px"}}>
         {name_of_month}
         &nbsp;
         {year_of_month}
-        &nbsp;&nbsp;&nbsp;
-        <button type="button" onClick={done} className="btn btn-link">Done</button>
       </div>
       <div className="dayNamesRow">
         <div className="dayNames">
