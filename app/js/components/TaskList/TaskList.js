@@ -39,7 +39,7 @@ function TaskList(props) {
 
     const url = 'http://localhost:5000/api/tasks';
 
-    const table = (scope === 'monthly' ? 'monthly_goals' : scope);
+    const table = scope;
 
     axios.put(url, {'id': task_id, 'table': table, 'done': 1}, {
       withCredentials: true,
