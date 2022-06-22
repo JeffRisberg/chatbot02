@@ -20,6 +20,10 @@ module.exports = {
         test: /\.scss$/,
         use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
       },
+      {
+        test: /\.less$/,
+        use: [ MiniCssExtractPlugin.loader, 'css-loader', 'less-loader' ]
+      },
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' },
       { test: /\.(jpe?g|png|gif|svg)$/i,
