@@ -5,6 +5,7 @@ import './CalendarDashboard.css';
 import '../components/WeeklyCalendar/style.less';
 
 function CalendarDashboard(props) {
+  console.log(props);
 
   const selectedIntervals = [
     {
