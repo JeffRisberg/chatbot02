@@ -54,7 +54,7 @@ const EditableCell = ({
     setValue(initialValue);
   }, [initialValue]);
 
-  return index === editableRowIndex ? (
+  return id !== 'priority' && index === editableRowIndex ? (
     <input value={value} onChange={onChange} onBlur={onBlur} />
   ) : (
     <p>{value}</p>

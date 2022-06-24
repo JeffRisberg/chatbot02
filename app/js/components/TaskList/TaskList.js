@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import {Card} from '@themesberg/react-bootstrap';
-import Table from '../Table'
+import EnhancedTable from '../EnhancedTable';
 import axios from 'axios';
 import './TaskList.css';
 
@@ -53,6 +53,7 @@ function TaskList(props) {
       });
   }
 
+  /*
   function handleEdit(e, row) {
     var index = row.index;
 
@@ -66,9 +67,11 @@ function TaskList(props) {
 
     // set row.firstName = newFirstName
   }
+  */
 
   const columns = [];
 
+  columns.push({Header: 'Priority', accessor: 'priority'});
   columns.push({Header: 'Name', accessor: 'name'});
 
   if (details === true) {
@@ -96,6 +99,7 @@ function TaskList(props) {
     })
   }
 
+  /*
   if (details === true && done === '0') {
     columns.push({
       Header: '',
@@ -107,14 +111,37 @@ function TaskList(props) {
       )
     })
   }
+  */
+
+  // When our cell renderer calls updateMyData, we'll use
+  // the rowIndex, columnId and new value to update the
+  // original data
+  const updateMyData = (rowIndex, columnId, value) => {
+    // We also turn on the flag to not reset the page
+    //setSkipPageReset(true)
+    setData(old =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          }
+        }
+        return row
+      })
+    )
+  }
 
   if (data.length > 0) {
     return (
       <div>
         <Card className="table-wrapper table-responsive shadow-sm">
           <Card.Body>
-            <Table className="tasks-table align-items-center"
-                   columns={columns} data={data}/>
+            <EnhancedTable className="tasks-table align-items-center"
+                           columns={columns} data={data}
+                           setData={setData}
+                           updateMyData={updateMyData}
+            />
           </Card.Body>
         </Card>
       </div>
