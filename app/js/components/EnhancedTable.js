@@ -1,6 +1,7 @@
 import React from 'react';
-
+import axios from 'axios';
 import PropTypes from 'prop-types';
+
 import {
   useGlobalFilter,
   usePagination,
@@ -134,6 +135,14 @@ const EnhancedTable = ({
                   console.log("updated row values:");
                   console.log(updatedRow);
                   // call your updateRow API
+                  const payload = {"id": currentIndex, "table": "weekly",
+                    "name": updatedRow.name, "why": updatedRow.why, "due_date": updatedRow.due_date };
+                  console.log(payload);
+
+                  const url = '/api/tasks';
+                  axios.put(url, payload, {
+                    withCredentials: true,
+                  })
                 }
               }}
             >

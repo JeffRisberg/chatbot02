@@ -81,6 +81,7 @@ function TaskList(props) {
   if (details === true && scope !== 'daily') {
     columns.push({
       Header: 'Due Date',
+      id: 'due_date',
       accessor: t => {
         return t.due_date !== null ? t.due_date.substr(5, 11) : '';
       }
