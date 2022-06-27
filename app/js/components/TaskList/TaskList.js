@@ -72,10 +72,10 @@ function TaskList(props) {
   const columns = [];
 
   columns.push({Header: 'Priority', accessor: 'priority'});
-  columns.push({Header: 'Name', accessor: 'name'});
+  columns.push({Header: 'Name', accessor: t => t.name || ''});
 
   if (details === true) {
-    columns.push({Header: 'Why', accessor: 'why'});
+    columns.push({Header: 'Why', accessor: t => t.why || ''});
   }
 
   if (details === true && scope !== 'daily') {
@@ -139,6 +139,7 @@ function TaskList(props) {
         <Card className="table-wrapper table-responsive shadow-sm">
           <Card.Body>
             <EnhancedTable className="tasks-table align-items-center"
+                           scope={scope}
                            columns={columns} data={data}
                            setData={setData}
                            updateMyData={updateMyData}

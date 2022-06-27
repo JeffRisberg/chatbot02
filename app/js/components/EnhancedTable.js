@@ -81,6 +81,7 @@ const defaultColumn = {
 };
 
 const EnhancedTable = ({
+  scope,
   columns,
   data,
   updateMyData,
@@ -123,7 +124,8 @@ const EnhancedTable = ({
           Header: "edit",
           Cell: ({ row, setEditableRowIndex, editableRowIndex }) => (
             <button style={{fontSize: '10px', borderWidth: '1px'}}
-              onClick={() => {
+              onMouseDown={() => {
+                console.log("clicked")
                 const currentIndex = row.index;
                 if (editableRowIndex !== currentIndex) {
                   // row requested for edit access
@@ -132,17 +134,19 @@ const EnhancedTable = ({
                   // request for saving the updated row
                   setEditableRowIndex(null);
                   const updatedRow = row.values;
-                  console.log("updated row values:");
-                  console.log(updatedRow);
-                  // call your updateRow API
-                  const payload = {"id": currentIndex, "table": "weekly",
-                    "name": updatedRow.name, "why": updatedRow.why, "due_date": updatedRow.due_date };
-                  console.log(payload);
 
-                  const url = '/api/tasks';
+                  // call tasks API with update request
+                  const payload = {"id": row.original.id, "table": scope,
+                    "name": updatedRow.name, "why": updatedRow.why, /*"due_date": updatedRow.due_date*/ };
+
+                  console.log(payload)
+                  const url = 'http://localhost:5000/api/tasks';
                   axios.put(url, payload, {
                     withCredentials: true,
                   })
+                    .then((resp) => {
+                      console.log(resp);
+                    })
                 }
               }}
             >
