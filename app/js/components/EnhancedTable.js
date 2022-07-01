@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import {
   //useGlobalFilter,
-  usePagination,
+  //usePagination,
   //useRowSelect,
-  useSortBy,
+  //useSortBy,
   useTable,
   useExpanded
 } from 'react-table';
