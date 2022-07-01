@@ -20,15 +20,32 @@ function TaskList(props) {
     (async () => {
       if (scope === 'daily') {
         const result = await axios('http://localhost:5000/api/daily_tasks/' + user_id + '?done=' + done);
-        setData(result.data.slice(0, 7));
+        const data = result.data.slice(0, 7);
+
+        setData(data);
       }
       if (scope === 'weekly') {
         const result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id + '?done=' + done);
-        setData(result.data.slice(0, 7));
+        const data = result.data.slice(0, 7);
+
+        data.forEach((row) => {
+          row.subRows = [
+            {'priority': 1, 'name': 'Daily task 1', 'due_date': '1234512 Jul 2022', 'id': 5, 'why': 'because'},
+            {'priority': 2, 'name': 'Daily task 2', 'due_date': '1234512 Jul 2022', 'id': 6, 'why': 'its there'}
+          ];
+        });
+        setData(data);
       }
       if (scope === 'monthly') {
         const result = await axios('http://localhost:5000/api/monthly_goals/' + user_id + '?done=' + done);
-        setData(result.data.slice(0, 7));
+        const data = result.data.slice(0, 7);
+
+        data.forEach((row) => {
+          row.subRows = [
+            {'priority': 1, 'name': 'Weekly task 1', 'due_date': '1234516 Jul 2022', 'id': 5, 'why': 'just because'}
+          ];
+        });
+        setData(data);
       }
     })();
   }, [props]);
@@ -140,7 +157,8 @@ function TaskList(props) {
           <Card.Body>
             <EnhancedTable className="tasks-table align-items-center"
                            scope={scope}
-                           columns={columns} data={data}
+                           columns={columns}
+                           data={data}
                            setData={setData}
                            updateMyData={updateMyData}
             />

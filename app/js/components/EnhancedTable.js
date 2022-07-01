@@ -3,11 +3,12 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import {
-  useGlobalFilter,
+  //useGlobalFilter,
   usePagination,
-  useRowSelect,
+  //useRowSelect,
   useSortBy,
-  useTable
+  useTable,
+  useExpanded
 } from 'react-table';
 
 /*
@@ -50,7 +51,7 @@ const EditableCell = ({
     updateMyData(index, id, value);
   };
 
-  // If the initialValue is changed externall, sync it up with our state
+  // If the initialValue is changed externally, sync it up with our state
   React.useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
@@ -93,7 +94,7 @@ const EnhancedTable = ({
     getTableProps,
     headerGroups,
     prepareRow,
-    page,
+    rows,
   } = useTable(
     {
       columns,
@@ -109,13 +110,33 @@ const EnhancedTable = ({
       // pass state variables so that we can access them in edit hook later
       editableRowIndex,
       setEditableRowIndex // setState hook for toggling edit on/off switch
+
     },
-    useGlobalFilter,
-    useSortBy,
-    usePagination,
-    useRowSelect,
+    useExpanded,
     (hooks) => {
       hooks.allColumns.push((columns) => [
+        {
+          // Build our expander column
+          id: 'expander', // Make sure it has an ID
+          Header: '',
+          Cell: ({ row }) =>
+            // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+            // to build the toggle for expanding a row
+            row.canExpand ? (
+              <span
+                {...row.getToggleRowExpandedProps({
+                  style: {
+                    // We can even use the row.depth property
+                    // and paddingLeft to indicate the depth
+                    // of the row
+                    paddingLeft: `${row.depth * 2}rem`,
+                  },
+                })}
+              >
+              {row.isExpanded ? 'V' : '>'}
+            </span>
+            ) : null,
+        },
         ...columns,
         // pass edit hook
         {
@@ -123,7 +144,7 @@ const EnhancedTable = ({
           id: "edit",
           Header: "edit",
           Cell: ({ row, setEditableRowIndex, editableRowIndex }) => (
-            <button style={{fontSize: '10px', borderWidth: '1px'}}
+            row.canExpand && <button style={{fontSize: '10px', borderWidth: '1px'}}
               onMouseDown={() => {
                 console.log("clicked")
                 const currentIndex = row.index;
@@ -168,9 +189,7 @@ const EnhancedTable = ({
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <td
-                  {...(column.id === "selection"
-                    ? column.getHeaderProps()
-                    : column.getHeaderProps(column.getSortByToggleProps()))}
+                  {...column.getHeaderProps()}
                 >
                   {column.render("Header")}
                 </td>
@@ -179,13 +198,13 @@ const EnhancedTable = ({
           ))}
         </thead>
         <tbody>
-          {page.map((row) => {
+          {rows.map((row) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()} style={row.depth === 1 ? {fontStyle: 'italic'} : {}}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>
+                    <td {...cell.getCellProps()} style={row.depth === 1 ? {paddingLeft: '25px'} : {}}>
                       {cell.render("Cell")}
                     </td>
                   );
