@@ -16,36 +16,56 @@ function TaskList(props) {
 
   const [data, setData] = useState([]);
 
+  const host = 'http://localhost:5000';
+
   useEffect(() => {
     (async () => {
       if (scope === 'daily') {
-        const result = await axios('http://localhost:5000/api/daily_tasks/' + user_id + '?done=' + done);
+        const result = await axios(host + '/api/daily_tasks/' + user_id + '?done=' + done);
         const data = result.data.slice(0, 7);
 
         setData(data);
       }
       if (scope === 'weekly') {
-        const result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id + '?done=' + done);
-        const data = result.data.slice(0, 7);
+        const result1 = await axios(host + 'api/weekly_tasks/' + user_id + '?done=' + done);
+        const data1 = result1.data.slice(0, 7);
+        const result2 = await axios(host + 'daily_tasks/' + user_id + '?done=' + done);
+        const data2 = result2.data.slice(0, 7);
 
-        data.forEach((row) => {
-          row.subRows = [
-            {'priority': 1, 'name': 'Daily task 1', 'due_date': '1234512 Jul 2022', 'id': 5, 'why': 'because'},
-            {'priority': 2, 'name': 'Daily task 2', 'due_date': '1234512 Jul 2022', 'id': 6, 'why': 'its there'}
-          ];
+        data1.forEach((row1) => {
+          const parent_id = row1.id;
+          const subRows = [];
+          data2.forEach((row2) => {
+            if (row2.week_task_id === parent_id) {
+              subRows.push(row2);
+            }
+          });
+          if (subRows.length > 0) {
+            row1.subRows = subRows;
+          }
         });
-        setData(data);
+
+        setData(data1);
       }
       if (scope === 'monthly') {
-        const result = await axios('http://localhost:5000/api/monthly_goals/' + user_id + '?done=' + done);
-        const data = result.data.slice(0, 7);
+        const result1 = await axios(host + '/api/monthly_goals/' + user_id + '?done=' + done);
+        const data1 = result1.data.slice(0, 7);
+        const result2 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done);
+        const data2 = result2.data.slice(0, 7);
 
-        data.forEach((row) => {
-          row.subRows = [
-            {'priority': 1, 'name': 'Weekly task 1', 'due_date': '1234516 Jul 2022', 'id': 5, 'why': 'just because'}
-          ];
+        data1.forEach((row1) => {
+          const parent_id = row1.id;
+          const subRows = [];
+          data2.forEach((row2) => {
+            if (row2.montly_goal_id === parent_id) {
+              subRows.push(row2);
+            }
+          });
+          if (subRows.length > 0) {
+            row1.subRows = subRows;
+          }
         });
-        setData(data);
+        setData(data1);
       }
     })();
   }, [props]);
@@ -53,7 +73,7 @@ function TaskList(props) {
   function submit(e, row) {
     e.target.checked = false;
 
-    const url = 'http://localhost:5000/api/tasks';
+    const url = host + '/api/tasks';
     const table = scope;
     const task_id = row.original.id;
 
@@ -69,22 +89,6 @@ function TaskList(props) {
         }
       });
   }
-
-  /*
-  function handleEdit(e, row) {
-    var index = row.index;
-
-    const task_id = row.original.id;
-
-    console.log('edit event at ' + index + ' ' + task_id);
-
-    // display modal
-    // say user types in modal new firstName
-    // post request
-
-    // set row.firstName = newFirstName
-  }
-  */
 
   const columns = [];
 
