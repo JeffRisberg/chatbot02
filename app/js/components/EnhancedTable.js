@@ -2,24 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
-import {
-  //useGlobalFilter,
-  //usePagination,
-  //useRowSelect,
-  //useSortBy,
-  useTable,
-  useExpanded
-} from 'react-table';
+import {useExpanded, useTable} from 'react-table';
 
 
 // Create an editable cell renderer
 const EditableCell = ({
-  value: initialValue,
-  row: { index },
-  column: { id },
-  updateMyData, // This is a custom function that we supplied to our table instance
-  editableRowIndex // index of the row we requested for editing
-}) => {
+                        value: initialValue,
+                        row: {index},
+                        column: {id},
+                        updateMyData, // This is a custom function that we supplied to our table instance
+                        editableRowIndex // index of the row we requested for editing
+                      }) => {
   // We need to keep and update the state of the cell normally
   const [value, setValue] = React.useState(initialValue);
 
@@ -38,7 +31,7 @@ const EditableCell = ({
   }, [initialValue]);
 
   return id !== 'priority' && index === editableRowIndex ? (
-    <input value={value} onChange={onChange} onBlur={onBlur} />
+    <input value={value} onChange={onChange} onBlur={onBlur}/>
   ) : (
     <p>{value}</p>
   );
@@ -63,12 +56,12 @@ const defaultColumn = {
 };
 
 const EnhancedTable = ({
-  scope,
-  columns,
-  data,
-  updateMyData,
-  //skipPageReset
-}) => {
+                         scope,
+                         columns,
+                         data,
+                         updateMyData,
+                         //skipPageReset
+                       }) => {
   const [editableRowIndex, setEditableRowIndex] = React.useState(null);
 
   const {
@@ -91,66 +84,44 @@ const EnhancedTable = ({
       // pass state variables so that we can access them in edit hook later
       editableRowIndex,
       setEditableRowIndex // setState hook for toggling edit on/off switch
-
     },
     useExpanded,
     (hooks) => {
       hooks.allColumns.push((columns) => [
-        {
-          // Build our expander column
-          id: 'expander', // Make sure it has an ID
-          Header: '',
-          Cell: ({ row }) =>
-            // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-            // to build the toggle for expanding a row
-            row.canExpand ? (
-              <span
-                {...row.getToggleRowExpandedProps({
-                  style: {
-                    // We can even use the row.depth property
-                    // and paddingLeft to indicate the depth
-                    // of the row
-                    paddingLeft: `${row.depth * 2}rem`,
-                  },
-                })}
-              >
-              {row.isExpanded ? 'V' : '>'}
-            </span>
-            ) : null,
-        },
         ...columns,
-        // pass edit hook
         {
           accessor: "edit",
           id: "edit",
           Header: "edit",
-          Cell: ({ row, setEditableRowIndex, editableRowIndex }) => (
-            row.canExpand && <button style={{fontSize: '10px', borderWidth: '1px'}}
-              onMouseDown={() => {
-                console.log("clicked")
-                const currentIndex = row.index;
-                if (editableRowIndex !== currentIndex) {
-                  // row requested for edit access
-                  setEditableRowIndex(currentIndex);
-                } else {
-                  // request for saving the updated row
-                  setEditableRowIndex(null);
-                  const updatedRow = row.values;
+          Cell: ({row, setEditableRowIndex, editableRowIndex}) => (
+            row.depth === 0 && <button style={{fontSize: '10px', borderWidth: '1px'}}
+                                       onMouseDown={() => {
+                                         console.log("clicked")
+                                         const currentIndex = row.index;
+                                         if (editableRowIndex !== currentIndex) {
+                                           // row requested for edit access
+                                           setEditableRowIndex(currentIndex);
+                                         } else {
+                                           // request for saving the updated row
+                                           setEditableRowIndex(null);
+                                           const updatedRow = row.values;
 
-                  // call tasks API with update request
-                  const payload = {"id": row.original.id, "table": scope,
-                    "name": updatedRow.name, "why": updatedRow.why, /*"due_date": updatedRow.due_date*/ };
+                                           // call tasks API with update request
+                                           const payload = {
+                                             "id": row.original.id, "table": scope,
+                                             "name": updatedRow.name, "why": updatedRow.why, /*"due_date": updatedRow.due_date*/
+                                           };
 
-                  console.log(payload)
-                  const url = 'http://localhost:5000/api/tasks';
-                  axios.put(url, payload, {
-                    withCredentials: true,
-                  })
-                    .then((resp) => {
-                      console.log(resp);
-                    })
-                }
-              }}
+                                           console.log(payload)
+                                           const url = 'http://localhost:5000/api/tasks';
+                                           axios.put(url, payload, {
+                                             withCredentials: true,
+                                           })
+                                             .then((resp) => {
+                                               console.log(resp);
+                                             })
+                                         }
+                                       }}
             >
               {/* single action button supporting 2 modes */}
               {editableRowIndex !== row.index ? "Edit" : "Save"}

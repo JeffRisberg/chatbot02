@@ -27,16 +27,16 @@ function TaskList(props) {
         setData(data);
       }
       if (scope === 'weekly') {
-        const result1 = await axios(host + 'api/weekly_tasks/' + user_id + '?done=' + done);
+        const result1 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done);
         const data1 = result1.data.slice(0, 7);
-        const result2 = await axios(host + 'daily_tasks/' + user_id + '?done=' + done);
+        const result2 = await axios(host + '/api/daily_tasks/' + user_id + '?done=' + done);
         const data2 = result2.data.slice(0, 7);
 
         data1.forEach((row1) => {
           const parent_id = row1.id;
           const subRows = [];
           data2.forEach((row2) => {
-            if (row2.week_task_id === parent_id) {
+            if (row2.weekly_task_id === parent_id) {
               subRows.push(row2);
             }
           });
@@ -57,7 +57,7 @@ function TaskList(props) {
           const parent_id = row1.id;
           const subRows = [];
           data2.forEach((row2) => {
-            if (row2.montly_goal_id === parent_id) {
+            if (row2.monthly_goal_id === parent_id) {
               subRows.push(row2);
             }
           });
@@ -91,6 +91,30 @@ function TaskList(props) {
   }
 
   const columns = [];
+
+  if (details === true) {
+    columns.push(
+      {id: 'expander',
+        Header: '',
+        Cell: ({row}) =>
+          // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+          // to build the toggle for expanding a row
+          row.canExpand ? (
+            <span
+              {...row.getToggleRowExpandedProps({
+                style: {
+                  // We can even use the row.depth property
+                  // and paddingLeft to indicate the depth
+                  // of the row
+                  paddingLeft: `${row.depth * 2}rem`,
+                },
+              })}
+            >
+              {row.isExpanded ? 'V' : '>'}
+            </span>
+          ) : null,
+      });
+  }
 
   columns.push({Header: 'Priority', accessor: 'priority'});
   columns.push({Header: 'Name', accessor: t => t.name || ''});
