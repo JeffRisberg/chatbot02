@@ -29,7 +29,14 @@ function TaskList(props) {
       if (scope === 'weekly') {
         const result1 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done);
         const data1 = result1.data.slice(0, 7);
-        const result2 = await axios(host + '/api/daily_tasks/' + user_id + '?done=' + done);
+
+        const parent_ids = [];
+        data1.forEach((row1) => {
+          const parent_id = row1.id;
+          parent_ids.push(parent_id);
+        });
+
+        const result2 = await axios(host + '/api/daily_tasks/' + user_id + '?done=' + done + '&parent_ids=' + parent_ids);
         const data2 = result2.data.slice(0, 7);
 
         data1.forEach((row1) => {
@@ -50,7 +57,14 @@ function TaskList(props) {
       if (scope === 'monthly') {
         const result1 = await axios(host + '/api/monthly_goals/' + user_id + '?done=' + done);
         const data1 = result1.data.slice(0, 7);
-        const result2 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done);
+
+        const parent_ids = [];
+        data1.forEach((row1) => {
+          const parent_id = row1.id;
+          parent_ids.push(parent_id);
+        });
+
+        const result2 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done + '&parent_ids=' + parent_ids);
         const data2 = result2.data.slice(0, 7);
 
         data1.forEach((row1) => {
@@ -123,12 +137,12 @@ function TaskList(props) {
     columns.push({Header: 'Why', accessor: t => t.why || ''});
   }
 
-  if (details === true && scope !== 'daily') {
+  if (details === true && scope === 'monthly') {
     columns.push({
       Header: 'Due Date',
       id: 'due_date',
       accessor: t => {
-        return t.due_date !== null ? t.due_date.substr(5, 11) : '';
+        return t.due_date !== undefined && t.due_date !== null ? t.due_date.substr(5, 11) : '';
       }
     });
   }
