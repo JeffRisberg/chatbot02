@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {Card} from '@themesberg/react-bootstrap';
+import {Card, ProgressBar} from '@themesberg/react-bootstrap';
 import EnhancedTable from '../EnhancedTable';
 import axios from 'axios';
 import './TaskList.css';
@@ -11,24 +11,29 @@ import {showUpdate} from '../../actions/content';
 function TaskList(props) {
   const details = props.details;
   const scope = props.scope;
-  const done = props.done;
+  const done = parseInt(props.done);
   const user_id = props.user.id;
 
   const [data, setData] = useState([]);
+  const [count, setCount] = useState(0);
 
   const host = 'http://localhost:5000';
 
   useEffect(() => {
     (async () => {
       if (scope === 'daily') {
-        const result = await axios(host + '/api/daily_tasks/' + user_id + '?done=' + done);
-        const data = result.data.slice(0, 7);
+        const result = await axios(host + '/api/daily_tasks/' + user_id);
+        const data = result.data.slice(0, 10);
 
-        setData(data);
+        setCount(data.length);
+        setData(data.filter(row => row.done === done));
       }
       if (scope === 'weekly') {
-        const result1 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done);
-        const data1 = result1.data.slice(0, 7);
+        const result1 = await axios(host + '/api/weekly_tasks/' + user_id);
+        let data1 = result1.data.slice(0, 10);
+
+        setCount(data1.length);
+        data1 = data1.filter(row => row.done === done);
 
         const parent_ids = [];
         data1.forEach((row1) => {
@@ -37,7 +42,7 @@ function TaskList(props) {
         });
 
         const result2 = await axios(host + '/api/daily_tasks/' + user_id + '?done=' + done + '&parent_ids=' + parent_ids);
-        const data2 = result2.data.slice(0, 7);
+        const data2 = result2.data.slice(0, 10);
 
         data1.forEach((row1) => {
           const parent_id = row1.id;
@@ -55,8 +60,11 @@ function TaskList(props) {
         setData(data1);
       }
       if (scope === 'monthly') {
-        const result1 = await axios(host + '/api/monthly_goals/' + user_id + '?done=' + done);
-        const data1 = result1.data.slice(0, 7);
+        const result1 = await axios(host + '/api/monthly_goals/' + user_id);
+        let data1 = result1.data.slice(0, 10);
+
+        setCount(data1.length);
+        data1 = data1.filter(row => row.done === done);
 
         const parent_ids = [];
         data1.forEach((row1) => {
@@ -79,6 +87,7 @@ function TaskList(props) {
             row1.subRows = subRows;
           }
         });
+
         setData(data1);
       }
     })();
@@ -159,23 +168,7 @@ function TaskList(props) {
     })
   }
 
-  /*
-  if (details === true && done === '0') {
-    columns.push({
-      Header: '',
-      id: 'edit',
-      Cell: ({row}) => (
-        <button style={{fontSize: '10px', borderWidth: '1px'}} onClick={(e) => handleEdit(e, row)}>
-          Edit
-        </button>
-      )
-    })
-  }
-  */
-
-  // When our cell renderer calls updateMyData, we'll use
-  // the rowIndex, columnId and new value to update the
-  // original data
+  // When our cell renderer calls updateMyData, we'll use the rowIndex, columnId and new value to update original data
   const updateMyData = (rowIndex, columnId, value) => {
     // We also turn on the flag to not reset the page
     //setSkipPageReset(true)
@@ -193,10 +186,13 @@ function TaskList(props) {
   }
 
   if (data.length > 0) {
+    const now = Math.round(100.0 * data.length / count);
+
     return (
       <div>
         <Card className="table-wrapper table-responsive shadow-sm">
           <Card.Body>
+            {done == 0 && <ProgressBar now={now} />}
             <EnhancedTable className="tasks-table align-items-center"
                            scope={scope}
                            columns={columns}

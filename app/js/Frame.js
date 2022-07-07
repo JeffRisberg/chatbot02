@@ -26,27 +26,30 @@ function Frame(props) {
 
   const [data, setData] = useState([]);
 
+  const host = 'http://localhost:5000';
+
   useEffect(() => {
-    var url = '/api/daily_tasks/';
+    var url = host + '/api/daily_tasks/';
 
     if (screen_tab === 'weekly') {
-      url = '/api/weekly_tasks/';
+      url = host + '/api/weekly_tasks/';
     }
     if (screen_tab === 'monthly') {
-      url = '/api/monthly_goals/';
+      url = host + '/api/monthly_goals/';
     }
 
     (async () => {
       if (user_id !== null) {
-        const result = await axios('http://localhost:5000' + url + user_id);
+        const result = await axios('' + url + user_id);
         setData(result.data.slice(0, 7));
       }
     })();
   }, [props]);
 
+  /*
   function pastDaily() {
     const tab_name = 'past_daily';
-    axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
+    axios.post('/change_screen/' + tab_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
@@ -56,13 +59,14 @@ function Frame(props) {
 
   function pastWeekly() {
     const tab_name = 'past_weekly';
-    axios.post('http://localhost:5000/change_screen/' + tab_name, null, {
+    axios.post('/change_screen/' + tab_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
         props.set_screen_tab(tab_name, resp.data);
       });
   }
+   */
 
   if (props.screen === 'register') {
     return (
@@ -149,43 +153,28 @@ function Frame(props) {
         <div className="row">
           <UserInfo/>
         </div>
-        <table width={"100%"}>
-          <tbody>
-            <tr>
-              <td valign={"top"} width={"33%"} style={{border: "1px solid #888"}}>
-                <MonthlyDashboard/>
-              </td>
-              <td valign={"top"} width={"33%"}>
-                <WeeklyDashboard/>
-              </td>
-              <td valign={"top"} width={"33%"} style={{border: "1px solid #888"}}>
-                {screen_tab == 'past_daily' && <PastDailyDashboard/>}
-                {screen_tab == 'past_weekly' && <PastWeeklyDashboard/>}
-                {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' && <DailyDashboard/>}
-              </td>
-            </tr>
-            <tr>
-              <td valign={"top"} style={{border: "1px solid #888"}}>
-                &nbsp;
-              </td>
-              <td valign={"top"} width={"33%"}>
-                <Bot/>
-              </td>
-              <td valign={"top"} style={{border: "1px solid #888"}}>
-                {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' &&
-                <>
-                  <div>
-                    <button type="button" onClick={pastDaily} className="btn btn-link">Past Daily Tasks</button>
-                  </div>
-                  <div>
-                    <button type="button" onClick={pastWeekly} className="btn btn-link">Past Weekly Goals</button>
-                  </div>
-                </>
-                }
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="row">
+          <div className="col-lg-1">
+          </div>
+          <div valign={"top"} className="col-lg-10">
+            <MonthlyDashboard/>
+          </div>
+          <div className="col-lg-1">
+          </div>
+        </div>
+        <div>
+          &nbsp;
+        </div>
+        <div className="row">
+          <div valign={"top"} className="col-lg-7">
+            <WeeklyDashboard/>
+            {screen_tab == 'past_weekly' && <PastWeeklyDashboard/>}
+          </div>
+          <div valign={"top"} className="col-lg-5">
+            {screen_tab !== 'past_daily' && screen_tab !== 'past_weekly' && <DailyDashboard/>}
+            {screen_tab == 'past_daily' && <PastDailyDashboard/>}
+          </div>
+        </div>
       </div>
     )
   } else { // this is the detail view (for screen_tab), with the 2,4,6 layout

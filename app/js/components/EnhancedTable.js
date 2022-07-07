@@ -135,7 +135,7 @@ const EnhancedTable = ({
   // Render the UI for your table
   return (
     <div>
-      <table className="table table-striped" width={"100%"} {...getTableProps()}>
+      <table className="table" width={"100%"} {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
