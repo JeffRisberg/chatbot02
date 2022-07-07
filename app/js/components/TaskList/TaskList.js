@@ -156,7 +156,7 @@ function TaskList(props) {
     });
   }
 
-  if (done === '0') {
+  if (done === 0) {
     columns.push({
       Header: '',
       id: 'submit',
@@ -186,7 +186,7 @@ function TaskList(props) {
   }
 
   if (data.length > 0) {
-    const now = Math.round(100.0 * data.length / count);
+    const now = Math.round(100.0 * (count - data.length) / count);
 
     return (
       <div>
