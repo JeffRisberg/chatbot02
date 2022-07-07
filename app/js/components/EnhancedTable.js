@@ -75,11 +75,8 @@ const EnhancedTable = ({
       data,
       defaultColumn,
       autoResetPage: true, // !skipPageReset,
-      // updateMyData isn't part of the API, but
-      // anything we put into these options will
-      // automatically be available on the instance.
-      // That way we can call this function from our
-      // cell renderer!
+      // updateMyData isn't part of the API, but anything we put into these options will automatically be available
+      // on the instance.  That way we can call this function from our cell renderer!
       updateMyData,
       // pass state variables so that we can access them in edit hook later
       editableRowIndex,

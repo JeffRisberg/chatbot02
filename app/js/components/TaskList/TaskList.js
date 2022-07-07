@@ -73,7 +73,7 @@ function TaskList(props) {
         });
 
         const result2 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done + '&parent_ids=' + parent_ids);
-        const data2 = result2.data.slice(0, 7);
+        const data2 = result2.data.slice(0, 10);
 
         data1.forEach((row1) => {
           const parent_id = row1.id;
@@ -139,17 +139,17 @@ function TaskList(props) {
       });
   }
 
-  columns.push({Header: 'Priority', accessor: 'priority'});
-  columns.push({Header: 'Name', accessor: t => t.name || ''});
+  columns.push({id: 'priority', Header: 'Priority', accessor: 'priority'});
+  columns.push({id: 'name', Header: 'Name', accessor: t => t.name || ''});
 
   if (details === true) {
-    columns.push({Header: 'Why', accessor: t => t.why || ''});
+    columns.push({id: 'why', Header: 'Why', accessor: t => t.why || ''});
   }
 
   if (details === true && scope === 'monthly') {
     columns.push({
-      Header: 'Due Date',
       id: 'due_date',
+      Header: 'Due Date',
       accessor: t => {
         return t.due_date !== undefined && t.due_date !== null ? t.due_date.substr(5, 11) : '';
       }
@@ -158,8 +158,8 @@ function TaskList(props) {
 
   if (done === 0) {
     columns.push({
-      Header: '',
       id: 'submit',
+      Header: '',
       Cell: ({row}) => (
         <span className='fw-normal'>
           <input type="checkbox" onChange={(e) => submit(e, row)}/>
