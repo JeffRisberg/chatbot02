@@ -157,7 +157,7 @@ function Frame(props) {
           <div className="col-lg-1">
           </div>
           <div valign={"top"} className="col-lg-10">
-            <MonthlyDashboard/>
+            <MonthlyDashboard details={true}/>
           </div>
           <div className="col-lg-1">
           </div>
