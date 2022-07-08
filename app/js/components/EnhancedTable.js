@@ -91,38 +91,54 @@ const EnhancedTable = ({
           id: "edit",
           Header: "edit",
           Cell: ({row, setEditableRowIndex, editableRowIndex}) => (
-            row.depth === 0 && <button style={{fontSize: '10px', borderWidth: '1px'}}
-                                       onMouseDown={() => {
-                                         console.log("clicked")
-                                         const currentIndex = row.index;
-                                         if (editableRowIndex !== currentIndex) {
-                                           // row requested for edit access
-                                           setEditableRowIndex(currentIndex);
-                                         } else {
-                                           // request for saving the updated row
-                                           setEditableRowIndex(null);
-                                           const updatedRow = row.values;
+            row.depth === 0 && <div style={{display: 'inline-block'}}>
+              <span onClick={() => {
+                const currentIndex = row.index;
+                if (editableRowIndex !== currentIndex) {
+                  // row requested for edit access
+                  setEditableRowIndex(currentIndex);
+                } else {
+                  // request for saving the updated row
+                  setEditableRowIndex(null);
+                  const updatedRow = row.values;
 
-                                           // call tasks API with update request
-                                           const payload = {
-                                             "id": row.original.id, "table": scope,
-                                             "name": updatedRow.name, "why": updatedRow.why, /*"due_date": updatedRow.due_date*/
-                                           };
+                  // call tasks API with update request
+                  const payload = {
+                    "id": row.original.id, "table": scope,
+                    "name": updatedRow.name, "why": updatedRow.why, /*"due_date": updatedRow.due_date*/
+                  };
 
-                                           console.log(payload)
-                                           const url = 'http://localhost:5000/api/tasks';
-                                           axios.put(url, payload, {
-                                             withCredentials: true,
-                                           })
-                                             .then((resp) => {
-                                               console.log(resp);
-                                             })
-                                         }
-                                       }}
-            >
-              {/* single action button supporting 2 modes */}
-              {editableRowIndex !== row.index ? "Edit" : "Save"}
-            </button>
+                  const url = 'http://localhost:5000/api/tasks';
+                  axios.put(url, payload, {
+                    withCredentials: true,
+                  })
+                    .then((resp) => {
+                      console.log(resp);
+                    })
+                }
+              }}
+              >
+                {/* single action button supporting 2 modes */}
+                {editableRowIndex !== row.index ?
+                  <i className="bi-pencil" style={{cursor: 'pointer', fontSize: '1.3rem'}}></i>
+                  :
+                  <i className="bi-save" style={{cursor: 'pointer', fontSize: '1.3rem'}}></i>}
+              </span>
+              &nbsp;
+              <span onClick={() => {
+                // call tasks API with delete request
+                const url = 'http://localhost:5000/api/tasks/' + row.original.id + "?table=" + scope;
+                axios.delete(url, null, {
+                  withCredentials: true,
+                })
+                  .then((resp) => {
+                    console.log(resp);
+                  })
+              }}
+              >
+                <i className="bi-trash" style={{cursor: 'pointer', fontSize: '1.3rem'}}></i>
+              </span>
+            </div>
           )
         }
       ]);
