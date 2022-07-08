@@ -3,7 +3,10 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 
 import {useExpanded, useTable} from 'react-table';
+import {connect} from 'react-redux';
 
+// eslint-disable-next-line no-unused-vars
+import {showUpdate} from '../actions/content';
 
 // Create an editable cell renderer
 const EditableCell = ({
@@ -60,7 +63,7 @@ const EnhancedTable = ({
                          columns,
                          data,
                          updateMyData,
-                         //skipPageReset
+                         showUpdate
                        }) => {
   const [editableRowIndex, setEditableRowIndex] = React.useState(null);
 
@@ -133,6 +136,7 @@ const EnhancedTable = ({
                 })
                   .then((resp) => {
                     console.log(resp);
+                    showUpdate(row.original.id)
                   })
               }}
               >
@@ -191,4 +195,7 @@ EnhancedTable.propTypes = {
   //skipPageReset: PropTypes.bool.isRequired
 };
 
-export default EnhancedTable;
+export default connect(
+  null,
+  {showUpdate}
+)(EnhancedTable);
