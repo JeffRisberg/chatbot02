@@ -48,7 +48,7 @@ function TaskList(props) {
           const parent_id = row1.id;
           const subRows = [];
           data2.forEach((row2) => {
-            if (row2.weekly_task_id === parent_id) {
+            if (row2.parent_id === parent_id) {
               subRows.push(row2);
             }
           });
@@ -79,7 +79,7 @@ function TaskList(props) {
           const parent_id = row1.id;
           const subRows = [];
           data2.forEach((row2) => {
-            if (row2.monthly_goal_id === parent_id) {
+            if (row2.parent_id === parent_id) {
               subRows.push(row2);
             }
           });
@@ -159,7 +159,7 @@ function TaskList(props) {
   if (done === 0) {
     columns.push({
       id: 'submit',
-      Header: '',
+      Header: 'Done',
       Cell: ({row}) => (
         <span className='fw-normal'>
           <input type="checkbox" onChange={(e) => submit(e, row)}/>

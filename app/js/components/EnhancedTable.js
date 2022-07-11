@@ -33,7 +33,7 @@ const EditableCell = ({
     setValue(initialValue);
   }, [initialValue]);
 
-  return id !== 'priority' && index === editableRowIndex ? (
+  return id !== 'priority' && id !== 'due_date' && index === editableRowIndex ? (
     <input value={value} onChange={onChange} onBlur={onBlur}/>
   ) : (
     <p>{value}</p>
@@ -92,7 +92,7 @@ const EnhancedTable = ({
         {
           accessor: "edit",
           id: "edit",
-          Header: "edit",
+          Header: "Edit",
           Cell: ({row, setEditableRowIndex, editableRowIndex}) => (
             row.depth === 0 && <div style={{display: 'inline-block'}}>
               <span onClick={() => {
