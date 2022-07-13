@@ -17,11 +17,13 @@ function CalendarDashboard(props) {
 
   useEffect(() => {
     (async () => {
-      const result = await axios('http://localhost:5000/api/events/' + user_id);
+      const result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id);
       const events = [];
 
-      result.data.forEach((event) => {
-        const start = event.start;
+      result.data.forEach((weekly_task) => {
+        const event = {};
+
+        const start = weekly_task.Monday;
         const end = event.end;
 
         event.start = start.replace('T00:00:00', '');
