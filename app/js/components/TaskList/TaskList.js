@@ -11,11 +11,9 @@ import {showUpdate} from '../../actions/content';
 function TaskList(props) {
   const details = props.details;
   const scope = props.scope;
-  const done = parseInt(props.done);
   const user_id = props.user.id;
 
   const [data, setData] = useState([]);
-  const [count, setCount] = useState(0);
 
   const host = 'http://localhost:5000';
 
@@ -23,26 +21,23 @@ function TaskList(props) {
     (async () => {
       if (scope === 'daily') {
         const result = await axios(host + '/api/daily_tasks/' + user_id);
-        const data = result.data.slice(0, 10);
+        const data = result.data;
 
-        setCount(data.length);
-        setData(data.filter(row => row.done === done));
+        setData(data);
       }
       if (scope === 'weekly') {
         const result1 = await axios(host + '/api/weekly_tasks/' + user_id);
-        let data1 = result1.data.slice(0, 10);
-
-        setCount(data1.length);
-        data1 = data1.filter(row => row.done === done);
+        let data1 = result1.data;
 
         const parent_ids = [];
         data1.forEach((row1) => {
+          console.log(row1);
           const parent_id = row1.id;
           parent_ids.push(parent_id);
         });
 
-        const result2 = await axios(host + '/api/daily_tasks/' + user_id + '?done=' + done + '&parent_ids=' + parent_ids);
-        const data2 = result2.data.slice(0, 10);
+        const result2 = await axios(host + '/api/daily_tasks/' + user_id + '?parent_ids=' + parent_ids);
+        const data2 = result2.data;
 
         data1.forEach((row1) => {
           const parent_id = row1.id;
@@ -61,10 +56,7 @@ function TaskList(props) {
       }
       if (scope === 'monthly') {
         const result1 = await axios(host + '/api/monthly_goals/' + user_id);
-        let data1 = result1.data.slice(0, 10);
-
-        setCount(data1.length);
-        data1 = data1.filter(row => row.done === done);
+        let data1 = result1.data;
 
         const parent_ids = [];
         data1.forEach((row1) => {
@@ -72,8 +64,8 @@ function TaskList(props) {
           parent_ids.push(parent_id);
         });
 
-        const result2 = await axios(host + '/api/weekly_tasks/' + user_id + '?done=' + done + '&parent_ids=' + parent_ids);
-        const data2 = result2.data.slice(0, 10);
+        const result2 = await axios(host + '/api/weekly_tasks/' + user_id + '?parent_ids=' + parent_ids);
+        const data2 = result2.data;
 
         data1.forEach((row1) => {
           const parent_id = row1.id;
@@ -96,9 +88,18 @@ function TaskList(props) {
   function submit(e, row) {
     e.target.checked = false;
 
-    const url = host + '/api/tasks';
-    const table = scope;
     const task_id = row.original.id;
+    const url = host + '/api/tasks';
+    let table = scope;
+
+    if (row.depth === 1) {
+      if (table === 'monthly') {
+        table = 'weekly';
+      }
+      else if (table === 'weekly') {
+        table = 'daily';
+      }
+    }
 
     axios.put(url, {'id': task_id, 'table': table, 'done': 1}, {
       withCredentials: true,
@@ -156,17 +157,16 @@ function TaskList(props) {
     });
   }
 
-  if (done === 0) {
-    columns.push({
-      id: 'submit',
-      Header: 'Done',
-      Cell: ({row}) => (
-        <span className='fw-normal'>
-          <input type="checkbox" onChange={(e) => submit(e, row)}/>
-        </span>
-      )
-    })
-  }
+  columns.push({
+    id: 'submit',
+    Header: 'Done',
+    Cell: ({row}) => (
+      <span className='fw-normal'>
+        {row.original.done == 1 && <input type="checkbox" checked={true} onChange={(e) => submit(e, row)}/>}
+        {row.original.done != 1 && <input type="checkbox" onChange={(e) => submit(e, row)}/>}
+      </span>
+    )
+  })
 
   // When our cell renderer calls updateMyData, we'll use the rowIndex, columnId and new value to update original data
   const updateMyData = (rowIndex, columnId, value) => {
@@ -186,13 +186,17 @@ function TaskList(props) {
   }
 
   if (data.length > 0) {
-    const now = Math.round(100.0 * (count - data.length) / count);
+    var count = 0;
+    data.forEach((task) => {
+      if (task.done === 1) count++;
+    });
+    const now = Math.round((100.0 * count) / data.length);
 
     return (
       <div>
         <Card className="table-wrapper table-responsive shadow-sm">
           <Card.Body>
-            {done == 0 && <ProgressBar now={now} />}
+            <ProgressBar now={now} />
             <EnhancedTable className="tasks-table align-items-center"
                            scope={scope}
                            columns={columns}
