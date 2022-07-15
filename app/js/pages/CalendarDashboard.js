@@ -99,7 +99,7 @@ function CalendarDashboard(props) {
         //eventChange={this.handleEventChange} // called for drag-n-drop/resize
         //eventRemove={this.handleEventRemove}
       />
-      <TaskModal show={state.show}/>
+      <TaskModal/>
     </div>
   )
 }
