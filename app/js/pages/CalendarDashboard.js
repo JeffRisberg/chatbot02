@@ -66,9 +66,11 @@ function CalendarDashboard(props) {
   }
 
   function handleEventClick(clickInfo) {
-    setState({
-      show: true
-    });
+    console.log(clickInfo);
+
+    //setState({
+    //  show: true
+    //});
   }
 
   console.log(data);
