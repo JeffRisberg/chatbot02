@@ -5,7 +5,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import TaskModal from '../Components/TaskModal/TaskModal';
+//import TaskModal from '../Components/TaskModal/TaskModal';
 
 import './CalendarDashboard.css';
 
@@ -66,9 +66,9 @@ function CalendarDashboard(props) {
   }
 
   function handleEventClick(clickInfo) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove() // will render immediately. will call handleEventRemove
-    }
+    setState({
+      show: true
+    });
   }
 
   console.log(data);
@@ -97,6 +97,7 @@ function CalendarDashboard(props) {
         //eventChange={this.handleEventChange} // called for drag-n-drop/resize
         //eventRemove={this.handleEventRemove}
       />
+      <TaskModal show={state.show}/>
     </div>
   )
 }
