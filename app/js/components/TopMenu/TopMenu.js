@@ -7,15 +7,6 @@ import {set_screen} from "../../actions/screen";
 
 function TopMenu(props) {
 
-  function do_logout() {
-    props.clear_user();
-    const url = 'http://localhost:5000/logout';
-
-    axios.post(url, {}, {
-      withCredentials: true,
-    });
-  }
-
   function onHome() {
     props.set_screen('home');
   }
@@ -62,6 +53,12 @@ function TopMenu(props) {
 
   function onLogout() {
     console.log("onLogout");
+    props.clear_user();
+    const url = 'http://localhost:5000/logout';
+
+    axios.post(url, {}, {
+      withCredentials: true,
+    });
   }
 
   return (
@@ -73,7 +70,9 @@ function TopMenu(props) {
       <Dropdown.Menu>
         <Dropdown.Item onClick={onHome}>Home</Dropdown.Item>
         <Dropdown.Item onClick={onMonthly}>Goals</Dropdown.Item>
-        <Dropdown.Item onClick={onHome}>Calendar</Dropdown.Item>
+        <Dropdown.Item onClick={onWeekly}>Weekly</Dropdown.Item>
+        <Dropdown.Item onClick={onDaily}>Daily</Dropdown.Item>
+        <Dropdown.Item onClick={onCalendar}>Calendar</Dropdown.Item>
         <Dropdown.Item>----</Dropdown.Item>
         <Dropdown.Item onClick={onAbout}>About</Dropdown.Item>
         <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
