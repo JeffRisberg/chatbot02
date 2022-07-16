@@ -6,7 +6,6 @@ import {Card} from '@themesberg/react-bootstrap';
 
 import {clear_user} from '../../actions/user';
 import {set_screen} from '../../actions/screen';
-import {set_screen_tab} from '../../actions/screen';
 
 function UserInfo(props) {
   const user = props.user;
@@ -37,8 +36,7 @@ function UserInfo(props) {
       withCredentials: true,
     })
       .then((resp) => {
-        props.set_screen(null);
-        props.set_screen_tab(my_name, resp.data);
+        props.set_screen(my_name, resp.data);
       });
   }
 
@@ -49,8 +47,7 @@ function UserInfo(props) {
       withCredentials: true,
     })
       .then((resp) => {
-        props.set_screen(null);
-        props.set_screen_tab(my_name, resp.data);
+        props.set_screen(my_name, resp.data);
       });
   }
 
@@ -61,8 +58,7 @@ function UserInfo(props) {
       withCredentials: true,
     })
       .then((resp) => {
-        props.set_screen(null);
-        props.set_screen_tab(my_name, resp.data);
+        props.set_screen(my_name, resp.data);
       });
   }
 
@@ -109,5 +105,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {clear_user, set_screen, set_screen_tab}
+  {clear_user, set_screen}
 )(UserInfo);

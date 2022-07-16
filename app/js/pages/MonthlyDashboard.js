@@ -4,21 +4,21 @@ import axios from 'axios';
 import TaskList from '../components/TaskList/TaskList';
 import './MonthlyDashboard.css';
 
-import {set_screen_tab} from '../actions/screen';
+import {set_screen} from '../actions/screen';
 
 function MonthlyDashboard(props) {
   const details = props.details;
   const my_name = 'monthly';
-  const screen_tab = props.screen_tab || '|';
-  const index = screen_tab.indexOf('|');
-  const tab_color = (screen_tab.substr(0, index) === my_name) ? '#6daa6d' : '#aaa';
+  const screen = props.screen || '|';
+  const index = screen.indexOf('|');
+  const tab_color = (screen.substr(0, index) === my_name) ? '#6daa6d' : '#aaa';
 
   function onClick() {
     axios.post('http://localhost:5000/change_screen/' + my_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
-        props.set_screen_tab(my_name, resp.data);
+        props.set_screen(my_name, resp.data);
       });
   }
 
@@ -35,10 +35,10 @@ function MonthlyDashboard(props) {
 }
 
 const mapStateToProps = (state) => ({
-  screen_tab: state.app.screen_tab,
+  screen: state.app.screen,
 });
 
 export default connect(
   mapStateToProps,
-  {set_screen_tab}
+  {set_screen}
 )(MonthlyDashboard);

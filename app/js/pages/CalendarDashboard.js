@@ -6,6 +6,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 //import TaskModal from '../Components/TaskModal/TaskModal';
+import TopMenu from '../Components/TopMenu/TopMenu';
 
 import './CalendarDashboard.css';
 
@@ -77,6 +78,20 @@ function CalendarDashboard(props) {
 
   return (
     <div className="CalendarDashboard">
+      <div className="row">
+        <div className="col-lg-1">
+          <TopMenu/>
+        </div>
+        <div className="col-lg-10">
+          &nbsp;
+        </div>
+        <div className="col-lg-1">
+          <button>
+            <i className="bi-home" style={{cursor: 'pointer', fontSize: '2.0rem'}}></i>
+          </button>
+        </div>
+      </div>
+      <TopMenu />
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{

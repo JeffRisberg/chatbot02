@@ -10,9 +10,9 @@ import MessageParser from '../../bot/MessageParser';
 import ActionProvider from '../../bot/ActionProvider';
 
 function Bot(props) {
-  const screen_tab = props.screen_tab || 'unknown|Hello';
-  const index = screen_tab.indexOf('|');
-  const initial_message = screen_tab.substr(index+1);
+  const screen = props.screen || 'unknown|Hello';
+  const index = screen.indexOf('|');
+  const initial_message = screen.substr(index+1);
 
   config.initialMessages = [
     createChatBotMessage(initial_message)
@@ -22,7 +22,7 @@ function Bot(props) {
     <div className="Chatbot">
       <header className="Chatbot-header">
         <Chatbot
-          key={screen_tab}
+          key={screen}
           config={config}
           messageParser={MessageParser}
           actionProvider={ActionProvider}
@@ -33,7 +33,7 @@ function Bot(props) {
 }
 
 const mapStateToProps = (state) => ({
-  screen_tab: state.app.screen_tab,
+  screen: state.app.screen,
 });
 
 export default connect(

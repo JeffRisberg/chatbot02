@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import './Register.css';
+import './RegisterForm.css';
 
 import {Field, Form, withFormik} from 'formik';
 import * as Yup from 'yup';
