@@ -13,6 +13,7 @@ import MonthlyDashboard from './pages/MonthlyDashboard';
 import CalendarDashboard from './pages/CalendarDashboard';
 
 import {set_screen} from './actions/screen';
+import TopMenu from "./components/TopMenu/TopMenu";
 
 function Frame(props) {
   const user_id = props.user != null ? props.user.id : null;
@@ -42,31 +43,58 @@ function Frame(props) {
     })();
   }, [props]);
 
-  console.log(props.screen);
-  if (props.screen === 'calendar') {
-    return (
-      <div className="frame-container">
-        <CalendarDashboard/>
-      </div>
-    )
-  } else if (props.user === null) {
+  function onHome() {
+    props.set_screen('home');
+  }
+
+  console.log(screen);
+
+  if (props.user === null) {
     return (
       <Login/>
     )
-  } else if (props.screen === 'home') {
+  } else if (screen === 'calendar') {
+    return (
+      <div className="frame-container">
+        <div>
+          <div style={{float: 'left'}}>
+            <TopMenu/>
+          </div>
+          <div style={{float: 'right'}}>
+            <button onClick={onHome} style={{borderWidth: 0}}>
+              <i className="bi-house" style={{cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+            </button>
+          </div>
+        </div>
+        <div style={{clear: 'both'}} className="row">
+          <CalendarDashboard/>
+        </div>
+      </div>
+    )
+  } else if (screen === 'home') {
     return (
       <Home/>
     )
-  } else { // this is the detail view
+  } else { // this is a detail view
     return (
       <div className="frame-container">
-        <div className="row">
-          <div className="col-md-1 col-lg-2">
+        <div>
+          <div style={{float: 'left'}}>
+            <TopMenu/>
+          </div>
+          <div style={{float: 'right'}}>
+            <button onClick={onHome} style={{borderWidth: 0}}>
+              <i className="bi-house" style={{cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+            </button>
+          </div>
+        </div>
+        <div style={{clear: 'both'}} className="row">
+          <div className="col-md-1 col-lg-1">
           </div>
           <div className="col-md-5 col-lg-4" style={{verticalAlign: "top"}}>
             <Bot/>
           </div>
-          <div className="col-md-6 col-lg-6" style={{verticalAlign: "top"}}>
+          <div className="col-md-6 col-lg-7" style={{verticalAlign: "top"}}>
             {data.length == 0 &&
             <div style={{padding: "10px", textAlign: "center"}}>
               <a href="https://coach.ai">

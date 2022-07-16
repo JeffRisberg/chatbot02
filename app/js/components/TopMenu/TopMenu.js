@@ -63,8 +63,8 @@ function TopMenu(props) {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle id='dropdown-basic'>
-        <i className='bi-list' style={{cursor: 'pointer', fontSize: '2.5rem'}}></i>
+      <Dropdown.Toggle id='dropdown-basic' style={{background: 'none', padding: 0, borderWidth: 0}}>
+        <i className='bi-list' style={{cursor: 'pointer', fontSize: '2.0rem'}}></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>

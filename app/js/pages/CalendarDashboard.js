@@ -5,9 +5,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-//import TaskModal from '../Components/TaskModal/TaskModal';
-import TopMenu from '../Components/TopMenu/TopMenu';
-
+import TaskModal from '../Components/TaskModal/TaskModal'
 import './CalendarDashboard.css';
 
 // eslint-disable-next-line no-unused-vars
@@ -78,20 +76,6 @@ function CalendarDashboard(props) {
 
   return (
     <div className="CalendarDashboard">
-      <div className="row">
-        <div className="col-lg-1">
-          <TopMenu/>
-        </div>
-        <div className="col-lg-10">
-          &nbsp;
-        </div>
-        <div className="col-lg-1">
-          <button>
-            <i className="bi-home" style={{cursor: 'pointer', fontSize: '2.0rem'}}></i>
-          </button>
-        </div>
-      </div>
-      <TopMenu />
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -114,7 +98,7 @@ function CalendarDashboard(props) {
         //eventChange={this.handleEventChange} // called for drag-n-drop/resize
         //eventRemove={this.handleEventRemove}
       />
-      <TaskModal/>
+      <TaskModal />
     </div>
   )
 }

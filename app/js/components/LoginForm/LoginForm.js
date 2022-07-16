@@ -61,7 +61,7 @@ const LoginFormik = withFormik({
         .then(response => {
           if (response.status == 200 && response.data != null && response.data.length > 0) {
             props.set_user(response.data[0]);
-            props.set_screen('home');
+            props.set_screen('home', '');
 
           } else {
             // HANDLE ERROR
