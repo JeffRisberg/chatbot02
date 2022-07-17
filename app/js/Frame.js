@@ -47,8 +47,6 @@ function Frame(props) {
     props.set_screen('home');
   }
 
-  console.log(screen);
-
   if (props.user === null) {
     return (
       <Login/>
@@ -56,13 +54,13 @@ function Frame(props) {
   } else if (screen === 'calendar') {
     return (
       <div className="frame-container">
-        <div>
+        <div style={{height: '45px', background: '#136dd2'}}>
           <div style={{float: 'left'}}>
             <TopMenu/>
           </div>
           <div style={{float: 'right'}}>
-            <button onClick={onHome} style={{borderWidth: 0}}>
-              <i className="bi-house" style={{cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+            <button onClick={onHome} style={{background: 'none', borderWidth: 0}}>
+              <i className="bi-house" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
             </button>
           </div>
         </div>
@@ -78,17 +76,17 @@ function Frame(props) {
   } else { // this is a detail view
     return (
       <div className="frame-container">
-        <div>
+        <div style={{height: '45px', background: '#136dd2'}}>
           <div style={{float: 'left'}}>
             <TopMenu/>
           </div>
           <div style={{float: 'right'}}>
-            <button onClick={onHome} style={{borderWidth: 0}}>
-              <i className="bi-house" style={{cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+            <button onClick={onHome} style={{background: 'none', borderWidth: 0}}>
+              <i className="bi-house" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
             </button>
           </div>
         </div>
-        <div style={{clear: 'both'}} className="row">
+        <div style={{marginTop: '30px', clear: 'both'}} className="row">
           <div className="col-md-1 col-lg-1">
           </div>
           <div className="col-md-5 col-lg-4" style={{verticalAlign: "top"}}>
