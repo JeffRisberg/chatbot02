@@ -5,7 +5,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import TaskModal from '../Components/TaskModal/TaskModal'
+import TaskModal from '../components/TaskModal/TaskModal'
 import './CalendarDashboard.css';
 
 // eslint-disable-next-line no-unused-vars

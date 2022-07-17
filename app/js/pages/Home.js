@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import TopMenu from '../components/TopMenu/TopMenu';
 import axios from 'axios';
@@ -6,9 +6,28 @@ import {set_screen} from "../actions/screen";
 import './Home.css';
 
 function Home(props) {
+  const user_id = props.user.id;
   const user = props.user;
-
   const firstName = user !== null ? user.first_name : '';
+
+  const [monthlyData, setMonthlyData] = useState([]);
+  const [weeklyData, setWeeklyData] = useState([]);
+
+  const host = 'http://localhost:5000';
+
+  useEffect(() => {
+    (async () => {
+        const result1 = await axios(host + '/api/monthly_tasks/' + user_id);
+        const data1 = result1.data;
+
+        setMonthlyData(data1);
+
+        const result2 = await axios(host + '/api/weekly_tasks/' + user_id);
+        const data2 = result2.data;
+
+        setWeeklyData(data2);
+      })
+  });
 
   function onMonthly() {
     const my_name = 'monthly';
@@ -30,6 +49,9 @@ function Home(props) {
         props.set_screen(my_name, resp.data);
       });
   }
+
+  console.log(monthlyData);
+  console.log(weeklyData);
 
   return (
     <div className='home-container'>
