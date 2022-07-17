@@ -31,7 +31,7 @@ function Home(props) {
 
   function onMonthly() {
     const my_name = 'monthly';
-    axios.post('http://localhost:5000/change_screen/' + my_name, null, {
+    axios.post(host + '/change_screen/' + my_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
@@ -42,7 +42,7 @@ function Home(props) {
   function onWeekly() {
     const my_name = 'weekly';
 
-    axios.post('http://localhost:5000/change_screen/' + my_name, null, {
+    axios.post(host + '/change_screen/' + my_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
