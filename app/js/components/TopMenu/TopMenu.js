@@ -1,9 +1,9 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
-import axios from "axios";
-import {connect} from "react-redux";
-import {clear_user} from "../../actions/user";
-import {set_screen} from "../../actions/screen";
+import axios from 'axios';
+import {clear_user} from '../../actions/user';
+import {set_screen} from '../../actions/screen';
 
 function TopMenu(props) {
 
@@ -13,7 +13,7 @@ function TopMenu(props) {
 
   function onMonthly() {
     const my_name = 'monthly';
-    axios.post('http://localhost:5000/change_screen/' + my_name, null, {
+    axios.post('/change_screen/' + my_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
@@ -24,7 +24,7 @@ function TopMenu(props) {
   function onWeekly() {
     const my_name = 'weekly';
 
-    axios.post('http://localhost:5000/change_screen/' + my_name, null, {
+    axios.post('/change_screen/' + my_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
@@ -35,7 +35,7 @@ function TopMenu(props) {
   function onDaily() {
     const my_name = 'daily';
 
-    axios.post('http://localhost:5000/change_screen/' + my_name, null, {
+    axios.post('/change_screen/' + my_name, null, {
       withCredentials: true,
     })
       .then((resp) => {
@@ -47,14 +47,15 @@ function TopMenu(props) {
     props.set_screen('calendar');
   }
 
-  function onAbout() {
-    props.set_screen('about');
+  function onContactUs() {
+    //props.set_screen('about');
+    console.log('contactUs');
   }
 
   function onLogout() {
     console.log("onLogout");
     props.clear_user();
-    const url = 'http://localhost:5000/logout';
+    const url = '/logout';
 
     axios.post(url, {}, {
       withCredentials: true,
@@ -74,7 +75,7 @@ function TopMenu(props) {
         <Dropdown.Item onClick={onDaily}>Daily</Dropdown.Item>
         <Dropdown.Item onClick={onCalendar}>Calendar</Dropdown.Item>
         <Dropdown.Item>----</Dropdown.Item>
-        <Dropdown.Item onClick={onAbout}>About</Dropdown.Item>
+        <Dropdown.Item onClick={onContactUs}>Contact Us</Dropdown.Item>
         <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

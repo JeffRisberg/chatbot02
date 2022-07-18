@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import TopMenu from '../components/TopMenu/TopMenu';
 import axios from 'axios';
-import {set_screen} from "../actions/screen";
+import TopMenu from '../components/TopMenu/TopMenu';
 import './Home.css';
+
+import {set_screen} from "../actions/screen";
 
 function Home(props) {
   const user_id = props.user.id;
@@ -17,16 +18,16 @@ function Home(props) {
 
   useEffect(() => {
     (async () => {
-        const result1 = await axios(host + '/api/monthly_tasks/' + user_id);
-        const data1 = result1.data;
+      const result1 = await axios(host + '/api/monthly_tasks/' + user_id);
+      const data1 = result1.data;
 
-        setMonthlyData(data1);
+      setMonthlyData(data1);
 
-        const result2 = await axios(host + '/api/weekly_tasks/' + user_id);
-        const data2 = result2.data;
+      const result2 = await axios(host + '/api/weekly_tasks/' + user_id);
+      const data2 = result2.data;
 
-        setWeeklyData(data2);
-      })
+      setWeeklyData(data2);
+    });
   });
 
   function onMonthly() {
@@ -61,10 +62,10 @@ function Home(props) {
         </div>
         <div style={{float: 'right'}}>
           <button onClick={onWeekly} style={{background: 'none', borderWidth: 0}}>
-            <span style={{color: 'white'}}>This Week</span>
+            <span style={{textDecoration: 'underline', color: 'white'}}>This Week's Goals</span>
           </button>
           <button onClick={onMonthly} style={{background: 'none', borderWidth: 0}}>
-            <span style={{color: 'white'}}>This Month</span>
+            <span style={{textDecoration: 'underline', color: 'white'}}>This Month's Goals</span>
           </button>
         </div>
       </div>
