@@ -70,9 +70,9 @@ function TopMenu(props) {
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={onHome}>Home</Dropdown.Item>
-        <Dropdown.Item onClick={onMonthly}>Goals</Dropdown.Item>
-        <Dropdown.Item onClick={onWeekly}>Weekly</Dropdown.Item>
-        <Dropdown.Item onClick={onDaily}>Daily</Dropdown.Item>
+        <Dropdown.Item onClick={onMonthly}>Monthly Goals</Dropdown.Item>
+        <Dropdown.Item onClick={onWeekly}>Weekly Goals</Dropdown.Item>
+        <Dropdown.Item onClick={onDaily}>Daily Tasks</Dropdown.Item>
         <Dropdown.Item onClick={onCalendar}>Calendar</Dropdown.Item>
         <Dropdown.Item>----</Dropdown.Item>
         <Dropdown.Item onClick={onContactUs}>Contact Us</Dropdown.Item>
