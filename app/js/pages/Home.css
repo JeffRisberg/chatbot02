@@ -6,3 +6,32 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.home-container .goal-box {
+  float: right;
+  text-align: center;
+  background: #5489D9;
+  margin-right: 10px;
+  margin-top: 6px;
+  padding: 6px;
+}
+
+.home-container .goal-box button {
+  border-width: 0;
+  background: none;
+}
+
+.home-container .goal-box button span {
+  text-decoration: underline;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.home-container .goal-box ol {
+  text-align: left;
+  color: white;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
