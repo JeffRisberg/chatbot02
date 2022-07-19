@@ -60,7 +60,7 @@ function Frame(props) {
           </div>
           <div style={{float: 'right'}}>
             <button onClick={onHome} style={{background: 'none', borderWidth: 0}}>
-              <i className="bi-house" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+              <i className="bi-house-fill" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
             </button>
           </div>
         </div>
@@ -82,7 +82,7 @@ function Frame(props) {
           </div>
           <div style={{float: 'right'}}>
             <button onClick={onHome} style={{background: 'none', borderWidth: 0}}>
-              <i className="bi-house" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+              <i className="bi-house-fill" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
             </button>
           </div>
         </div>
