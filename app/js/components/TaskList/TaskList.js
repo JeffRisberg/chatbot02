@@ -31,7 +31,6 @@ function TaskList(props) {
 
         const parent_ids = [];
         data1.forEach((row1) => {
-          console.log(row1);
           const parent_id = row1.id;
           parent_ids.push(parent_id);
         });
