@@ -89,7 +89,10 @@ function Home(props) {
       <div style={{clear: 'both', height: '550px', color: 'white', display: 'grid', alignItems: 'center', justifyContent: 'center'}}>
         <div>
           <h1 style={{textAlign: 'center'}}>Hi, {firstName}</h1>
-          <h2 style={{textAlign: 'center'}}>Now</h2>
+          {dailyData.length > 0 &&
+          <h2 style={{textAlign: 'center'}}>Now</h2>}
+          {dailyData.length === 0 &&
+          <h2 style={{textAlign: 'center'}}>What do you want to work on today?</h2>}
           {dailyData.map((goal) => (
             <h1 style={{textDecoration: 'underline', textAlign: 'center'}} key={goal.id}>
               {goal.name}
