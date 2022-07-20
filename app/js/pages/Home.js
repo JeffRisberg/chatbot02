@@ -13,6 +13,7 @@ function Home(props) {
 
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData, setWeeklyData] = useState([]);
+  const [dailyData, setDailyData] = useState([]);
 
   const host = 'http://localhost:5000';
 
@@ -27,6 +28,11 @@ function Home(props) {
       const data2 = result2.data.slice(0, 3);
 
       setWeeklyData(data2);
+
+      const result3 = await axios(host + '/api/daily_tasks/' + user_id);
+      const data3 = result3.data.slice(0, 1);
+
+      setDailyData(data3);
     })();
   }, []);
 
@@ -50,6 +56,8 @@ function Home(props) {
         props.set_screen(my_name, resp.data);
       });
   }
+
+  console.log(dailyData);
 
   return (
     <div className='home-container'>
@@ -79,7 +87,15 @@ function Home(props) {
         </div>
       </div>
       <div style={{clear: 'both', height: '550px', color: 'white', display: 'grid', alignItems: 'center', justifyContent: 'center'}}>
-        <h1>Hi, {firstName}</h1>
+        <div>
+          <h1 style={{textAlign: 'center'}}>Hi, {firstName}</h1>
+          <h2 style={{textAlign: 'center'}}>Now</h2>
+          {dailyData.map((goal) => (
+            <h1 style={{textDecoration: 'underline', textAlign: 'center'}} key={goal.id}>
+              {goal.name}
+            </h1>
+          ))}
+        </div>
       </div>
     </div>
   )
