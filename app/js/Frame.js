@@ -95,11 +95,8 @@ function Frame(props) {
           <div className="col-md-6 col-lg-7" style={{verticalAlign: "top"}}>
             {data.length == 0 &&
             <div style={{padding: "10px", textAlign: "center"}}>
-              <a href="https://coach.ai">
-                <img src='/images/logo_priority_ai.png' width='45%'/>
-              </a>
+              <img src='/images/logo_priority.png' width='35%'/>
               <h3>Welcome to Priority!</h3>
-              <p>Prioritize Your Time</p>
               <p>We provide you with intelligent scheduling and planning to meet your goals</p>
               <p>Say hello to Dara.</p>
             </div>
