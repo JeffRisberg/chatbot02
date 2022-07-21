@@ -96,12 +96,12 @@ function Frame(props) {
             {data.length == 0 &&
             <div style={{padding: "10px", textAlign: "center"}}>
               <a href="https://coach.ai">
-                <img src='/images/logo_coach_ai.png' width='45%'/>
+                <img src='/images/logo_priority_ai.png' width='45%'/>
               </a>
-              <h3>Welcome to Coach.ai</h3>
-              <p>Your Success Coach, Powered by AI</p>
+              <h3>Welcome to Priority!</h3>
+              <p>Prioritize Your Time</p>
               <p>We provide you with intelligent scheduling and planning to meet your goals</p>
-              <p>Say hello to Coach Dara.</p>
+              <p>Say hello to Dara.</p>
             </div>
             }
             {data.length > 0 && screen == 'monthly' && <MonthlyDashboard details={true}/>}
