@@ -57,8 +57,6 @@ function Home(props) {
       });
   }
 
-  console.log(dailyData);
-
   return (
     <div className='home-container'>
       <div style={{height: '45px'}}>
