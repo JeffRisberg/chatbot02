@@ -52,7 +52,7 @@ function LandingPage(props) {
             &nbsp;
           </div>
           <div class="col-md-2 col-lg-2">
-            <img src="/images/logo_priority.png" width="150px"/>
+            <img src="/images/logo_priority.png" width="180px"/>
           </div>
           <div class="col-md-3 col-lg-3">
           </div>

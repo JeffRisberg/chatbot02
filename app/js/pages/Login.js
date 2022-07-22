@@ -12,8 +12,8 @@ function Login() {
           &nbsp;
         </div>
         <div className="col-md-4" style={{background: "white"}}>
-          <a href="https://coach.ai">
-            <img src="/images/logo_coach_ai.png" width="150px"/>
+          <a href="https://demo.coach.ai">
+            <img src="/images/logo_priority.png" width="160px"/>
           </a>
         </div>
         <div className="col-md-10">
@@ -32,6 +32,5 @@ function Login() {
     </div>
   )
 }
-
 
 export default Login;
