@@ -56,14 +56,10 @@ function LandingPage(props) {
           </div>
           <div class="col-md-3 col-lg-3">
           </div>
-          <div class="col-md-1 col-lg-1">
-            <p class="text-base font-medium">Product</p>
-          </div>
-          <div class="col-md-1 col-lg-1">
-            <p class="text-base font-medium">Contact Us</p>
-          </div>
-          <div class="col-md-1 col-lg-1">
-            <p class="text-base font-medium">Features</p>
+          <div class="col-md-1 col-lg-3">
+            <p style={{float: "left", paddingRight: '30px'}} class="text-base font-medium">Product</p>
+            <p style={{float: "left", paddingRight: '30px'}} class="text-base font-medium">Contact Us</p>
+            <p style={{float: "left", paddingRight: '30px'}} class="text-base font-medium">Features</p>
           </div>
           <div class="col-md-3 col-lg-3" style={{marginTop: "-30px"}}>
             <button onClick={onLogin} className="google-signin-btn">
