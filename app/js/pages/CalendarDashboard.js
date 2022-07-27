@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-import TaskModal from '../components/TaskModal/TaskModal'
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import TaskModal from '../components/TaskModal/TaskModal';
 import './CalendarDashboard.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
+const localizer = momentLocalizer(moment);
 
 // eslint-disable-next-line no-unused-vars
 import regeneratorRuntime from 'regenerator-runtime';
@@ -19,7 +20,7 @@ function CalendarDashboard(props) {
   useEffect(() => {
     (async () => {
       const events = [];
-      var result = await axios('http://localhost:5000/api/weekly_tasks/' + user_id + '?all=1');
+      var result = await axios('/api/weekly_tasks/' + user_id + '?all=1');
 
       result.data.forEach((weekly_task) => {
         const event = {};
@@ -27,15 +28,15 @@ function CalendarDashboard(props) {
         const start = weekly_task.start;
         const end = weekly_task.end;
 
-        event.start = start.replace('T00:00:00', '');
-        event.end = end.replace('T00:00:00', '');
+        event.start = Date.parse(start);
+        event.end = Date.parse(end);
         event.title = 'Weekly ' + weekly_task.name;
         event.color = weekly_task.done === 1 ? '#8F8' : '#F88';
 
         events.push(event);
       });
 
-      result = await axios('http://localhost:5000/api/daily_tasks/' + user_id + '?all=1');
+      result = await axios('/api/daily_tasks/' + user_id + '?all=1');
 
       result.data.forEach((daily_task) => {
         const event = {};
@@ -43,8 +44,8 @@ function CalendarDashboard(props) {
         const start = daily_task.start;
         const end = daily_task.end;
 
-        event.start = start.replace('T00:00:00', '');
-        event.end = end.replace('T00:00:00', '');
+        event.start = Date.parse(start);
+        event.end = Date.parse(end);
         event.title = daily_task.name;
         event.color = daily_task.done === 1 ? '#8F8' : '#F88';
 
@@ -76,28 +77,15 @@ function CalendarDashboard(props) {
 
   return (
     <div className="CalendarDashboard">
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        headerToolbar={{
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        }}
-        initialView='timeGridWeek'
-        //editable={true}
-        //selectable={true}
-        //selectMirror={true}
-        //dayMaxEvents={true}
-        //weekends={this.props.weekendsVisible}
-        //datesSet={handleDates}
-        //select={handleDateSelect}
-        events={data}
-        eventContent={renderEventContent} // custom render function
-        eventClick={handleEventClick}
-        //eventAdd={this.handleEventAdd}
-        //eventChange={this.handleEventChange} // called for drag-n-drop/resize
-        //eventRemove={this.handleEventRemove}
-      />
+      <div>
+        <Calendar
+          localizer={localizer}
+          events={data}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 500 }}
+        />
+      </div>
       <TaskModal />
     </div>
   )
