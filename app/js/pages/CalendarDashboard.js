@@ -55,26 +55,6 @@ function CalendarDashboard(props) {
     })();
   }, []);
 
-  function renderEventContent(eventInfo) {
-    return (
-      <>
-        <b>{eventInfo.timeText}</b>
-        &nbsp;
-        {eventInfo.event.title}
-      </>
-    )
-  }
-
-  function handleEventClick(clickInfo) {
-    console.log(clickInfo);
-
-    //setState({
-    //  show: true
-    //});
-  }
-
-  console.log(data);
-
   return (
     <div className="CalendarDashboard">
       <div>
