@@ -8,7 +8,7 @@ import {set_user} from '../actions/user';
 import {set_screen} from '../actions/screen';
 
 function LandingPage(props) {
-  const onLogin = useGoogleLogin({
+  const onLoginGmail = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
 
       console.log("google tokenResponse:", tokenResponse);
@@ -19,7 +19,7 @@ function LandingPage(props) {
       console.log("res:", res);
 
       const email = res.data.email;
-      const values = {email: email, password: "pw"};
+      const values = {email: email, password: "pw", token: tokenResponse.access_token};
 
       axios.post("/login", values, {
         withCredentials: true,
@@ -35,14 +35,13 @@ function LandingPage(props) {
           }
         })
     },
+    scope: 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
   });
 
-  /*
-  function onLogin() {
+  function onLoginEmail() {
     console.log("login skipping google");
     props.set_screen('login', '');
   }
-  */
 
   return (
     <div className="landingPage-container">
@@ -62,8 +61,8 @@ function LandingPage(props) {
             <p style={{float: "left", paddingRight: '30px'}} className="text-base font-medium">Features</p>
           </div>
           <div className="col-md-3 col-lg-3" style={{marginTop: "-30px"}}>
-            <button onClick={onLogin} className="google-signin-btn">
-              <img src="/images/button_talk_to_dara.png"/>
+            <button onClick={onLoginGmail} className="google-signin-btn">
+              Try Priority for Free with Gmail
             </button>
           </div>
         </div>
@@ -82,9 +81,14 @@ function LandingPage(props) {
             <br/>
             <p className="text-xl">Get your work done with the help of our AI personal assistant, Dara</p>
             <br/>
-            <div className="col-lg-2" style={{marginTop: "-30px"}}>
-              <button onClick={onLogin} className="google-signin-btn">
-                <img src="/images/button_talk_to_dara.png"/>
+            <div style={{marginTop: "-30px"}}>
+              <button onClick={onLoginGmail} className="google-signin-btn">
+                Try Priority for Free with Gmail
+              </button>
+            </div>
+            <div>
+              <button onClick={onLoginEmail} className="google-signin-btn">
+                Try Priority for Free with Email
               </button>
             </div>
           </div>

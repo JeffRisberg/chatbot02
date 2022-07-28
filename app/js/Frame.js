@@ -5,7 +5,9 @@ import './Frame.css';
 
 import Bot from './components/Bot/Bot';
 
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Home from './pages/Home';
 import DailyDashboard from './pages/DailyDashboard';
 import WeeklyDashboard from './pages/WeeklyDashboard';
@@ -23,7 +25,7 @@ function Frame(props) {
 
   const [data, setData] = useState([]);
 
-  const host = 'http://localhost:5000';
+  const host = '';
 
   useEffect(() => {
     var url = host + '/api/daily_tasks/';
@@ -47,9 +49,17 @@ function Frame(props) {
     props.set_screen('home');
   }
 
-  if (props.user === null) {
+  if (screen === 'login') {
     return (
       <Login/>
+    )
+  } else if (screen === 'register') {
+      return (
+        <Register/>
+      )
+  } else if (props.user === null) {
+    return (
+      <LandingPage/>
     )
   } else if (screen === 'calendar') {
     return (

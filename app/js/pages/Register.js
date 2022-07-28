@@ -1,12 +1,12 @@
 import React from 'react';
 import './Login.css';
 
-import LoginForm from '../components/LoginForm/LoginForm';
+import RegisterForm from "../components/RegisterForm/RegisterForm";
 
-function Login() {
+function Register() {
 
   return (
-    <div className="login-container">
+    <div className="register-container">
       <div className="row">
         <div className="col-md-4">
           &nbsp;
@@ -24,7 +24,7 @@ function Login() {
         <div className="col-md-4">
         </div>
         <div className="col-md-4">
-          <LoginForm/>
+          <RegisterForm/>
         </div>
         <div className="col-md-4">
         </div>
@@ -33,4 +33,4 @@ function Login() {
   )
 }
 
-export default Login;
+export default Register;

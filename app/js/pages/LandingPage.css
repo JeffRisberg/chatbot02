@@ -4,7 +4,13 @@
 
 .landingPage-container .google-signin-btn {
   border-width: 0px;
-  background: none;
+  background: #2d7fe2;
+  font-size: 19px;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 11px 20px 11px 20px;
+  margin-top: 10px;
+  color: white;
 }
 
 .landingPage-container .text-base {
