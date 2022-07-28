@@ -1,10 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment'
 import axios from 'axios';
 import TopMenu from '../components/TopMenu/TopMenu';
+
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './Home.css';
 
 import {set_screen} from "../actions/screen";
+
+const localizer = momentLocalizer(moment)
 
 function Home(props) {
   const user_id = props.user.id;
@@ -14,6 +20,7 @@ function Home(props) {
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData, setWeeklyData] = useState([]);
   const [dailyData, setDailyData] = useState([]);
+  const [todayEvents, setTodayEvents] = useState([]);
 
   const host = 'http://localhost:5000';
 
@@ -33,6 +40,18 @@ function Home(props) {
       const data3 = result3.data.slice(0, 1);
 
       setDailyData(data3);
+
+      const result4 = await axios(host + '/api/today_events/');
+      const data4 = result4.data.map((event) => {
+        return {
+          start: new Date(event.start.dateTime),
+          end: new Date(event.end.dateTime),
+          title: event.summary
+        }
+      });
+      console.log(data4)
+
+      setTodayEvents(data4)
     })();
   }, []);
 
@@ -98,6 +117,15 @@ function Home(props) {
           ))}
         </div>
       </div>
+      <Calendar
+        defaultDate={new Date()}
+        defaultView="day"
+        localizer={localizer}
+        events={todayEvents}
+        toolbar={false}
+        step={60}
+        showMultiDayTimes
+      />
     </div>
   )
 }

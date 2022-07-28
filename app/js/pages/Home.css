@@ -1,6 +1,6 @@
 .home-container {
   width: 100%;
-  height: 840px;
+  height: 100vh;
   background-image: url('https://cdn.britannica.com/15/100615-050-01ADBBDE/Crater-Lake-Cascade-Range-Oregon.jpg');
   background-color: #cccccc;
   background-repeat: no-repeat;
@@ -39,3 +39,22 @@
   font-size: 3.1rem;
 }
 
+.rbc-calendar {
+  position: absolute;
+  bottom: 0;
+  top: 225px;
+  height: unset;
+  background: white;
+}
+
+.rbc-time-view {
+  width: 250px;
+}
+
+.rbc-time-view .rbc-time-gutter {
+  font-size: 12px;
+}
+
+.rbc-time-header {
+  display: none;
+}
