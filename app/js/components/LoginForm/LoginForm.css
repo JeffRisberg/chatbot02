@@ -1,0 +1,13 @@
+.loginForm-container {
+
+}
+
+.loginForm-container .form-group {
+   border-width: 1px;
+   border-radius: 10px;
+}
+
+.loginForm-container button {
+  width: 100%;
+  margin: 5px 0 5px 0;
+}

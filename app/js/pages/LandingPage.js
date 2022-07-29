@@ -1,45 +1,13 @@
 import React from "react";
 import {connect} from 'react-redux';
-import axios from "axios";
-import {useGoogleLogin} from "@react-oauth/google";
 import "./LandingPage.css";
 
 import {set_user} from '../actions/user';
 import {set_screen} from '../actions/screen';
 
 function LandingPage(props) {
-  const onLoginGmail = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
 
-      console.log("google tokenResponse:", tokenResponse);
-
-      const res = await axios.get(
-        `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
-      );
-      console.log("res:", res);
-
-      const email = res.data.email;
-      const values = {email: email, password: "pw", token: tokenResponse.access_token};
-
-      axios.post("/login", values, {
-        withCredentials: true,
-      })
-        .then(response => {
-          if (response.status == 200 && response.data != null && response.data.length > 0) {
-            props.set_user(response.data[0]);
-            props.set_screen('home', '');
-
-          } else {
-            // HANDLE ERROR
-            alert('Invalid email or password')
-          }
-        })
-    },
-    scope: 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
-  });
-
-  function onLoginEmail() {
-    console.log("login skipping google");
+  function onLogin() {
     props.set_screen('login', '');
   }
 
@@ -60,9 +28,9 @@ function LandingPage(props) {
             <p style={{float: "left", paddingRight: '30px'}} className="text-base font-medium">Contact Us</p>
             <p style={{float: "left", paddingRight: '30px'}} className="text-base font-medium">Features</p>
           </div>
-          <div className="col-md-3 col-lg-3" style={{marginTop: "-30px"}}>
-            <button onClick={onLoginGmail} className="google-signin-btn">
-              Try Priority for Free with Gmail
+          <div className="col-md-3 col-lg-3" style={{marginTop: "-25px"}}>
+            <button onClick={onLogin} className="login-btn">
+              Try Priority for Free
             </button>
           </div>
         </div>
@@ -82,13 +50,8 @@ function LandingPage(props) {
             <p className="text-xl">Get your work done with the help of our AI personal assistant, Dara</p>
             <br/>
             <div style={{marginTop: "-30px"}}>
-              <button onClick={onLoginGmail} className="google-signin-btn">
-                Try Priority for Free with Gmail
-              </button>
-            </div>
-            <div>
-              <button onClick={onLoginEmail} className="google-signin-btn">
-                Try Priority for Free with Email
+              <button onClick={onLogin} className="login-btn">
+                Try Priority for Free
               </button>
             </div>
           </div>

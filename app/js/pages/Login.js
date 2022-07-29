@@ -1,36 +1,76 @@
 import React from 'react';
+import axios from "axios";
+import {useGoogleLogin} from "@react-oauth/google";
 import './Login.css';
+import {connect} from "react-redux";
+import {set_user} from "../actions/user";
+import {set_screen} from "../actions/screen";
 
 import LoginForm from '../components/LoginForm/LoginForm';
 
-function Login() {
+function Login(props) {
+
+  const onLoginGmail = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+
+      console.log("google tokenResponse:", tokenResponse);
+
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
+      );
+      console.log("res:", res);
+
+      const email = res.data.email;
+      const values = {email: email, password: "pw", token: tokenResponse.access_token};
+
+      axios.post("/login", values, {
+        withCredentials: true,
+      })
+        .then(response => {
+          if (response.status == 200 && response.data != null && response.data.length > 0) {
+            props.set_user(response.data[0]);
+            props.set_screen('home', '');
+
+          } else {
+            // HANDLE ERROR
+            alert('Invalid email or password')
+          }
+        })
+    },
+    scope: 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
+  });
 
   return (
     <div className="login-container">
-      <div className="row">
-        <div className="col-md-4">
-          &nbsp;
+      <div className="inner">
+        <div className="text-style">
+          <img src="/images/logo_priority.png" width="150px"/>
         </div>
-        <div className="col-md-4" style={{background: "white"}}>
-          <a href="https://demo.coach.ai">
-            <img src="/images/logo_priority.png" width="160px"/>
-          </a>
+
+        <div className="text-style">
+          Get the most out of your time
         </div>
-        <div className="col-md-10">
-          <h2></h2>
+
+        <button onClick={onLoginGmail} style={{borderWidth: 0, background: 'none'}}>
+          <img src="/images/google-login.png" width="100%"/>
+        </button>
+
+        <div className="text-style">
+          or
         </div>
-      </div>
-      <div className="row">
-        <div className="col-md-4">
-        </div>
-        <div className="col-md-4">
-          <LoginForm/>
-        </div>
-        <div className="col-md-4">
-        </div>
+
+        <LoginForm/>
       </div>
     </div>
   )
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  content: state.app.content
+});
+
+export default connect(
+  mapStateToProps,
+  {set_user, set_screen}
+)(Login);
+
