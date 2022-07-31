@@ -12,7 +12,7 @@
 .login-container .inner {
   width: 390px;
   opacity: 100%;
-  padding: 15px;
+  padding: 30px 30px 30px 30px;
   border-width: 3px;
   border-radius: 25px;
   background-color: white;
@@ -27,10 +27,12 @@
 }
 
 .login-container .text-style {
-  font-weight: 600;
-  font-size: 16px;
+  font-family: "Arial";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 17px;
+  font-size: 17px;
   color: #929292;
   text-align: center;
   padding: 5px 0 5px 0;
 }
-

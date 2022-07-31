@@ -9,52 +9,46 @@
 
 .home-container .goal-box {
   float: right;
-  text-align: center;
   background: #5489D9;
   margin-right: 10px;
   margin-top: 6px;
-  padding: 6px;
-}
-
-.home-container .goal-box button {
-  border-width: 0;
-  background: none;
-}
-
-.home-container .goal-box button span {
-  text-decoration: underline;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.home-container .goal-box ol {
-  text-align: left;
-  color: white;
-  margin-bottom: 0;
-  line-height: 1.2;
 }
 
 .home-container h1 {
   font-size: 3.1rem;
 }
 
-.rbc-calendar {
-  position: absolute;
-  bottom: 0;
-  top: 225px;
+.home-container .rbc-calendar {
   height: unset;
   background: white;
+  overflow-y: auto;
+  flex: 1;
 }
 
-.rbc-time-view {
+.home-container .rbc-time-view {
   width: 250px;
 }
 
-.rbc-time-view .rbc-time-gutter {
+.home-container .rbc-time-view .rbc-time-gutter {
   font-size: 12px;
 }
 
-.rbc-time-header {
+.home-container .rbc-time-header {
   display: none;
 }
+
+.home-container .today-info {
+  position: absolute;
+  top: 250px;
+  width: 250px;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-container .today-goal {
+  text-align: center;
+  background: #5489D9;
+}
+

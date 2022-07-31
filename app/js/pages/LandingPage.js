@@ -49,7 +49,7 @@ function LandingPage(props) {
             <br/>
             <p className="text-xl">Get your work done with the help of our AI personal assistant, Dara</p>
             <br/>
-            <div style={{marginTop: "-30px"}}>
+            <div style={{marginTop: "-25px"}}>
               <button onClick={onLogin} className="login-btn">
                 Try Priority for Free
               </button>

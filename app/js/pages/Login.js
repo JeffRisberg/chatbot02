@@ -44,10 +44,10 @@ function Login(props) {
     <div className="login-container">
       <div className="inner">
         <div className="text-style">
-          <img src="/images/logo_priority.png" width="150px"/>
+          <img src="/images/logo_priority.png" width="110px"/>
         </div>
 
-        <div className="text-style">
+        <div className="text-style" style={{paddingTop: 15, paddingBottom: 20}}>
           Get the most out of your time
         </div>
 
@@ -55,7 +55,7 @@ function Login(props) {
           <img src="/images/google-login.png" width="100%"/>
         </button>
 
-        <div className="text-style">
+        <div className="text-style" style={{paddingTop: 15, paddingBottom: 15}}>
           or
         </div>
 
