@@ -35,7 +35,7 @@ function CalendarDashboard(props) {
         events.push(event);
       });
 
-      result = await axios('/api/daily_tasks/' + user_id + '?all=0');
+      result = await axios('/api/daily_tasks/' + user_id + '?all=1');
 
       result.data.forEach((daily_task) => {
         const event = {};
