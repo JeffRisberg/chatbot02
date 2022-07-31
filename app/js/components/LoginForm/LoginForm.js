@@ -8,7 +8,7 @@ import "./LoginForm.css";
 import {set_user} from '../../actions/user';
 import {set_screen} from '../../actions/screen';
 
-const LoginPage = (props) => {
+const LoginForm = (props) => {
 
   const {touched, errors} = props;
 
@@ -16,29 +16,40 @@ const LoginPage = (props) => {
     props.set_screen('register');
   }
 
-  function doCancel() {
-    props.set_screen(null);
+  function doReset() {
+    props.set_screen('reset');
   }
 
   return (
     <div className="loginForm-container">
       <div className="login-wrapper">
         <Form className="form-container">
-          <div className="form-group">
+
+          <div className="form-group" style={{height: 60}}>
             <Field type="text" name="email" className={"form-control"} placeholder="Email"/>
             {touched.email && errors.email && <span className="help-block text-danger">{errors.email}</span>}
           </div>
+
           <div className="form-group">
             <Field type="password" name="password" className={"form-control"} placeholder="Password"/>
             {touched.password && errors.password && <span className="help-block text-danger">{errors.password}</span>}
           </div>
+
+          <div className="alignleft" style={{cursor: 'pointer'}} onClick={doRegister}>
+            <span className="text-style">
+              Don't have an account?
+            </span>
+          </div>
+
+          <div className="alignright" style={{cursor: 'pointer'}} onClick={doReset}>
+            <span className="text-style">
+              Forgot Password?
+            </span>
+          </div>
+
           <button type="submit" className="btn btn-primary">
-            Login
+            Login &#x2192;
           </button>
-          <button type="button" onClick={doRegister} className="btn btn-primary">
-            Register
-          </button>
-          <div style={{cursor: 'pointer'}} onClick={doCancel}>Cancel</div>
         </Form>
       </div>
     </div>
@@ -58,7 +69,7 @@ const LoginFormik = withFormik({
   }),
   handleSubmit: (values, {props}) => {
     try {
-      axios.post("http://localhost:5000/login", values, {
+      axios.post("/login", values, {
         withCredentials: true,
       })
         .then(response => {
@@ -75,7 +86,7 @@ const LoginFormik = withFormik({
       alert('Unable to login')
     }
   }
-})(LoginPage);
+})(LoginForm);
 
 const mapStateToProps = (state) => ({
   content: state.app.content

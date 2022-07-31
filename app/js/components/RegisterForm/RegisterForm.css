@@ -1,2 +1,7 @@
-.EditUserProfile {
+.registerForm {
+}
+
+.registerForm-container .full-width {
+  width: 100%;
+  margin: 5px 0 3px 0;
 }

@@ -11,3 +11,21 @@
   width: 100%;
   margin: 5px 0 5px 0;
 }
+
+.loginForm-container .alignleft {
+  float: left;
+}
+
+.loginForm-container .alignright {
+  float: right;
+}
+
+.loginForm-container .text-style {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+  text-decoration-line: underline;
+  color: #929292;
+}

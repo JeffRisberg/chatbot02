@@ -5,10 +5,9 @@ import {Field, Form, withFormik} from 'formik';
 import * as Yup from 'yup';
 import './RegisterForm.css';
 
-import {set_user} from '../../actions/user';
 import {set_screen} from '../../actions/screen';
 
-function RegisterPage(props) {
+function RegisterForm(props) {
 
   const {touched, errors} = props;
 
@@ -38,9 +37,10 @@ function RegisterPage(props) {
             {touched.password && errors.password &&
             <span className="help-block text-danger">{errors.password}</span>}
           </div>
-          <button type="submit" className="btn btn-primary">Save</button>
-          &nbsp;&nbsp;
-          <button type="button" onClick={doCancel} className="btn btn-default">Cancel</button>
+          <button type="submit" className="full-width btn btn-primary">
+            Save
+          </button>
+          <button onClick={doCancel} style={{padding: 0}} className="btn btn-default">Cancel</button>
         </Form>
       </div>
     </div>
@@ -75,7 +75,7 @@ const RegisterFormik = withFormik({
         }
       })
   }
-})(RegisterPage);
+})(RegisterForm);
 
 const mapStateToProps = (state) => ({
   user: state.app.user,
@@ -83,5 +83,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {set_user, set_screen}
+  {set_screen}
 )(RegisterFormik);
