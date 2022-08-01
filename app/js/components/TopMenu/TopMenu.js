@@ -11,6 +11,10 @@ function TopMenu(props) {
     props.set_screen('home');
   }
 
+  function onSetGoal() {
+    props.set_screen('set-goal')
+  }
+
   function onMonthly() {
     const my_name = 'monthly';
     axios.post('/change_screen/' + my_name, null, {
@@ -70,6 +74,7 @@ function TopMenu(props) {
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={onHome}>Home</Dropdown.Item>
+        <Dropdown.Item onClick={onSetGoal}>Set Goal</Dropdown.Item>
         <Dropdown.Item onClick={onMonthly}>Monthly Goals</Dropdown.Item>
         <Dropdown.Item onClick={onWeekly}>Weekly Goals</Dropdown.Item>
         <Dropdown.Item onClick={onDaily}>Daily Tasks</Dropdown.Item>

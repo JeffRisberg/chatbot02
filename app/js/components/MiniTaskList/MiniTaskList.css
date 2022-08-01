@@ -14,9 +14,10 @@
   font-weight: bold;
 }
 
-.mini-task-list ol {
+.mini-task-list p {
   text-align: left;
   color: white;
   margin-bottom: 0;
   line-height: 1.2;
+  padding-left: 6px;
 }

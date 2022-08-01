@@ -21,8 +21,14 @@ function Login(props) {
       console.log("res:", res);
 
       const email = res.data.email;
-      const values = {first_name: res.data.given_name, last_name: res.data.family_name,
-        email: email, password: "pw", token: tokenResponse.access_token};
+      const values = {
+        first_name: res.data.given_name,
+        last_name: res.data.family_name,
+        email: email,
+        password: "pw",
+        token: tokenResponse.access_token,
+        source: "google"
+      };
 
       axios.post("/login", values, {
         withCredentials: true,
@@ -50,15 +56,16 @@ function Login(props) {
           </a>
         </div>
 
-        <div className="text-style" style={{paddingTop: 15, paddingBottom: 20}}>
+        <div className="login-description">
           Get the most out of your time
         </div>
 
-        <button onClick={onLoginGmail} style={{borderWidth: 0, background: 'none'}}>
-          <img src="/images/google-login.png" width="100%"/>
+        <button onClick={onLoginGmail} className="btn btn-social">
+        <img src="/images/google-logo.png" width={28}/>
+        <span className='ps-4'>Sign in with Google</span>
         </button>
 
-        <div className="text-style" style={{paddingTop: 15, paddingBottom: 15}}>
+        <div className="login-description">
           or
         </div>
 
@@ -76,3 +83,4 @@ export default connect(
   mapStateToProps,
   {set_user, set_screen}
 )(Login);
+

@@ -26,7 +26,7 @@ const LoginForm = (props) => {
         <Form className="form-container">
 
           <div className="form-group" style={{height: 60}}>
-            <Field type="text" name="email" className={"form-control"} placeholder="Email"/>
+            <Field type="email" name="email" className={"form-control"} placeholder="Email"/>
             {touched.email && errors.email && <span className="help-block text-danger">{errors.email}</span>}
           </div>
 
@@ -36,18 +36,18 @@ const LoginForm = (props) => {
           </div>
 
           <div className="alignleft" style={{cursor: 'pointer'}} onClick={doRegister}>
-            <span className="text-style">
+            <span className="text-style small">
               Don't have an account?
             </span>
           </div>
 
           <div className="alignright" style={{cursor: 'pointer'}} onClick={doReset}>
-            <span className="text-style">
+            <span className="text-style small">
               Forgot Password?
             </span>
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary mt-4">
             Login &#x2192;
           </button>
         </Form>

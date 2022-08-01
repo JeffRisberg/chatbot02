@@ -27,12 +27,9 @@ function MiniTaskList(props) {
           {!visible && <i className="bi-chevron-down" style={{cursor: 'pointer', fontSize: '1.2rem'}}></i>}
         </span>
       </button>
-      {visible &&
-      <ol>
-        {tasks.map((task) => (
-          <li key={task.id}>{task.name}</li>
-        ))}
-      </ol>}
+      {visible && tasks.map((task, index) => (
+        <p key={task.id}>{index + 1}. {task.name}</p>
+      ))}
     </div>
   )
 }

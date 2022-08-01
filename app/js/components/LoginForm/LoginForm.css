@@ -29,3 +29,7 @@
   text-decoration-line: underline;
   color: #929292;
 }
+
+.loginForm-container .small {
+  font-size: 14px !important;
+}

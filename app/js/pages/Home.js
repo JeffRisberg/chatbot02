@@ -1,16 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import moment from 'moment'
-import {Calendar, momentLocalizer} from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import Form from 'react-bootstrap/Form'
 
 import TopMenu from '../components/TopMenu/TopMenu';
 import MiniTaskList from '../components/MiniTaskList/MiniTaskList';
+import AddEvent from '../components/AddEvent/AddEvent';
+//import Todo from '../components/Todo/Todo';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './Home.css';
 
-import {set_screen} from "../actions/screen";
+import { set_screen } from "../actions/screen";
 
 const localizer = momentLocalizer(moment)
 
@@ -24,11 +27,18 @@ function Home(props) {
   const [dailyData, setDailyData] = useState([]);
   const [todayEvents, setTodayEvents] = useState([]);
   const [currentEvent, setCurrentEvent] = useState(null)
+  const [eventInput, setEventInput] = useState("")
+  const [goalInput, setGoalInput] = useState("")
+  const [showModal, setShowModal] = useState(false);
+  const [slot, setSlot] = useState(null)
 
   const host = '';
 
   useEffect(() => {
     (async () => {
+
+      console.log("async called")
+
       const result1 = await axios(host + '/api/monthly_goals/' + user_id);
       const data1 = result1.data.slice(0, 3);
 
@@ -40,22 +50,14 @@ function Home(props) {
       setWeeklyData(data2);
 
       const result3 = await axios(host + '/api/daily_tasks/' + user_id);
-      const data3 = result3.data.slice(0, 1);
+      const data3 = result3.data.slice(0, 3);
 
       setDailyData(data3);
 
-      // const result4 = await axios(host + '/api/today_events/');
-      // const data4 = result4.data.map((event) => {
-      //   return {
-      //     start: new Date(event.start.dateTime),
-      //     end: new Date(event.end.dateTime),
-      //     title: event.summary
-      //   }
-      // });
-      // console.log(data4)
-
-      const result5 = await axios(host + '/api/events/' + user_id);
-      const data5 = result5.data.map((event) => {
+      const result4 = await axios(host + '/api/events/' + user_id);
+      const data4 = result4.data.filter(event => {
+        return (new Date(event.end).getTime() - new Date().setMinutes(0,0,0)) > 0
+      }).map((event) => {
         return {
           start: new Date(event.start),
           end: new Date(event.end),
@@ -64,14 +66,14 @@ function Home(props) {
         }
       });
 
-      setTodayEvents(data5)
+      setTodayEvents(data4);
 
-      const currentEvent = data5.find((event) => {
+      const currentEvent = data4.find((event) => {
         const currentTimestamp = new Date().getTime()
         return event.start.getTime() <= currentTimestamp && event.end.getTime() >= currentTimestamp
       })
 
-      setCurrentEvent(currentEvent)
+      setCurrentEvent(currentEvent);
     })();
   }, []);
 
@@ -82,7 +84,7 @@ function Home(props) {
         return event.start.getTime() <= currentTimestamp && event.end.getTime() >= currentTimestamp
       })
 
-      setCurrentEvent(currentEvent)
+      setCurrentEvent(currentEvent);
     }, 3600000);
 
     return () => clearInterval(interval);
@@ -120,13 +122,119 @@ function Home(props) {
       });
   }
 
+  async function handleKeyDown (e) {
+    if (e.keyCode === 13) {
+      const currentTime = new Date(new Date().setMinutes(0, 0, 0))
+      const event = {
+        title: eventInput,
+        start: currentTime,
+        end: new Date(currentTime).setHours(currentTime.getHours() + 1),
+        color: '#308446'
+      }
+
+      const result1 = await axios.post(host + '/api/events/' + user_id, {
+        title: eventInput
+      });
+
+      if (result1.status === 200) {
+        setCurrentEvent(event)
+        setTodayEvents([...todayEvents, event])
+      }
+    }
+  }
+
+  async function handleGoalSubmit (e) {
+    if (e.keyCode === 13) {
+      const currentTime = new Date(new Date().setHours(0, 0, 0, 0))
+
+      const daily_goal = {
+        date_local: currentTime,
+        done: 0,
+        duration: null,
+        end: null,
+        id: 1,
+        name: goalInput,
+        parent_id: null,
+        priority: 1,
+        start: null,
+        why: null
+      }
+
+      const result1 = await axios.post(host + '/api/daily_tasks/' + user_id, {
+        goal: goalInput
+      });
+
+      if (result1.status === 200) {
+        setDailyData([daily_goal])
+      }
+    }
+  }
+
+  function showAddEvent(slot) {
+    console.log(slot)
+    setShowModal(true)
+    setSlot({
+      start: slot.start,
+      end: slot.end,
+      x: slot.box ? slot.box.x : slot.bounds.x,
+      y: slot.box ? slot.box.y : slot.bounds.y
+    })
+  }
+
+  async function onHideEventModal(eventInput = null) {
+    if(eventInput) {
+      const event = {
+        title: eventInput,
+        start: slot.start,
+        end: slot.end,
+        color: '#308446'
+      }
+
+      const result1 = await axios.post(host + '/api/events/' + user_id, {
+        title: eventInput,
+        start: slot.start,
+        end: slot.end,
+      });
+
+      if (result1.status === 200) {
+        const now = new Date()
+        if (now.getTime() < slot.end.getTime() && now.getTime() > slot.start.getTime()) {
+          setCurrentEvent(event)
+        }
+        setTodayEvents([...todayEvents, event])
+      }
+    }
+    setShowModal(false)
+  }
+
+  async function onUpdateDailyEvent(e, event) {
+    const checked = e.target.checked
+    const updateData = {
+      table: 'daily',
+      id: event.id,
+      done: checked,
+    }
+    const result = await axios.put(host + '/api/tasks', updateData)
+    if (result.status == 200) {
+      const currentDailyData = [...dailyData]
+      currentDailyData[0].done = checked
+      setDailyData(currentDailyData)
+    }
+  }
+
   function eventStyleGetter(event) {
     let style = {
-      borderRadius: '0px',
       opacity: 0.8,
-      color: 'black',
-      border: '0px',
-      display: 'block'
+      color: 'white',
+      borderTopWidth: "1px",
+      borderBottomWidth: "1px",
+      borderStyle: "solid",
+      borderColor: '#eaf6ff',
+      borderRadius: "3px",
+      display: 'block',
+      fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
+      fontSize: "13px",
+      fontWeight: 500
     };
     if (event.color) {
       style.backgroundColor = event.color
@@ -139,53 +247,83 @@ function Home(props) {
 
   return (
     <div className='home-container'>
-      <div style={{height: '45px'}}>
-        <div style={{float: 'left'}}>
-          <TopMenu/>
+      <div>
+        <div className="d-flex justify-content-between">
+
         </div>
-        <div className="goal-box">
-          <MiniTaskList title={"This Week's Goals"}
-                        tasks={weeklyData}
-                        detailAction={onWeekly}/>
+        <div style={{ float: 'left' }}>
+          <TopMenu />
         </div>
-        <div className="goal-box">
-          <MiniTaskList title={"This Month's Goals"}
-                        tasks={monthlyData}
-                        detailAction={onMonthly}/>
+        <div className="goal-box-container">
+          <div className="goal-box">
+            <MiniTaskList title={"This Month's Goals"}
+              tasks={monthlyData}
+              detailAction={onMonthly} />
+          </div>
+          <div className="goal-box">
+            <MiniTaskList title={"This Week's Goals"}
+              tasks={weeklyData}
+              detailAction={onWeekly} />
+          </div>
         </div>
       </div>
-      <div style={{
-        clear: 'both',
-        height: '550px',
-        color: 'white',
-        display: 'grid',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
+      <div className='home-description'>
         <div>
-          <h1 style={{textAlign: 'center'}}>Hi, {firstName}</h1>
+          <h2 style={{ textAlign: 'center', fontSize: 28 }}>Hi, {firstName}</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 24, marginTop: 30, marginBottom: "0px" }}>Today's top goal</h2>
+          {dailyData.length > 0 && (
+            <h2 style={{ textAlign: 'center', fontSize: 40 }} className="today-top-goal">
+              <Form.Check type="checkbox" label={dailyData[0].name}
+                          onChange={(e) => onUpdateDailyEvent(e, dailyData[0])}
+                          checked={dailyData[0].done} />
+            </h2>
+          )}
           {
-            currentEvent && (
-              <h2 style={{textAlign: 'center'}}>{currentEvent.title}</h2>
+            dailyData.length === 0 && (
+              <input
+                type="input"
+                className='form-control event-input'
+                onChange={(e) => setGoalInput(e.target.value)}
+                onKeyDown={handleGoalSubmit}
+                value={goalInput}
+                placeholder="Enter goal"
+              />
             )
           }
-          {dailyData.length > 0 &&
-          <h2 style={{textAlign: 'center'}}>Now</h2>}
-          {dailyData.length === 0 &&
-          <h2 style={{textAlign: 'center'}}>What do you want to work on today?</h2>}
-          {dailyData.map((goal) => (
-            <h1 style={{textDecoration: 'underline', textAlign: 'center'}} key={goal.id}>
-              {goal.name}
-            </h1>
-          ))}
+          <h2 style={{ textAlign: 'center', fontSize: 24, marginTop: 30, marginBottom: "0px" }}>Now</h2>
+          {
+            currentEvent && (
+              <h2 style={{ textAlign: 'center', fontSize: 40 }}>{currentEvent.title}</h2>
+            )
+          }
+
+          {
+            !currentEvent && (
+              <input
+                type="input"
+                className='form-control event-input'
+                onChange={(e) => setEventInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                value={eventInput}
+                placeholder="Enter event"
+              />
+            )
+          }
         </div>
       </div>
       <div className='today-info'>
+        <p style={{
+          textAlign: "center",
+          color: "white",
+          marginBottom: "5px",
+          fontWeight: "bold",
+          fontSize: "18px",
+        }}>{moment(new Date()).format("ddd MMMM D, YYYY")}</p>
         <div className='today-goal'>
           <MiniTaskList title={"Today's Goals:"}
-                        showDate={true}
-                        tasks={dailyData}
-                        detailAction={onDaily}/>
+            showDate={false}
+            tasks={dailyData}
+            detailAction={onDaily} />
         </div>
         <Calendar
           defaultDate={new Date()}
@@ -193,11 +331,40 @@ function Home(props) {
           localizer={localizer}
           events={todayEvents}
           toolbar={false}
+          formats={{
+            eventTimeRangeFormat: () => { return "" }
+          }}
           showMultiDayTimes
           eventPropGetter={eventStyleGetter}
-          min={new Date("1972-01-01 05:00:00")}
+          min={new Date(new Date().setMinutes(0, 0, 0))}
+          style={{
+            height: (24 - new Date().getHours() * 40),
+            maxHeight: 600
+          }}
+          selectable
+          onSelectSlot={(slot) => showAddEvent(slot)}
         />
       </div>
+      {/* <div className='todo-container'>
+        <Todo
+          todoList={[
+            'Study',
+            'Work',
+            'Enjoy'
+          ]}
+        />
+      </div> */}
+      {
+        !!slot && (
+          <AddEvent
+            show={showModal}
+            onHide={onHideEventModal}
+            x={slot.x}
+            y={slot.y}
+          />
+        )
+      }
+      
     </div>
   )
 }
@@ -208,5 +375,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {set_screen}
+  { set_screen }
 )(Home);

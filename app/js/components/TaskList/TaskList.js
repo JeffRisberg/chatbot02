@@ -15,7 +15,7 @@ function TaskList(props) {
 
   const [data, setData] = useState([]);
 
-  const host = 'http://localhost:5000';
+  const host = '';
 
   useEffect(() => {
     (async () => {

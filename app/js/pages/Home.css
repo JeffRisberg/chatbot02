@@ -1,10 +1,20 @@
 .home-container {
   width: 100%;
-  height: 100vh;
-  background-image: url('https://cdn.britannica.com/15/100615-050-01ADBBDE/Crater-Lake-Cascade-Range-Oregon.jpg');
+  min-height: 100vh;
+  background-image: url('https://coach.ai/images/background.png');
   background-color: #cccccc;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-container .goal-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 125px;
 }
 
 .home-container .goal-box {
@@ -12,6 +22,8 @@
   background: #5489D9;
   margin-right: 10px;
   margin-top: 6px;
+  width: 300px;
+  text-align: center;
 }
 
 .home-container h1 {
@@ -19,10 +31,8 @@
 }
 
 .home-container .rbc-calendar {
-  height: unset;
   background: white;
   overflow-y: auto;
-  flex: 1;
 }
 
 .home-container .rbc-time-view {
@@ -39,12 +49,21 @@
 
 .home-container .today-info {
   position: absolute;
-  top: 250px;
   width: 250px;
-  left: 0;
+  right: 0;
   bottom: 0;
   display: flex;
   flex-direction: column;
+}
+
+.home-container .home-description {
+  clear: both;
+  color: white;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  margin-right: 125px;
+  flex: 1;
 }
 
 .home-container .today-goal {
@@ -52,3 +71,68 @@
   background: #5489D9;
 }
 
+.home-description .event-input {
+  background: transparent;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 2px;
+  border-style: solid;
+  border-color: white;
+  margin-top: 25px;
+  font-size: 40px;
+  color: white;
+}
+
+.home-description .event-input:focus {
+  box-shadow: none;
+  background: transparent;
+  border-color: white;
+  color: white;
+}
+
+.home-description .event-input::placeholder {
+  color: white;
+}
+
+.home-description .today-top-goal .form-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row-reverse;
+  padding-left: 0;
+}
+
+.home-description .today-top-goal .form-check .form-check-input {
+  float: initial;
+  width: 0.85em;
+  height: 0.85em;
+  margin-left: 12px;
+  margin-top: 0px;
+}
+
+.todo-container {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .home-container .goal-box-container  {
+    margin-right: 0px;
+  }
+  .home-container .today-info {
+    position: inherit;
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  .home-container .rbc-time-view {
+    width: 100%;
+  }
+
+  .home-container .home-description {
+    margin-right: 0;
+    height: 450px;
+    margin: 50px 0;
+  }
+}

@@ -1,0 +1,52 @@
+.btn-todo {
+    background: transparent;
+    border: 0px;
+    color: white;
+}
+
+.todo-list-view {
+    width: 300px;
+    min-height: 150px;
+    background: #0009;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    position: relative;
+    padding: 8px;
+}
+
+.todo-list-view:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 10px;
+    border-color: #0009 transparent transparent transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 15px;
+}
+
+.todo-title {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.todo-item {
+    color: white;
+    margin-bottom: 0px;
+}
+
+.todo-list-view .todo-input {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: white;
+    margin-top: 10px;
+}
+
+.todo-list-view .todo-input:focus {
+    box-shadow: none;
+    background: transparent;
+    color: white;
+}

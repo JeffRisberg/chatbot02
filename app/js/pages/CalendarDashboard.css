@@ -1,2 +1,7 @@
-.CalendarDashboard h4 {
+.CalendarDashboard > div {
+  padding: 45px;
+}
+
+.CalendarDashboard .rbc-toolbar-label {
+  font-size: 2.0rem;
 }
