@@ -11,20 +11,16 @@
    margin: 5px 0 3px 0;
  }
 
- .resetForm-container .alignleft {
-   float: left;
- }
-
- .resetForm-container .alignright {
-   float: right;
- }
-
  .resetForm-container .text-style {
-   font-family: 'Arial';
-   font-style: normal;
-   font-weight: 400;
-   font-size: 14px;
-   line-height: 15px;
-   text-decoration-line: underline;
-   color: #929292;
- }
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+  text-decoration-line: underline;
+  color: #929292;
+}
+
+.resetForm-container .centered {
+  text-align: center;
+}

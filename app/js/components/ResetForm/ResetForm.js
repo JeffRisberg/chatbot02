@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Field, Form, withFormik } from 'formik';
 import * as Yup from 'yup';
-import "./ResetForm.css";
+import './ResetForm.css';
 
 import { set_screen } from '../../actions/screen';
 
@@ -20,7 +20,7 @@ const ResetForm = (props) => {
       <div className="reset-wrapper">
         <Form className="form-container">
 
-          <div className="form-group" style={{height: 60}}>
+          <div className="form-group" style={{ height: 60 }}>
             <Field type="text" name="email" className={"form-control"} placeholder="Email" />
             {touched.email && errors.email && <span className="help-block text-danger">{errors.email}</span>}
           </div>
@@ -28,7 +28,14 @@ const ResetForm = (props) => {
           <button type="submit" className="full-width btn btn-primary">
             Continue
           </button>
-          <button onClick={doCancel} style={{padding: 0}} className="btn btn-default">Cancel</button>
+
+          <div className="centered">
+            <button onClick={doCancel} style={{ padding: 0 }} className="btn btn-default">
+              <p className="text-style">
+                Cancel
+              </p>
+            </button>
+          </div>
         </Form>
       </div>
     </div>
@@ -45,23 +52,18 @@ const ResetFormik = withFormik({
     email: Yup.string().email('Email not valid').required('Email is required'),
   }),
   handleSubmit: (values, { props }) => {
-    try {
-      axios.post("/reset", values, {
-        withCredentials: true,
+    console.log(values);
+    axios.post('/reset-password', values, {
+      withCredentials: true,
+    })
+      .then(response => {
+        if (response.status == 200) {
+          props.set_screen(null);
+        } else {
+          // HANDLE ERROR
+          alert('Invalid email address')
+        }
       })
-        .then(response => {
-          if (response.status == 200 && response.data != null && response.data.length > 0) {
-            // props.set_user(response.data[0]);
-            props.set_screen('home', '');
-
-          } else {
-            // HANDLE ERROR
-            alert('Invalid email')
-          }
-        })
-    } catch (error) {
-      alert('Unable to reset')
-    }
   }
 })(ResetForm);
 
@@ -71,5 +73,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {set_screen}
+  { set_screen }
 )(ResetFormik);

@@ -1,15 +1,15 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import axios from 'axios';
-import {Field, Form, withFormik} from 'formik';
+import { Field, Form, withFormik } from 'formik';
 import * as Yup from 'yup';
 import './RegisterForm.css';
 
-import {set_screen} from '../../actions/screen';
+import { set_screen } from '../../actions/screen';
 
 function RegisterForm(props) {
 
-  const {touched, errors} = props;
+  const { touched, errors } = props;
 
   function doCancel() {
     props.set_screen(null);
@@ -19,28 +19,36 @@ function RegisterForm(props) {
     <div className="registerForm-container">
       <div className="register-wrapper">
         <Form className="form-container">
-          <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
-            <Field type="text" name="first_name" className={"form-control"} placeholder="First Name"/>
+
+          <div className="form-group" style={{ height: 60 }}>
+            <Field type="text" name="first_name" className={"form-control"} placeholder="First Name" />
             {touched.first_name && errors.first_name &&
-            <span className="help-block text-danger">{errors.first_name}</span>}
+              <span className="help-block text-danger">{errors.first_name}</span>}
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
-            <Field type="text" name="email" className={"form-control"} placeholder="Email address"/>
+
+          <div className="form-group" style={{ height: 60 }}>
+            <Field type="text" name="email" className={"form-control"} placeholder="Email address" />
             {touched.email && errors.email &&
-            <span className="help-block text-danger">{errors.email}</span>}
+              <span className="help-block text-danger">{errors.email}</span>}
           </div>
-          <div className="form-group">
-            <label htmlFor="firstName">Password</label>
-            <Field type="password" name="password" className={"form-control"} placeholder="Password"/>
+
+          <div className="form-group" style={{ height: 60 }}>
+            <Field type="password" name="password" className={"form-control"} placeholder="Password" />
             {touched.password && errors.password &&
-            <span className="help-block text-danger">{errors.password}</span>}
+              <span className="help-block text-danger">{errors.password}</span>}
           </div>
+
           <button type="submit" className="full-width btn btn-primary">
             Save
           </button>
-          <button onClick={doCancel} style={{padding: 0}} className="btn btn-default">Cancel</button>
+
+          <div className="centered">
+            <button onClick={doCancel} style={{ padding: 0 }} className="btn btn-default">
+              <p className="text-style">
+                Cancel
+              </p>
+            </button>
+          </div>
         </Form>
       </div>
     </div>
@@ -60,7 +68,7 @@ const RegisterFormik = withFormik({
     email: Yup.string().email('Email not valid').required('Email is required'),
     password: Yup.string().required('Password is required')
   }),
-  handleSubmit: (values, {props}) => {
+  handleSubmit: (values, { props }) => {
     console.log(values);
     axios.post('/api/users', values, {
       withCredentials: true,
@@ -83,5 +91,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  {set_screen}
+  { set_screen }
 )(RegisterFormik);

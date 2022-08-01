@@ -1,7 +1,27 @@
-.registerForm {
+.registerForm-container {
 }
 
 .registerForm-container .full-width {
   width: 100%;
   margin: 5px 0 3px 0;
+}
+
+.registerForm-container .form-group {
+  border-width: 1px;
+  border-radius: 10px;
+}
+
+.registerForm-container .text-style {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 15px;
+  text-decoration-line: underline;
+  text-align: center;
+  color: #929292;
+}
+
+.registerForm-container .centered {
+  text-align: center;
 }
