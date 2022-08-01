@@ -4,6 +4,7 @@ import axios from 'axios';
 import './Frame.css';
 
 import Bot from './components/Bot/Bot';
+import TopMenu from "./components/TopMenu/TopMenu";
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -15,7 +16,6 @@ import MonthlyDashboard from './pages/MonthlyDashboard';
 import CalendarDashboard from './pages/CalendarDashboard';
 
 import {set_screen} from './actions/screen';
-import TopMenu from "./components/TopMenu/TopMenu";
 
 function Frame(props) {
   const user_id = props.user != null ? props.user.id : null;
