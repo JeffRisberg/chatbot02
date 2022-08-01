@@ -1,12 +1,12 @@
 import React from 'react';
-import axios from "axios";
-import {useGoogleLogin} from "@react-oauth/google";
-import './Login.css';
 import {connect} from "react-redux";
-import {set_user} from "../actions/user";
-import {set_screen} from "../actions/screen";
-
+import axios from 'axios';
+import {useGoogleLogin} from '@react-oauth/google';
 import LoginForm from '../components/LoginForm/LoginForm';
+import './Login.css';
+
+import {set_user} from '../actions/user';
+import {set_screen} from '../actions/screen';
 
 function Login(props) {
 
@@ -21,7 +21,8 @@ function Login(props) {
       console.log("res:", res);
 
       const email = res.data.email;
-      const values = {email: email, password: "pw", token: tokenResponse.access_token};
+      const values = {first_name: res.data.given_name, last_name: res.data.family_name,
+        email: email, password: "pw", token: tokenResponse.access_token};
 
       axios.post("/login", values, {
         withCredentials: true,
@@ -44,7 +45,9 @@ function Login(props) {
     <div className="login-container">
       <div className="inner">
         <div className="text-style">
-          <img src="/images/logo_priority.png" width="110px"/>
+          <a href="https://coach.ai">
+            <img src="/images/logo_priority.png" width="110px"/>
+          </a>
         </div>
 
         <div className="text-style" style={{paddingTop: 15, paddingBottom: 20}}>
@@ -73,4 +76,3 @@ export default connect(
   mapStateToProps,
   {set_user, set_screen}
 )(Login);
-

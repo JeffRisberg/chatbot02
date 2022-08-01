@@ -5,9 +5,9 @@ import './Frame.css';
 
 import Bot from './components/Bot/Bot';
 
-import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Reset from './pages/Reset';
 import Home from './pages/Home';
 import DailyDashboard from './pages/DailyDashboard';
 import WeeklyDashboard from './pages/WeeklyDashboard';
@@ -49,17 +49,17 @@ function Frame(props) {
     props.set_screen('home');
   }
 
-  if (screen === 'login') {
+  if (screen === 'register') {
     return (
-      <Login/>
+      <Register/>
     )
-  } else if (screen === 'register') {
-      return (
-        <Register/>
-      )
+  } else if (screen === 'reset') {
+    return (
+      <Reset/>
+    )
   } else if (props.user === null) {
     return (
-      <LandingPage/>
+      <Login/>
     )
   } else if (screen === 'calendar') {
     return (
@@ -70,7 +70,8 @@ function Frame(props) {
           </div>
           <div style={{float: 'right'}}>
             <button onClick={onHome} style={{background: 'none', borderWidth: 0}}>
-              <i className="bi-house-fill" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+              <i className="bi-house-fill"
+                 style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
             </button>
           </div>
         </div>
@@ -92,7 +93,8 @@ function Frame(props) {
           </div>
           <div style={{float: 'right'}}>
             <button onClick={onHome} style={{background: 'none', borderWidth: 0}}>
-              <i className="bi-house-fill" style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
+              <i className="bi-house-fill"
+                 style={{color: 'white', cursor: 'pointer', borderWidth: 0, fontSize: '1.8rem'}}></i>
             </button>
           </div>
         </div>
