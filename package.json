@@ -76,7 +76,7 @@
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.4.1",
         "sass": "^1.53.0",
-        "webpack": "^5.73.0",
+        "webpack": "^5.74.0",
         "yup": "^0.32.11"
     }
 }
