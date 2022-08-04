@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Reset from './pages/Reset';
 import Home from './pages/Home';
+import SetGoal from './pages/SetGoal';
 import DailyDashboard from './pages/DailyDashboard';
 import WeeklyDashboard from './pages/WeeklyDashboard';
 import MonthlyDashboard from './pages/MonthlyDashboard';
@@ -84,6 +85,10 @@ function Frame(props) {
     return (
       <Home/>
     )
+  } else if (screen === 'set-goal') {
+    return (
+      <SetGoal />
+    )
   } else { // this is a detail view
     return (
       <div className="frame-container">
@@ -126,7 +131,8 @@ function Frame(props) {
 const mapStateToProps = (state) => ({
   user: state.app.user,
   content: state.app.content,
-  screen: state.app.screen
+  screen: state.app.screen,
+  event: state.app.event
 });
 
 export default connect(
