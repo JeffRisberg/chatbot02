@@ -78,9 +78,10 @@
   border-bottom: 2px;
   border-style: solid;
   border-color: white;
-  margin-top: 25px;
   font-size: 40px;
   color: white;
+  font-weight: 400;
+  padding: 0px;
 }
 
 .home-description .event-input:focus {
@@ -91,7 +92,13 @@
 }
 
 .home-description .event-input::placeholder {
-  color: white;
+  color: #eee;
+  font-size: 24px;
+  text-align: center;
+}
+
+.home-description .event-input:last-child::placeholder {
+  color: #ddd;
 }
 
 .home-description .today-top-goal .form-check {
@@ -100,19 +107,38 @@
   justify-content: center;
   flex-direction: row-reverse;
   padding-left: 0;
+  margin-top: 10px;
 }
 
 .home-description .today-top-goal .form-check .form-check-input {
   float: initial;
   width: 0.85em;
   height: 0.85em;
-  margin-left: 12px;
+  margin-left: 28px;
   margin-top: 0px;
+  font-size: 28px;
+  border-radius: 3px;
+}
+
+.home-description .today-top-goal .form-check .form-check-input:not(:checked) {
+  background: transparent;
+  border: 2px solid white;
+}
+
+.home-description .today-top-goal .form-check .form-check-label {
+  padding-left: 46px;
+  line-height: 1;
 }
 
 .todo-container {
   position: absolute;
   left: 10px;
+  bottom: 10px;
+}
+
+.calendar-click {
+  position: absolute;
+  right: 10px;
   bottom: 10px;
 }
 

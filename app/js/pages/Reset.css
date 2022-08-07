@@ -1,11 +1,4 @@
 .reset-container {
-  width: 100%;
-  height: 100vh;
-  background-image: url('https://cdn.britannica.com/15/100615-050-01ADBBDE/Crater-Lake-Cascade-Range-Oregon.jpg');
-  /* opacity: 0.4; */
-  background-color: #cccccc;
-  background-repeat: no-repeat;
-  background-size: cover;
   padding-top: 90px;
 }
 
@@ -31,8 +24,17 @@
   font-style: normal;
   font-weight: 400;
   line-height: 17px;
-  font-size: 17px;
+  font-size: 14px;
   color: #929292;
   text-align: center;
   padding: 5px 0 5px 0;
+}
+
+.reset-container .header-style {
+  font-family: 'Arial';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  color: #4B4B4B;
 }

@@ -11,22 +11,10 @@ import {set_screen} from '../actions/screen';
 function Login(props) {
 
   const onLoginGmail = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
+    onSuccess: async ({code}) => {
 
-      console.log("google tokenResponse:", tokenResponse);
-
-      const res = await axios.get(
-        `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenResponse.access_token}`
-      );
-      console.log("res:", res);
-
-      const email = res.data.email;
       const values = {
-        first_name: res.data.given_name,
-        last_name: res.data.family_name,
-        email: email,
-        password: "pw",
-        token: tokenResponse.access_token,
+        token: code,
         source: "google"
       };
 
@@ -44,7 +32,9 @@ function Login(props) {
           }
         })
     },
-    scope: 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
+    flow: 'auth-code',
+    prompt: 'consent',
+    scope: 'email profile openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events',
   });
 
   return (
@@ -52,7 +42,7 @@ function Login(props) {
       <div className="inner">
         <div className="text-style">
           <a href="https://coach.ai">
-            <img src="/images/logo_priority.png" width="110px"/>
+            <img src="/images/logo_priority.png" width="112px" height="50px"/>
           </a>
         </div>
 
@@ -61,7 +51,7 @@ function Login(props) {
         </div>
 
         <button onClick={onLoginGmail} className="btn btn-social">
-        <img src="/images/google-logo.png" width={28}/>
+        <img src="/images/google-logo-small.gif" width={28} height={28}/>
         <span className='ps-4'>Sign in with Google</span>
         </button>
 

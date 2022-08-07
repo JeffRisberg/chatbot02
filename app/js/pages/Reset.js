@@ -7,20 +7,23 @@ function Reset() {
   return (
     <div className="reset-container">
       <div className="inner">
-        <div className="text-style">
-          <img src="/images/logo_priority.png" width="110px"/>
-        </div>
+        <div className="text-style" style={{ paddingBottom: 50 }}>
+          <a href="https://coach.ai">
+            <img src="/images/logo_priority.png" width="112px" height="50px"/>
+          </a>
 
-        <div className="text-style" style={{paddingTop: 15, paddingBottom: 20}}>
+        </div>
+        <div className="header-style" style={{ paddingBottom: 20 }}>
+          Reset your password
+        </div>
+        <div className="text-style" style={{ paddingBottom: 30, textAlign: 'left' }}>
           Enter the email address associated with your account and we’ll send you a link to reset your password
         </div>
 
-        <ResetForm/>
+        <ResetForm />
       </div>
     </div>
   )
 }
 
 export default Reset;
-
-
