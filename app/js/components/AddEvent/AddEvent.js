@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import moment from 'moment';
 
 function AddEvent({
     show,
     onHide,
-    x,
-    y
+    slot,
 }) {
     const [eventInput, setEventInput] = useState('')
     const handleCreate = () => {
@@ -15,18 +15,22 @@ function AddEvent({
     }
     return (
         <div className={`fade ${show ? 'show': ''}`}>
-            <Modal.Dialog style={{
-                position: "absolute",
-                top: (y - 152),
-                left: (x - 248),
-                padding: "20px",
-                background: "white",
-                zIndex: 999,
-                borderRadius: "4px",
-                boxShadow: "1px 1px 4px 2px #0007"
-            }}>
-                <Modal.Header closeButton>
+            <Modal.Dialog
+                style={{
+                    position: "absolute",
+                    top: (slot.y - 152),
+                    right: 195,
+                    padding: "20px",
+                    background: "white",
+                    zIndex: 999,
+                    width: 400,
+                    borderRadius: "4px",
+                    boxShadow: "1px 1px 4px 2px #0007"
+                }}
+            >
+                <Modal.Header closeButton onHide={onHide}>
                     <Modal.Title>Add Event</Modal.Title>
+                    <p className='mb-0 me-auto ms-3'>{moment(slot.start).format('h:mma')} - {moment(slot.end).format('h:mma')}</p>
                 </Modal.Header>
 
                 <Modal.Body>

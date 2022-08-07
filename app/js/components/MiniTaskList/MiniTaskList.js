@@ -3,9 +3,9 @@ import './MiniTaskList.css';
 
 function MiniTaskList(props) {
   const title = props.title;
-  const showDate = props.showDate || false;
   const tasks = props.tasks;
   const detailAction = props.detailAction;
+  const hideable = props.hideable;
 
   const [visible, setVisible] = useState(true);
 
@@ -18,14 +18,16 @@ function MiniTaskList(props) {
       <button>
         <span onClick={detailAction}>
           {title}
-          {showDate && <br/>}
-          {showDate && new Date().toDateString()}
         </span>
         &nbsp;
-        <span onClick={onToggle}>
-          {visible && <i className="bi-chevron-up" style={{cursor: 'pointer', fontSize: '1.2rem'}}></i>}
-          {!visible && <i className="bi-chevron-down" style={{cursor: 'pointer', fontSize: '1.2rem'}}></i>}
-        </span>
+        {
+          !!hideable && (
+            <span onClick={onToggle}>
+              {visible && <i className="bi-chevron-up" style={{cursor: 'pointer', fontSize: '1.2rem'}}></i>}
+              {!visible && <i className="bi-chevron-down" style={{cursor: 'pointer', fontSize: '1.2rem'}}></i>}
+            </span>
+          )
+        }
       </button>
       {visible && tasks.map((task, index) => (
         <p key={task.id}>{index + 1}. {task.name}</p>

@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
+import './TopMenu.css';
+
 import {clear_user} from '../../actions/user';
 import {set_screen} from '../../actions/screen';
 
@@ -12,7 +14,7 @@ function TopMenu(props) {
   }
 
   function onSetGoal() {
-    props.set_screen('set-goal')
+    props.set_screen('set-goal-month')
   }
 
   function onMonthly() {
@@ -51,13 +53,7 @@ function TopMenu(props) {
     props.set_screen('calendar');
   }
 
-  function onContactUs() {
-    //props.set_screen('about');
-    console.log('contactUs');
-  }
-
   function onLogout() {
-    console.log("onLogout");
     props.clear_user();
     const url = '/logout';
 
@@ -74,13 +70,13 @@ function TopMenu(props) {
 
       <Dropdown.Menu>
         <Dropdown.Item onClick={onHome}>Home</Dropdown.Item>
-        <Dropdown.Item onClick={onSetGoal}>Set Goal</Dropdown.Item>
-        <Dropdown.Item onClick={onMonthly}>Monthly Goals</Dropdown.Item>
-        <Dropdown.Item onClick={onWeekly}>Weekly Goals</Dropdown.Item>
-        <Dropdown.Item onClick={onDaily}>Daily Tasks</Dropdown.Item>
+        <Dropdown.Item onClick={onSetGoal}>Set Goals</Dropdown.Item>
+        <Dropdown.Item onClick={onMonthly}>Talk to Dara</Dropdown.Item>
+        <Dropdown.Item className='ps-4' onClick={onMonthly}>Monthly Planning</Dropdown.Item>
+        <Dropdown.Item className='ps-4' onClick={onWeekly}>Weekly Planning</Dropdown.Item>
+        <Dropdown.Item className='ps-4' onClick={onDaily}>Daily Planning</Dropdown.Item>
         <Dropdown.Item onClick={onCalendar}>Calendar</Dropdown.Item>
-        <Dropdown.Item>----</Dropdown.Item>
-        <Dropdown.Item onClick={onContactUs}>Contact Us</Dropdown.Item>
+        <Dropdown.Divider />
         <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

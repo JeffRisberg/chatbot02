@@ -1,0 +1,30 @@
+.date-slider-container .btn-date-slider {
+    color: #3C4043;
+    background-color: transparent;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 38px;
+    padding: 0 20px;
+    border: 0;
+}
+
+.date-slider-container .btn-date-slider:hover,
+.date-slider-container .btn-date-slider:active {
+    color: #3C4043;
+    background-color: transparent;
+}
+
+.date-slider-container .btn-date-slider:focus {
+    color: #3C4043;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.date-slider-content {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 38px;
+    color: #3C4043;
+    margin-bottom: 0;
+}
