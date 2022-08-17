@@ -60,8 +60,8 @@ function CalendarDashboard(props) {
         const start = daily_task.start;
         const end = daily_task.end;
 
-        event.start = moment(start).toDate();
-        event.end = moment(end).toDate();
+        event.start = moment.utc(start).toDate();
+        event.end = moment.utc(end).toDate();
         event.title = daily_task.name;
         event.color = daily_task.done === 1 ? '#191' : '#D88';
 
@@ -73,8 +73,8 @@ function CalendarDashboard(props) {
       result.data.map((e) => {
         const event = {};
 
-        event.start = new Date(e.start);
-        event.end = new Date(e.end);
+        event.start = moment.utc(e.start).toDate();
+        event.end = moment.utc(e.end).toDate();
         event.title = e.title;
         event.color = e.color;
 
@@ -112,7 +112,7 @@ function CalendarDashboard(props) {
         startAccessor="start"
         endAccessor="end"
         eventPropGetter={eventStyleGetter}
-        style={{height: 500}}
+        style={{height: 'calc(100vh - 45px)'}}
         views={views}
       />
     </div>

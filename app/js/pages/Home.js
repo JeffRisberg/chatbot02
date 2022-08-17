@@ -10,7 +10,7 @@ import { FiChevronDown, FiCalendar } from "react-icons/fi";
 import TopMenu from '../components/TopMenu/TopMenu';
 import MiniTaskList from '../components/MiniTaskList/MiniTaskList';
 import AddEvent from '../components/AddEvent/AddEvent';
-//import Todo from '../components/Todo/Todo';
+import Todo from '../components/Todo/Todo';
 
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import './Home.css';
@@ -27,6 +27,7 @@ function Home(props) {
   const { events } = props.event
   const firstName = user !== null ? user.first_name : '';
 
+  const [yearlyData, setYearlyData] = useState([]);
   const [monthlyData, setMonthlyData] = useState([]);
   const [weeklyData, setWeeklyData] = useState([]);
   const [dailyData, setDailyData] = useState([]);
@@ -35,6 +36,7 @@ function Home(props) {
   const [goalInput, setGoalInput] = useState("")
   const [showModal, setShowModal] = useState(false);
   const [slot, setSlot] = useState(null)
+  const [todos, setTodos] = useState([])
 
   const [showCalendar, setShowCalendar] = useState(true)
 
@@ -42,7 +44,6 @@ function Home(props) {
 
   useEffect(() => {
     (async () => {
-
       const result1 = await axios(host + '/api/monthly_goals/' + user_id);
       const data1 = result1.data.slice(0, 3);
 
@@ -58,13 +59,18 @@ function Home(props) {
 
       setDailyData(data3);
 
+      const result5 = await axios(host + '/api/yearly_goals/' + user_id);
+      const data5 = result5.data.slice(0, 3);
+
+      setYearlyData(data5);
+
       const result4 = await axios(host + '/api/events/' + user_id);
       const data4 = result4.data.filter(event => {
-        return (new Date(event.end).getTime() - new Date().setMinutes(0, 0, 0)) > 0
+        return (moment.utc(event.end).toDate().getTime() - new Date().setMinutes(0, 0, 0)) > 0
       }).map((event) => {
         return {
-          start: new Date(event.start),
-          end: new Date(event.end),
+          start: moment.utc(event.start).toDate(),
+          end: moment.utc(event.end).toDate(),
           title: event.title,
           color: event.color,
           id: event.id
@@ -79,11 +85,22 @@ function Home(props) {
       })
 
       setCurrentEvent(currentEvent);
+      const start = new Date();
+      start.setUTCHours(0,0,0,0);
+      
+      const end = new Date();
+      end.setUTCHours(23,59,59,999);
+      const todos = await axios(host + '/api/todos/' + user_id, {
+        params: {
+          start,
+          end 
+        }
+      });
+      setTodos(todos.data)
     })();
   }, []);
 
   useEffect(() => {
-    console.log(events)
     const currentEvent = events.find((event) => {
       const currentTimestamp = new Date().getTime()
       return event.start.getTime() <= currentTimestamp && event.end.getTime() >= currentTimestamp
@@ -101,6 +118,10 @@ function Home(props) {
 
     return () => clearInterval(interval);
   }, [events])
+
+  function onYearly() {
+    props.set_screen('set-goal-year');
+  }
 
   function onMonthly() {
     props.set_screen('set-goal-month');
@@ -138,10 +159,8 @@ function Home(props) {
 
   async function handleGoalSubmit(e) {
     if (e.keyCode === 13) {
-      const currentTime = new Date(new Date().setHours(0, 0, 0, 0))
-
       const daily_goal = {
-        date_local: currentTime,
+        date_local: moment().format("YYYY-MM-DD"),
         done: 0,
         duration: null,
         end: null,
@@ -154,7 +173,8 @@ function Home(props) {
       }
 
       const result1 = await axios.post(host + '/api/daily_tasks/' + user_id, {
-        goal: goalInput
+        name: goalInput,
+        date: moment().format("YYYY-MM-DD")
       });
 
       if (result1.status === 200) {
@@ -163,8 +183,47 @@ function Home(props) {
     }
   }
 
+  async function addTodo(todo) {
+    const content = {
+      name: todo,
+      start_date: new Date(),
+      priority: todos.length + 1
+    }
+    const result = await axios.post(host + '/api/todos/' + user_id, content);
+    const id = result.data
+    content.id = id
+
+    setTodos([
+      ...todos,
+      content
+    ])
+  }
+
+  async function updateTodo(todo) {
+    const result = await axios.patch(host + '/api/todos/' + user_id, todo);
+
+    const currentTodos = [...todos]
+    const index = currentTodos.findIndex((todoItem) => todoItem.id === todo.id)
+    currentTodos[index] = {
+      ...currentTodos[index],
+      ...todo
+    }
+
+    setTodos(currentTodos)
+  }
+
+  async function deleteTodo(todo) {
+    const result = await axios.delete(host + '/api/todos/' + todo.id);
+    const currentTodos = [...todos]
+    setTodos(currentTodos.filter(todoItem => todoItem.id !== todo.id))
+  }
+
+  async function updatePriorities(updatedTodos) {
+    setTodos(updatedTodos)
+    await axios.patch(host + '/api/todos_priorities/' + user_id, updatedTodos);
+  }
+
   function showAddEvent(slot) {
-    console.log(slot)
     setShowModal(true)
     setSlot({
       start: slot.start,
@@ -263,6 +322,12 @@ function Home(props) {
           <TopMenu />
         </div>
         <div className="goal-box-container">
+          <div className="goal-box">
+            <MiniTaskList title={"This Year's Goals"}
+              tasks={yearlyData}
+              hideable={true}
+              detailAction={onYearly} />
+          </div>
           <div className="goal-box">
             <MiniTaskList title={"This Month's Goals"}
               tasks={monthlyData}
@@ -374,15 +439,15 @@ function Home(props) {
         )
       }
 
-      {/* <div className='todo-container'>
+      <div className='todo-container'>
         <Todo
-          todoList={[
-            'Study',
-            'Work',
-            'Enjoy'
-          ]}
+          todoList={todos}
+          onAdd={addTodo}
+          onDelete={deleteTodo}
+          onUpdate={updateTodo}
+          onUpdatePriorities={updatePriorities}
         />
-      </div> */}
+      </div>
       {
         !!slot && (
           <AddEvent

@@ -42,7 +42,7 @@ function Login(props) {
       <div className="inner">
         <div className="text-style">
           <a href="https://coach.ai">
-            <img src="/images/logo_priority.png" width="112px" height="50px"/>
+            <img src="/images/logo.png" width="112px"/>
           </a>
         </div>
 

@@ -14,7 +14,7 @@ function MonthlyDashboard(props) {
   const tab_color = (screen.substr(0, index) === my_name) ? '#6daa6d' : '#aaa';
 
   function onClick() {
-    axios.post('http://localhost:5000/change_screen/' + my_name, null, {
+    axios.post('/change_screen/' + my_name, null, {
       withCredentials: true,
     })
       .then((resp) => {

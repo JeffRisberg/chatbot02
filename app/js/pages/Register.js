@@ -7,11 +7,13 @@ function Register() {
   return (
     <div className="register-container">
       <div className="inner">
-        <div className="text-style">
-          <img src="/images/logo_priority.png" width="110px"/>
+        <div className="text-style" style={{paddingBottom: 50}}>
+          <a href="https://coach.ai">
+            <img src="/images/logo.png" width="112px"/>
+          </a>
         </div>
 
-        <div className="text-style">
+        <div className="header-style" style={{paddingBottom: 20}}>
           Register
         </div>
 

@@ -35,3 +35,33 @@
 .set-goal-container .type-select {
     font-size: 18px;
 }
+
+.goal-list {
+    position: absolute;
+    bottom: 0;
+    top: 250px;
+    width: 250px;
+    padding: 20px;
+    background: #FFEFEC;
+}
+
+.type-select {
+    position: absolute;
+    right: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .goal-list {
+        position: initial;
+        margin-top: 30px;
+        width: 100%;
+        padding: 20px;
+        background: #FFEFEC;
+    }
+
+    .type-select {
+        position: initial;
+        width: 105px;
+        margin-top: 15px;
+    }
+}

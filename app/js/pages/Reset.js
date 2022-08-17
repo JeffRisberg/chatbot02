@@ -9,7 +9,7 @@ function Reset() {
       <div className="inner">
         <div className="text-style" style={{ paddingBottom: 50 }}>
           <a href="https://coach.ai">
-            <img src="/images/logo_priority.png" width="112px" height="50px"/>
+            <img src="/images/logo.png" width="112px"/>
           </a>
 
         </div>

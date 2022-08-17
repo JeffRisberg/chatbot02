@@ -9,11 +9,13 @@ import TopMenu from '../components/TopMenu/TopMenu';
 import './SetGoal.css'
 
 import { set_screen } from "../actions/screen";
+import GoalPad from '../components/GoalPad/GoalPad';
 
 const table_list = {
     day: 'daily',
     week: 'weekly',
     month: 'monthly',
+    year: 'yearly'
 }
 
 function capitalize(s) {
@@ -22,23 +24,30 @@ function capitalize(s) {
 
 const SetGoal = (props) => {
     const user_id = props.user.id;
-    const initialType = props.initialType || 'month';
+    const initialType = props.initialType || 'year';
     const [goalList, setGoalList] = useState({})
     const [currentDate, setCurrentDate] = useState(new Date())
     const [type, setType] = useState(initialType)
+    const [currentGoals, setCurrentGoals] = useState({})
 
     const host = '';
 
+    const getGoals = async (type, currentDate) => {
+        const result = await axios.get(host + '/api/goals/' + user_id, {
+            params: {
+                type: type,
+                date: moment(currentDate).format('l LT')
+            }
+        });
+        return result.data.slice(0, 3)
+    }
+
     useEffect(() => {
         (async () => {
-
-            const result = await axios.get(host + '/api/goals/' + user_id, {
-                params: {
-                    type: type,
-                    date: currentDate
-                }
-            });
-            const data = result.data.slice(0, 3).reduce((prevResult, goal) => {
+            console.log(type, currentDate)
+            const result = await getGoals(type, currentDate);
+            console.log(result)
+            const data = result.reduce((prevResult, goal) => {
                 prevResult[`priority_${goal.priority}`] = {
                     name: goal.name,
                     edit: false
@@ -47,6 +56,20 @@ const SetGoal = (props) => {
             }, {});
 
             setGoalList(data);
+
+            const currentGoals = {}
+            const options = ["year", "month", "week", "day"]
+            for (let i = 0; i < options.length; i ++) {
+                if (options[i] == type) {
+                    break;
+                }
+                const data = await getGoals(options[i], currentDate);
+                currentGoals[options[i]] = data.map((dataItem) => dataItem.name)
+            }
+
+            console.log(currentGoals)
+
+            setCurrentGoals(currentGoals)
         })()
     }, [currentDate, type])
 
@@ -137,19 +160,20 @@ const SetGoal = (props) => {
             <div className='container'>
                 <div className='d-flex align-items-center justify-content-center flex-column' style={{ flex: 1 }}>
                     <h1 style={{ fontSize: 36 }}>Set {capitalize(table_list[type])} Goals</h1>
-                    <div className='d-flex w-100 justify-content-center position-relative mt-4 mb-3'>
+                    <div className='d-flex w-100 align-items-center position-relative flex-column mt-4 mb-3'>
                         <DateSlider
                             date={currentDate}
                             onDateChange={setCurrentDate}
                             type={type}
                         />
-                        <Form.Select aria-label="Default select example" className='w-auto position-absolute end-0 type-select' value={type} onChange={(e) => setType(e.target.value)}>
+                        <Form.Select aria-label="Default select example" className='w-auto type-select' value={type} onChange={(e) => setType(e.target.value)}>
+                            <option value="year">Year</option>
                             <option value="month">Month</option>
                             <option value="week">Week</option>
                             <option value="day">Day</option>
                         </Form.Select>
                     </div>
-                    <h3 className='mb-5' style={{ fontWeight: 400, fontSize: 24 }}>Set no more than 3 goals. The fewer goals you have, the more focused you will be.</h3>
+                    <h3 className='mb-5 text-center' style={{ fontWeight: 400, fontSize: 24 }}>Set no more than 3 goals. The fewer goals you have, the more focused you will be.</h3>
                     <h2 className="mb-4" style={{ fontSize: 28 }}>Top 3 Goals</h2>
                     <div className='d-flex align-items-center goal-input'>
                         <Form.Label>1.</Form.Label>
@@ -210,6 +234,13 @@ const SetGoal = (props) => {
                     </div>
                 </div>
             </div>
+            {
+                Object.keys(currentGoals).length > 0 && (
+                    <div className='goal-list'>
+                        <GoalPad currentGoals={currentGoals} setCurrentType={setType} />
+                    </div>
+                )
+            }
         </div>
     )
 }

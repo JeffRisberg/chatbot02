@@ -1,0 +1,18 @@
+.goal-item {
+    margin-bottom: 20px;
+}
+
+.goal-item-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #3C4043;
+}
+
+.goal-item-title:hover {
+    cursor: pointer;
+}
+
+.goal-item li {
+    margin-bottom: 3px;
+    font-size: 18px;
+}

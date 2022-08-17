@@ -145,6 +145,7 @@
 @media only screen and (max-width: 600px) {
   .home-container .goal-box-container  {
     margin-right: 0px;
+    flex-direction: column;
   }
   .home-container .today-info {
     position: inherit;
@@ -160,5 +161,12 @@
     margin-right: 0;
     height: 450px;
     margin: 50px 0;
+    padding: 0 10px;
   }
+
+  .home-description .event-input::placeholder {
+  color: #eee;
+  font-size: 20px;
+  text-align: center;
+}
 }

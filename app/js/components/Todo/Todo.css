@@ -37,6 +37,11 @@
     margin-bottom: 0px;
 }
 
+.todo-item.done > label {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
 .todo-list-view .todo-input {
     border: 0;
     border-radius: 0;
@@ -49,4 +54,20 @@
     box-shadow: none;
     background: transparent;
     color: white;
+}
+
+.todo-item-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.todo-item-edit {
+    display: none;
+    cursor: pointer;
+}
+
+.todo-item-wrapper:hover > .todo-item-edit {
+    display: block;
 }
