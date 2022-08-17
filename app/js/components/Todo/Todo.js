@@ -99,7 +99,7 @@ const Todo = ({
                         <h3 className="todo-title">Today</h3>
                         <DragDropContext onDragEnd={onDragEnd}>
                             <Droppable droppableId="droppable">
-                                {(provided, snapshot) => (
+                                {(provided) => (
                                     <div
                                         {...provided.droppableProps}
                                         ref={provided.innerRef}

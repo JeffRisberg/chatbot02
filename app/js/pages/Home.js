@@ -87,13 +87,13 @@ function Home(props) {
       setCurrentEvent(currentEvent);
       const start = new Date();
       start.setUTCHours(0,0,0,0);
-      
+
       const end = new Date();
       end.setUTCHours(23,59,59,999);
       const todos = await axios(host + '/api/todos/' + user_id, {
         params: {
           start,
-          end 
+          end
         }
       });
       setTodos(todos.data)
@@ -200,7 +200,7 @@ function Home(props) {
   }
 
   async function updateTodo(todo) {
-    const result = await axios.patch(host + '/api/todos/' + user_id, todo);
+    await axios.patch(host + '/api/todos/' + user_id, todo);
 
     const currentTodos = [...todos]
     const index = currentTodos.findIndex((todoItem) => todoItem.id === todo.id)
@@ -213,7 +213,7 @@ function Home(props) {
   }
 
   async function deleteTodo(todo) {
-    const result = await axios.delete(host + '/api/todos/' + todo.id);
+    await axios.delete(host + '/api/todos/' + todo.id);
     const currentTodos = [...todos]
     setTodos(currentTodos.filter(todoItem => todoItem.id !== todo.id))
   }
