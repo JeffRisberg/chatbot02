@@ -1,0 +1,19 @@
+.edit-todo-modal {
+    position: absolute !important;
+    bottom: 100px;
+    left: 320px;
+    padding: 20px;
+    background: white;
+    z-index: 999;
+    width: 400px !important;
+    border-radius: 4px;
+    box-shadow: 1px 1px 4px 2px #0007;
+}
+
+@media screen and (max-width: 600px) {
+    .edit-todo-modal {
+        right: 0;
+        left: 0;
+        width: unset !important;
+    }
+}

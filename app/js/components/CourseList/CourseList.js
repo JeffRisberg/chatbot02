@@ -11,7 +11,7 @@ function CourseList() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("http://localhost:5000/api/courses");
+      const result = await axios("/api/courses");
       setData(result.data);
     })();
   }, []);

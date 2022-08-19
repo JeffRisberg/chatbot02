@@ -12,6 +12,12 @@
     margin-bottom: 10px;
     position: relative;
     padding: 8px;
+
+    display: none;
+}
+
+.todo-list-view.show {
+    display: block;
 }
 
 .todo-list-view:before {
@@ -29,7 +35,6 @@
 .todo-title {
     color: white;
     font-size: 20px;
-    margin-bottom: 10px;
 }
 
 .todo-item {
@@ -56,11 +61,44 @@
     color: white;
 }
 
+.todo-list-view .todo-inline-input {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: white;
+}
+
+.todo-list-view .todo-inline-input:focus-visible {
+    outline: none;
+}
+
+.todo-list-view .todo-inline-input:focus {
+    box-shadow: none;
+    background: transparent;
+    color: white;
+    outline: none;
+}
+
+
+.todo-list-view .todo-input:focus-visible {
+    outline: none;
+}
+
+
 .todo-item-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: white;
+    position: relative;
+    padding-left: 20px;
+}
+
+.todo-item-expandable {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
 }
 
 .todo-item-edit {
@@ -71,3 +109,61 @@
 .todo-item-wrapper:hover > .todo-item-edit {
     display: block;
 }
+
+.todo-list-view ul {
+    list-style: none;
+    color: white;
+    padding-left: 0;
+}
+
+
+.btn-todo-mobile {
+    display: none;
+}
+
+.todo-category-selector {
+    position: absolute;
+    left: 0;
+    top: 28px;
+    color: #666;
+    background: white;
+    z-index: 999;
+    width: 90px;
+    border-radius: 4px;
+    padding: 8px 0px;
+}
+
+.todo-category-selector > div {
+    padding: 0 8px;
+}
+
+.todo-category-selector > div:hover {
+    cursor: pointer;
+    background-color: #ddd;
+}
+
+@media only screen and (max-width: 600px) {
+    .todo-list-view {
+        width: calc(100% - 56px);
+        margin: 0 auto;
+    }
+
+    .todo-list-view::before{
+        display: none;
+    }
+    .btn-todo-mobile {
+        display: block;
+        margin: 0 auto;
+        background: transparent;
+        border: 0px;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .btn-todo {
+        display: none;
+    }
+}
+

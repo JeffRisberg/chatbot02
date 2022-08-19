@@ -139,12 +139,8 @@ function TaskList(props) {
       });
   }
 
-  columns.push({id: 'priority', Header: 'Priority', accessor: 'priority'});
+  columns.push({id: 'priority', Header: 'No', accessor: 'priority'});
   columns.push({id: 'name', Header: 'Name', accessor: t => t.name || ''});
-
-  if (details === true) {
-    columns.push({id: 'why', Header: 'Why', accessor: t => t.why || ''});
-  }
 
   if (details === true && scope === 'monthly') {
     columns.push({
@@ -193,9 +189,9 @@ function TaskList(props) {
 
     return (
       <div>
-        <Card className="table-wrapper table-responsive shadow-sm">
-          <Card.Body>
-            <ProgressBar now={now} />
+        <Card className="table-wrapper shadow-sm mt-2 mb-4">
+          <Card.Body className='p-0'>
+            <ProgressBar now={now} className="mx-2 mt-2" />
             <EnhancedTable className="tasks-table align-items-center"
                            scope={scope}
                            columns={columns}

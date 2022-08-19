@@ -16,11 +16,11 @@ function TaskSummary(props) {
   useEffect(() => {
     (async () => {
       if (scope === 'daily') {
-        const result = await axios('http://localhost:5000/api/daily_tasks_summary/' + user_id);
+        const result = await axios('/api/daily_tasks_summary/' + user_id);
         setData(result.data.slice(0, 7));
       }
       if (scope === 'weekly') {
-        const result = await axios('http://localhost:5000/api/weekly_tasks_summary/' + user_id);
+        const result = await axios('/api/weekly_tasks_summary/' + user_id);
         setData(result.data.slice(0, 7));
       }
     })();

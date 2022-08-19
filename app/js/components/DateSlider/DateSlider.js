@@ -7,6 +7,9 @@ import './DateSlider.css'
 const DateSlider = ({date, type, onDateChange}) => {
     const handleNext = () => {
         switch(type) {
+            case 'year':
+                onDateChange(new Date(new Date(date).setFullYear(date.getFullYear() + 1)))
+                break;
             case 'month':
                 onDateChange(new Date(new Date(date).setMonth(date.getMonth() + 1)))
                 break;
@@ -20,6 +23,9 @@ const DateSlider = ({date, type, onDateChange}) => {
     }
     const handlePrev = () => {
         switch(type) {
+            case 'year':
+                onDateChange(new Date(new Date(date).setFullYear(date.getFullYear() - 1)))
+                break;
             case 'month':
                 onDateChange(new Date(new Date(date).setMonth(date.getMonth() - 1)))
                 break;
@@ -34,6 +40,8 @@ const DateSlider = ({date, type, onDateChange}) => {
 
     const getDateString = () => {
         switch(type) {
+            case 'year':
+                return moment(date).format("YYYY")
             case 'month':
                 return moment(date).format("MMMM YYYY")
             case 'week':

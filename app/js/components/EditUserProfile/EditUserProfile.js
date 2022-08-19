@@ -115,7 +115,7 @@ const EditUserProfileFormik = withFormik({
   }),
   handleSubmit: (values, {props}) => {
     console.log(values);
-    axios.put('http://localhost:5000/api/users', values, {
+    axios.put('/api/users', values, {
       withCredentials: true,
     })
       .then(response => {
