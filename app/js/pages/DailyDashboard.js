@@ -25,11 +25,7 @@ function DailyDashboard(props) {
   return (
     <div className="DailyDashboard">
       <div className="dashboard-header" onClick={onClick} style={{textDecoration: 'underline', background: tab_color}}>Daily Tasks</div>
-      <div className="row">
-        <div className="col-md-12">
-          <TaskList details={details} scope={"daily"}/>
-        </div>
-      </div>
+      <TaskList details={details} scope={"daily"}/>
     </div>
   )
 }

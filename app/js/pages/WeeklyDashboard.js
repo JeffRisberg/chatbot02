@@ -25,11 +25,7 @@ function WeeklyDashboard(props) {
   return (
     <div className="WeeklyDashboard">
       <div className="dashboard-header" onClick={onClick} style={{textDecoration: 'underline', background: tab_color}}>Weekly Goals</div>
-      <div className="row">
-        <div className="col-md-12">
-          <TaskList details={details} scope={"weekly"}/>
-        </div>
-      </div>
+      <TaskList details={details} scope={"weekly"}/>
     </div>
   )
 }

@@ -1,16 +1,21 @@
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {Calendar, momentLocalizer} from 'react-big-calendar';
-import moment from 'moment';
-import './CalendarDashboard.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-
-// eslint-disable-next-line no-unused-vars
+import CalendarToolbar from '../components/CalendarToolbar/CalendarToolbar';
+import './CalendarDashboard.css';
 
 function CalendarDashboard(props) {
   const user_id = props.user.id;
 
+  moment.locale('en-us', {
+    week: {
+      dow: 1,
+      doy: 1
+    }
+  })
   const localizer = momentLocalizer(moment);
 
   const [data, setData] = useState([]);
@@ -37,6 +42,8 @@ function CalendarDashboard(props) {
       });
 
       result = await axios(host + '/api/weekly_tasks/' + user_id + '?all=1');
+
+      console.log(result.data)
 
       result.data.forEach((weekly_task) => {
         const event = {};
@@ -114,6 +121,9 @@ function CalendarDashboard(props) {
         eventPropGetter={eventStyleGetter}
         style={{height: 'calc(100vh - 45px)'}}
         views={views}
+        components={{
+          toolbar: CalendarToolbar
+        }}
       />
     </div>
   )

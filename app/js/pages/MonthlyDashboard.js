@@ -25,11 +25,7 @@ function MonthlyDashboard(props) {
   return (
     <div className="MonthlyDashboard">
       <div className="dashboard-header" onClick={onClick} style={{textDecoration: 'underline', background: tab_color}}>Monthly Goals</div>
-      <div className="row">
-        <div className="col-md-12">
-          <TaskList details={details} scope={"monthly"} />
-        </div>
-      </div>
+      <TaskList details={details} scope={"monthly"} />
     </div>
   )
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
-import { FiEdit } from 'react-icons/fi'
+import { FiEdit, FiTrash2 } from 'react-icons/fi'
 import DateSlider from '../components/DateSlider/DateSlider';
 import TopMenu from '../components/TopMenu/TopMenu';
 import './SetGoal.css'
@@ -49,7 +49,9 @@ const SetGoal = (props) => {
             console.log(result)
             const data = result.reduce((prevResult, goal) => {
                 prevResult[`priority_${goal.priority}`] = {
+                    id: goal.id,
                     name: goal.name,
+                    done: goal.done,
                     edit: false
                 }
                 return prevResult
@@ -106,12 +108,41 @@ const SetGoal = (props) => {
                 setGoalList({
                     ...goalList,
                     [key]: {
+                        id: result.data.task_id,
                         name,
+                        done: goalList[key] ? goalList[key].done : false,
                         edit: false
                     }
                 })
             ]
         }
+    }
+
+    const handleGoalDoneChange = async (e, priority) => {
+        const startOf = type === 'week' ? 'isoWeek' : type
+        const checked = e.target.checked
+        const goal = {
+            table: table_list[type],
+            priority: priority,
+            done: checked,
+            date: moment(currentDate).startOf(startOf).format('YYYY-MM-DD'),
+            user_id: user_id
+        }
+
+        const result = await axios.post('/api/set_goal', goal)
+
+        const key = `priority_${priority}`
+        if (result.status === 200) [
+            setGoalList({
+                ...goalList,
+                [key]: {
+                    id: goalList[key].id,
+                    name: goalList[key].name,
+                    done: checked,
+                    edit: false
+                }
+            })
+        ]
     }
 
     const handleChangeGoal = (e, priority) => {
@@ -120,6 +151,7 @@ const SetGoal = (props) => {
             ...goalList,
             [key]: {
                 name: e.target.value,
+                done: goalList[key] ? goalList[key].done : false,
                 edit: true
             }
         })
@@ -131,9 +163,27 @@ const SetGoal = (props) => {
             ...goalList,
             [key]: {
                 name: goalList[key].name,
+                done: goalList[key].done,
                 edit: true
             }
         })
+    }
+
+    const deleteGoal = async (task_id, priority) => {
+        const table = table_list[type]
+        const result = await axios.delete(`/api/tasks/${task_id}`, {
+            params: {
+                table: table
+            }
+        })
+
+        const key = `priority_${priority}`
+        if (result.status === 200) [
+            setGoalList({
+                ...goalList,
+                [key]: undefined
+            })
+        ]
     }
 
     return (
@@ -175,62 +225,90 @@ const SetGoal = (props) => {
                     </div>
                     <h3 className='mb-5 text-center' style={{ fontWeight: 400, fontSize: 24 }}>Set no more than 3 goals. The fewer goals you have, the more focused you will be.</h3>
                     <h2 className="mb-4" style={{ fontSize: 28 }}>Top 3 Goals</h2>
-                    <div className='d-flex align-items-center goal-input'>
-                        <Form.Label>1.</Form.Label>
-                        {
-                            !!goalList['priority_1'] && goalList['priority_1'].edit === false ? (
-                                <div className='d-flex align-items-center justify-content-between'>
-                                    <p>{goalList['priority_1'].name}</p>
-                                    <FiEdit onClick={() => editGoal(1)} size={22} />
-                                </div>
-                            ) : (
-                                <Form.Control
-                                    type="text"
-                                    placeholder='The most important goal'
-                                    onKeyDown={(e) => handleGoalSubmit(e, 1)}
-                                    value={goalList['priority_1'] ? goalList['priority_1'].name : ''}
-                                    onChange={(e) => handleChangeGoal(e, 1)}
-                                />
-                            )
-                        }
-                    </div>
-                    <div className='d-flex align-items-center mt-3 goal-input'>
-                        <Form.Label>2.</Form.Label>
-                        {
-                            !!goalList['priority_2'] && goalList['priority_2'].edit === false ? (
-                                <div className='d-flex align-items-center justify-content-between'>
-                                    <p>{goalList['priority_2'].name}</p>
-                                    <FiEdit onClick={() => editGoal(2)} size={22} />
-                                </div>
-                            ) : (
-                                <Form.Control
-                                    type="text"
-                                    placeholder='The second most important goal'
-                                    onKeyDown={(e) => handleGoalSubmit(e, 2)}
-                                    value={goalList['priority_2'] ? goalList['priority_2'].name : ''}
-                                    onChange={(e) => handleChangeGoal(e, 2)}
-                                />
-                            )
-                        }
-                    </div>
-                    <div className='d-flex align-items-center mt-3 goal-input'>
-                        <Form.Label>3.</Form.Label>
-                        {
-                            !!goalList['priority_3'] && goalList['priority_3'].edit === false ? (
-                                <div className='d-flex align-items-center justify-content-between'>
-                                    <p>{goalList['priority_3'].name}</p>
-                                    <FiEdit onClick={() => editGoal(3)} size={22} />
-                                </div>
-                            ) : (
-                                <Form.Control
-                                    type="text"
-                                    placeholder='The third most important goal'
-                                    onKeyDown={(e) => handleGoalSubmit(e, 3)}
-                                    value={goalList['priority_3'] ? goalList['priority_3'].name : ''}
-                                    onChange={(e) => handleChangeGoal(e, 3)}
-                                />
-                            )
-                        }
+                    <div className='d-flex flex-column align-items-end'>
+                        <div className='d-flex align-items-center justify-content-end'>
+                            {
+                                !!goalList['priority_1'] && goalList['priority_1'].edit === false && (
+                                    <input type={"checkbox"} className="goal-done-input" checked={goalList['priority_1'].done} onChange={(e) => handleGoalDoneChange(e, 1)} />
+                                )
+                            }
+                            <div className='d-flex align-items-center goal-input'>
+                                <Form.Label>
+                                    1.
+                                </Form.Label>
+                                {
+                                    !!goalList['priority_1'] && goalList['priority_1'].edit === false ? (
+                                        <div className='d-flex align-items-center justify-content-between'>
+                                            <p className={goalList['priority_1'].done ? "text-decoration-line-through" : ""}>{goalList['priority_1'].name}</p>
+                                            <FiEdit onClick={() => editGoal(1)} size={22} className="ms-auto" />
+                                            <FiTrash2 onClick={() => deleteGoal(goalList['priority_1'].id, 1)} size={22} className="ms-2" />
+                                        </div>
+                                    ) : (
+                                        <Form.Control
+                                            type="text"
+                                            placeholder='The most important goal'
+                                            onKeyDown={(e) => handleGoalSubmit(e, 1)}
+                                            value={goalList['priority_1'] ? goalList['priority_1'].name : ''}
+                                            onChange={(e) => handleChangeGoal(e, 1)}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </div>
+                        <div className='d-flex align-items-center justify-content-end mt-3'>
+                            {
+                                !!goalList['priority_2'] && goalList['priority_2'].edit === false && (
+                                    <input type={"checkbox"} className="goal-done-input" checked={goalList['priority_2'].done} onChange={(e) => handleGoalDoneChange(e, 2)} />
+                                )
+                            }
+                            <div className='d-flex align-items-center goal-input'>
+                                <Form.Label>2.</Form.Label>
+                                {
+                                    !!goalList['priority_2'] && goalList['priority_2'].edit === false ? (
+                                        <div className='d-flex align-items-center justify-content-between'>
+                                            <p className={goalList['priority_2'].done ? "text-decoration-line-through" : ""}>{goalList['priority_2'].name}</p>
+                                            <FiEdit onClick={() => editGoal(2)} size={22} className="ms-auto" />
+                                            <FiTrash2 onClick={() => deleteGoal(goalList['priority_2'].id, 2)} size={22} className="ms-2" />
+                                        </div>
+                                    ) : (
+                                        <Form.Control
+                                            type="text"
+                                            placeholder='The second most important goal'
+                                            onKeyDown={(e) => handleGoalSubmit(e, 2)}
+                                            value={goalList['priority_2'] ? goalList['priority_2'].name : ''}
+                                            onChange={(e) => handleChangeGoal(e, 2)}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </div>
+                        <div className='d-flex align-items-center mt-3 justify-content-end'>
+                            {
+                                !!goalList['priority_3'] && goalList['priority_3'].edit === false && (
+                                    <input type={"checkbox"} className="goal-done-input" checked={goalList['priority_3'].done} onChange={(e) => handleGoalDoneChange(e, 3)} />
+                                )
+                            }
+                            <div className='d-flex align-items-center goal-input'>
+                                <Form.Label>3.</Form.Label>
+                                {
+                                    !!goalList['priority_3'] && goalList['priority_3'].edit === false ? (
+                                        <div className='d-flex align-items-center justify-content-between'>
+                                            <p className={goalList['priority_3'].done ? "text-decoration-line-through" : ""}>{goalList['priority_3'].name}</p>
+                                            <FiEdit onClick={() => editGoal(3)} size={22} className="ms-auto" />
+                                            <FiTrash2 onClick={() => deleteGoal(goalList['priority_3'].id, 3)} size={22} className="ms-2" />
+                                        </div>
+                                    ) : (
+                                        <Form.Control
+                                            type="text"
+                                            placeholder='The third most important goal'
+                                            onKeyDown={(e) => handleGoalSubmit(e, 3)}
+                                            value={goalList['priority_3'] ? goalList['priority_3'].name : ''}
+                                            onChange={(e) => handleChangeGoal(e, 3)}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

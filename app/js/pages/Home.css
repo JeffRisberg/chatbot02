@@ -14,7 +14,6 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin-right: 125px;
 }
 
 .home-container .goal-box {
@@ -51,9 +50,14 @@
   position: absolute;
   width: 250px;
   right: 0;
-  bottom: 0;
+  bottom: 50px;
   display: flex;
   flex-direction: column;
+  display: none;
+}
+
+.home-container .today-info.show {
+  display: block;
 }
 
 .home-container .home-description {
@@ -150,7 +154,13 @@
   .home-container .today-info {
     position: inherit;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 28px;
+    display: block;
+    visibility: visible;
+  }
+
+  .calendar-click {
+    display: none;
   }
 
   .home-container .rbc-time-view {
@@ -161,12 +171,17 @@
     margin-right: 0;
     height: 450px;
     margin: 50px 0;
-    padding: 0 10px;
+    padding: 0 28px;
   }
 
   .home-description .event-input::placeholder {
-  color: #eee;
-  font-size: 20px;
-  text-align: center;
-}
+    color: #eee;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .todo-container {
+    position: inherit;
+    text-align: center;
+  }
 }

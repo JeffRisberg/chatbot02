@@ -5,7 +5,7 @@ import moment from 'moment'
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import Form from 'react-bootstrap/Form'
 
-import { FiChevronDown, FiCalendar } from "react-icons/fi";
+import { FiCalendar } from "react-icons/fi";
 
 import TopMenu from '../components/TopMenu/TopMenu';
 import MiniTaskList from '../components/MiniTaskList/MiniTaskList';
@@ -38,7 +38,7 @@ function Home(props) {
   const [slot, setSlot] = useState(null)
   const [todos, setTodos] = useState([])
 
-  const [showCalendar, setShowCalendar] = useState(true)
+  const [showCalendar, setShowCalendar] = useState(false)
 
   const host = '';
 
@@ -185,18 +185,100 @@ function Home(props) {
 
   async function addTodo(todo) {
     const content = {
-      name: todo,
       start_date: new Date(),
-      priority: todos.length + 1
+      priority: todos.length + 1,
+      ...todo,
     }
     const result = await axios.post(host + '/api/todos/' + user_id, content);
     const id = result.data
     content.id = id
+    content.focus = true
 
-    setTodos([
-      ...todos,
+    const newTodos = [
+      ...todos.map((todo) => ({...todo, focus: false})),
       content
-    ])
+    ]
+    
+    newTodos.sort((a, b) => a.priority - b.priority)
+
+    setTodos(newTodos)
+  }
+
+  async function insertTodo(todo, todoId) {
+    const content = {
+      start_date: new Date(),
+      ...todo,
+    }
+    const result = await axios.post(host + '/api/todos/' + user_id, content);
+    const id = result.data
+    content.id = id
+    content.focus = true
+
+    const todoIndex = todos.findIndex((todo) => todo.id == todoId)
+    const newTodos = [
+      ...todos.map((todo) => ({...todo, focus: false})),
+    ]
+
+    newTodos.splice(todoIndex + 1, 0, content)
+
+    for (let i = todoIndex + 1; i < todos.length; i ++) {
+      const todoItem = todos[i]
+      if (todoItem.parent_id !== content.parent_id) {
+        continue
+      }
+      await axios.patch(host + '/api/todos/' + user_id, {
+        id: todoItem.id,
+        priority: todoItem.priority + 1
+      });
+      newTodos[i + 1].priority = todoItem.priority + 1
+    }
+    
+    newTodos.sort((a, b) => a.priority - b.priority)
+
+    setTodos(newTodos)
+  }
+
+  const getAllChild = (id) => {
+    let result = [];
+    const childTodos = [];
+    for (let i = 0; i < todos.length; i ++) {
+      if (todos[i].parent_id === id) {
+        childTodos.push(todos[i].id)
+      }
+    }
+    result = result.concat(childTodos)
+    for (let i = 0; i < childTodos.length; i ++) {
+      result = result.concat(getAllChild(childTodos[i]))
+    }
+
+    return result;
+  }
+
+  async function updateTodoDone(todo) {
+    await axios.patch(host + '/api/todos/' + user_id, todo);
+    const currentTodos = [...todos]
+    const children = getAllChild(todo.id);
+    for (let i = 0; i < children.length; i ++) {
+      await axios.patch(host + '/api/todos/' + user_id, {
+        id: children[i],
+        done: todo.done
+      });
+      const index = currentTodos.findIndex((todoItem) => todoItem.id === children[i])
+      currentTodos[index] = {
+        ...currentTodos[index],
+        done: todo.done
+      }
+    }
+
+    const index = currentTodos.findIndex((todoItem) => todoItem.id === todo.id)
+    currentTodos[index] = {
+      ...currentTodos[index],
+      done: todo.done
+    }
+
+    currentTodos.sort((a, b) => a.priority - b.priority)
+
+    setTodos(currentTodos)
   }
 
   async function updateTodo(todo) {
@@ -209,18 +291,35 @@ function Home(props) {
       ...todo
     }
 
+    currentTodos.sort((a, b) => a.priority - b.priority)
+
+    setTodos(currentTodos)
+  }
+
+  async function multiUpdateTodo(updateTodos) {
+    const currentTodos = [...todos]
+    for(const todo of updateTodos) {
+      await axios.patch(host + '/api/todos/' + user_id, todo);
+      const index = currentTodos.findIndex((todoItem) => todoItem.id === todo.id)
+      currentTodos[index] = {
+        ...currentTodos[index],
+        ...todo
+      }
+    }
+
+    currentTodos.sort((a, b) => a.priority - b.priority)
+
+    console.log(currentTodos)
+
     setTodos(currentTodos)
   }
 
   async function deleteTodo(todo) {
-    await axios.delete(host + '/api/todos/' + todo.id);
-    const currentTodos = [...todos]
-    setTodos(currentTodos.filter(todoItem => todoItem.id !== todo.id))
-  }
+    const id = todo.id
+    await axios.delete(host + '/api/todos/' + id);
 
-  async function updatePriorities(updatedTodos) {
-    setTodos(updatedTodos)
-    await axios.patch(host + '/api/todos_priorities/' + user_id, updatedTodos);
+    const currentTodos = [...todos]
+    setTodos(currentTodos.filter(todoItem => todoItem.id !== id && todoItem.parent_id !== id))
   }
 
   function showAddEvent(slot) {
@@ -390,64 +489,60 @@ function Home(props) {
           }
         </div>
       </div>
-      {
-        showCalendar ? (
-          <div className='today-info'>
-            <div className='d-flex align-items-center justify-content-center position-relative'>
-              <p style={{
-                textAlign: "center",
-                color: "white",
-                marginBottom: "5px",
-                fontWeight: "bold",
-                fontSize: "18px",
-              }}>{moment(new Date()).format("ddd MMMM D, YYYY")}</p>
-              <FiChevronDown color='white'  onClick={() => setShowCalendar(false)} size={32} className="position-absolute end-0" />
-            </div>
-            <div className='today-goal'>
-              <MiniTaskList title={"Today's Goals:"}
-                tasks={dailyData}
-                hideable={false}
-                detailAction={onDaily} />
-            </div>
-            <Calendar
-              defaultDate={new Date()}
-              defaultView="day"
-              localizer={localizer}
-              events={events}
-              toolbar={false}
-              formats={{
-                eventTimeRangeFormat: () => { return "" }
-              }}
-              showMultiDayTimes
-              eventPropGetter={eventStyleGetter}
-              min={new Date(new Date().setMinutes(0, 0, 0))}
-              style={{
-                height: (24 - new Date().getHours() * 40),
-                maxHeight: 600
-              }}
-              selectable
-              onSelectSlot={(slot) => showAddEvent(slot)}
-              components={{
-                event: CalendarEvent
-              }}
-            />
-          </div>
-        ) : (
-          <div className='calendar-click' onClick={() => setShowCalendar(true)}>
-            <FiCalendar color='white'  size={32} />
-          </div>
-        )
-      }
-
       <div className='todo-container'>
         <Todo
           todoList={todos}
           onAdd={addTodo}
+          onInsert={insertTodo}
           onDelete={deleteTodo}
           onUpdate={updateTodo}
-          onUpdatePriorities={updatePriorities}
+          onMultiUpdate={multiUpdateTodo}
+          onUpdateTodoDone={updateTodoDone}
         />
       </div>
+      <div className={`today-info ${showCalendar ? 'show' : ''}`}>
+        <div className='d-flex align-items-center justify-content-center position-relative'>
+          <p style={{
+            textAlign: "center",
+            color: "white",
+            marginBottom: "5px",
+            fontWeight: "bold",
+            fontSize: "18px",
+          }}>{moment(new Date()).format("ddd MMMM D, YYYY")}</p>
+        </div>
+        <div className='today-goal'>
+          <MiniTaskList title={"Today's Goals:"}
+            tasks={dailyData}
+            hideable={false}
+            detailAction={onDaily} />
+        </div>
+        <Calendar
+          defaultDate={new Date()}
+          defaultView="day"
+          localizer={localizer}
+          events={events}
+          toolbar={false}
+          formats={{
+            eventTimeRangeFormat: () => { return "" }
+          }}
+          showMultiDayTimes
+          eventPropGetter={eventStyleGetter}
+          min={new Date(new Date().setMinutes(0, 0, 0))}
+          style={{
+            height: (24 - new Date().getHours() * 40),
+            maxHeight: 600
+          }}
+          selectable
+          onSelectSlot={(slot) => showAddEvent(slot)}
+          components={{
+            event: CalendarEvent
+          }}
+        />
+      </div>
+      <div className='calendar-click' onClick={() => setShowCalendar(!showCalendar)}>
+        <FiCalendar color='white'  size={32} />
+      </div>
+
       {
         !!slot && (
           <AddEvent
