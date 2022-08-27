@@ -1,0 +1,16 @@
+
+ojavascript:S3776"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(ù‡½h
+Ojavascript:S1117#".'type' is already declared in the upper scope.(¤ Ğôşÿÿÿÿ
+Vjavascript:S1117#"5'currentDate' is already declared in the upper scope.(¤ Ğôşÿÿÿÿ
+Rjavascript:S1117>"6'currentGoals' is already declared in the upper scope.(Ú¡º
+mjavascript:S4138@"LExpected a `for-of` loop instead of a `for` loop with this simple iteration.(–«şøÿÿÿÿ
+Ojavascript:S1117D".'data' is already declared in the upper scope.(»¸¡”üÿÿÿÿ
+fjavascript:S905k"FExpected an assignment or function call and instead saw an expression.(§áÛ«ÿÿÿÿÿ
+gjavascript:S905‡"FExpected an assignment or function call and instead saw an expression.(§áÛ«ÿÿÿÿÿ
+gjavascript:S905µ"FExpected an assignment or function call and instead saw an expression.(§áÛ«ÿÿÿÿÿ
+ajavascript:S3358ò"DExtract this nested ternary operation into an independent statement.(óöî
+fjavascript:S3358û"DExtract this nested ternary operation into an independent statement.(¿˜å˜øÿÿÿÿ
+`javascript:S3358"DExtract this nested ternary operation into an independent statement.(Ñè”^
+ajavascript:S3358–"DExtract this nested ternary operation into an independent statement.(µïÕ
+ajavascript:S3358¨"DExtract this nested ternary operation into an independent statement.(Ç«êº
+ajavascript:S3358±"DExtract this nested ternary operation into an independent statement.(¤çİú
