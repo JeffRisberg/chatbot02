@@ -72,7 +72,7 @@
         "react-big-calendar": "^1.5.0",
         "react-bootstrap": "^2.4.0",
         "react-chartjs-2": "^4.3.0",
-        "react-chatbot-kit": "^2.1.0-beta.2",
+        "react-chatbot-kit": "^2.1.0",
         "react-dnd": "^16.0.1",
         "react-dom": "^18.2.0",
         "react-icons": "^4.4.0",
