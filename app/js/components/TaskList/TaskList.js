@@ -115,31 +115,31 @@ function TaskList(props) {
 
   const columns = [];
 
-  if (details === true) {
-    columns.push(
-      {id: 'expander',
-        Header: '',
-        Cell: ({row}) =>
-          // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
-          // to build the toggle for expanding a row
-          row.canExpand ? (
-            <span
-              {...row.getToggleRowExpandedProps({
-                style: {
-                  // We can even use the row.depth property
-                  // and paddingLeft to indicate the depth
-                  // of the row
-                  paddingLeft: `${row.depth * 2}rem`,
-                },
-              })}
-            >
-              {row.isExpanded ? 'V' : '>'}
-            </span>
-          ) : null,
-      });
-  }
+  // if (details === true) {
+  //   columns.push(
+  //     {id: 'expander',
+  //       Header: '',
+  //       Cell: ({row}) =>
+  //         // Use the row.canExpand and row.getToggleRowExpandedProps prop getter
+  //         // to build the toggle for expanding a row
+  //         row.canExpand ? (
+  //           <span
+  //             {...row.getToggleRowExpandedProps({
+  //               style: {
+  //                 // We can even use the row.depth property
+  //                 // and paddingLeft to indicate the depth
+  //                 // of the row
+  //                 paddingLeft: `${row.depth * 2}rem`,
+  //               },
+  //             })}
+  //           >
+  //             {row.isExpanded ? 'V' : '>'}
+  //           </span>
+  //         ) : null,
+  //     });
+  // }
 
-  columns.push({id: 'priority', Header: 'No', accessor: 'priority'});
+  columns.push({id: 'priority', Header: '', accessor: 'priority'});
   columns.push({id: 'name', Header: 'Name', accessor: t => t.name || ''});
 
   if (details === true && scope === 'monthly') {

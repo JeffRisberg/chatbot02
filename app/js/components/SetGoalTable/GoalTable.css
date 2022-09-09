@@ -1,132 +1,106 @@
-.btn-todo {
-    background: transparent;
-    border: 0px;
-    color: white;
+.tree-container {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-.tree-container > div > div::-webkit-scrollbar {
-    width: 0px;
-}
-
-.todo-list-view {
-    width: 320px;
-    min-height: 150px;
-    background: #041a07d6;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    position: relative;
-    padding: 8px;
-
-    display: none;
-}
-
-.todo-list-view.show {
-    display: block;
-}
-
-.todo-list-view:before {
-    content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 10px 0 10px;
-    border-color: #0009 transparent transparent transparent;
-    position: absolute;
-    bottom: -10px;
-    left: 15px;
-}
-
-.todo-title {
-    color: white;
+.goal-title {
+    color: black;
     font-size: 20px;
 }
 
-.todo-item {
-    color: white;
+.goal-item {
+    color: black;
     margin-bottom: 0px;
 }
 
-.todo-item.done > label {
+.goal-item.done > label {
     text-decoration: line-through;
     opacity: 0.5;
 }
 
-.todo-list-view .todo-input {
+.goal-list-view .goal-input {
     border: 0;
     border-radius: 0;
     background: transparent;
-    color: white;
+    color: black;
     margin-top: 10px;
 }
 
-.todo-list-view .todo-input:focus {
+.goal-list-view .goal-input:focus {
     box-shadow: none;
     background: transparent;
-    color: white;
+    color: black;
 }
 
-.todo-list-view .todo-inline-input {
+.goal-inline-input {
     border: 0;
     border-radius: 0;
     background: transparent;
-    color: white;
+    color: black;
     margin-right: auto;
     resize: none;
     margin-left: 8px;
     cursor: move;
     min-width: 50px;
-    width: 100%;
+    width: 300px;
+    border-bottom: 1px solid;
+    margin-right: 20px;
 }
 
-.todo-list-view .todo-inline-input::-webkit-scrollbar {
+.goal-inline-input-label {
+    color: black;
+}
+
+.goal-inline-input::-webkit-scrollbar {
     width: 0px;
 }
 
-.todo-list-view .todo-inline-input:focus-visible {
+.goal-inline-input:focus-visible {
     outline: none;
 }
 
-.todo-list-view .todo-inline-input:focus {
+.goal-inline-input:focus {
     box-shadow: none;
     background: transparent;
-    color: white;
+    color: black;
     outline: none;
     cursor: text;
 }
 
 
-.todo-list-view .todo-input:focus-visible {
+.goal-input:focus-visible {
     outline: none;
 }
 
 
-.todo-item-wrapper {
+.goal-item-wrapper {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
-    color: white;
+    /* justify-content: space-between; */
+    color: black;
     position: relative;
 }
 
-.todo-item-expandable {
+.goal-item-expandable {
     position: absolute;
     left: 0;
     display: flex;
     align-items: center;
 }
 
-.todo-item input {
+.goal-item input {
     font-size: 13px;
     border-radius: 2px !important;
     vertical-align: middle;
 }
 
-.todo-item-edit {
+.goal-item-edit {
     visibility: hidden;
     cursor: pointer;
 }
 
-.todo-item-wrapper:hover > .todo-item-edit {
+.goal-item-wrapper:hover > .goal-item-edit {
     visibility: visible;
 }
 
@@ -134,22 +108,22 @@
     align-items: flex-start;
 }
 
-.todo-list-view ul {
+.goal-list-view ul {
     list-style: none;
-    color: white;
+    color: black;
     padding-left: 0;
 }
 
 
-.btn-todo-mobile {
+.btn-goal-mobile {
     display: none;
 }
 
-.todo-category-selector {
+.goal-category-selector {
     position: absolute;
     left: 0;
     top: 35px;
-    color: white;
+    color: black;
     background: #333;
     z-index: 999;
     width: 240px;
@@ -158,7 +132,7 @@
     font-size: 15px;
 }
 
-.todo-category-selector::after {
+.goal-category-selector::after {
     content: "";
     width: 0;
     height: 0;
@@ -170,22 +144,22 @@
     position: absolute;
 }
 
-.todo-category-selector > div {
+.goal-category-selector > div {
     padding: 2px 8px;
 }
 
-.todo-category-selector > div:hover {
+.goal-category-selector > div:hover {
     cursor: pointer;
     background-color: rgba(255,255,255,.1);
 }
 
-.todo-delete-btn {
+.goal-delete-btn {
     cursor: pointer;
-    color: white;
+    color: black;
     visibility: hidden;
 }
 
-.rstcustom__node:hover .todo-delete-btn {
+.rstcustom__node:hover .goal-delete-btn {
     visibility: visible;
 }
 
@@ -206,26 +180,26 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .todo-list-view {
+    .goal-list-view {
         width: calc(100% - 56px);
         margin: 0 auto;
     }
 
-    .todo-list-view::before{
+    .goal-list-view::before{
         display: none;
     }
-    .btn-todo-mobile {
+    .btn-goal-mobile {
         display: block;
         margin: 0 auto;
         background: transparent;
         border: 0px;
-        color: white;
+        color: black;
         font-size: 24px;
         font-weight: bold;
         margin-bottom: 10px;
     }
 
-    .btn-todo {
+    .btn-goal {
         display: none;
     }
 }

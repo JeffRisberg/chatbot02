@@ -7,7 +7,7 @@ function MiniTaskList(props) {
   const detailAction = props.detailAction;
   const hideable = props.hideable;
 
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   function onToggle() {
     setVisible(!visible);

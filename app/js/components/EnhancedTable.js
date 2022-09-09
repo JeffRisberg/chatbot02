@@ -111,7 +111,7 @@ const EnhancedTable = ({
                     "name": updatedRow.name, "why": updatedRow.why, /*"due_date": updatedRow.due_date*/
                   };
 
-                  const url = 'http://localhost:5000/api/tasks';
+                  const url = '/api/tasks';
                   axios.put(url, payload, {
                     withCredentials: true,
                   })
@@ -130,7 +130,7 @@ const EnhancedTable = ({
               &nbsp;
               <span onClick={() => {
                 // call tasks API with delete request
-                const url = 'http://localhost:5000/api/tasks/' + row.original.id + "?table=" + scope;
+                const url = '/api/tasks/' + row.original.id + "?table=" + scope;
                 axios.delete(url, null, {
                   withCredentials: true,
                 })
@@ -151,8 +151,8 @@ const EnhancedTable = ({
 
   // Render the UI for your table
   return (
-    <div>
-      <table className="table" width={"100%"} {...getTableProps()}>
+    <div className='table-responsive'>
+      <table className="table table-sm" width={"100%"} {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>

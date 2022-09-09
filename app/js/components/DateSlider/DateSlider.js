@@ -10,6 +10,9 @@ const DateSlider = ({date, type, onDateChange}) => {
             case 'year':
                 onDateChange(new Date(new Date(date).setFullYear(date.getFullYear() + 1)))
                 break;
+            case 'quarter':
+                onDateChange(new Date(new Date(date).setMonth(date.getMonth() + 3)))
+                break;
             case 'month':
                 onDateChange(new Date(new Date(date).setMonth(date.getMonth() + 1)))
                 break;
@@ -25,6 +28,9 @@ const DateSlider = ({date, type, onDateChange}) => {
         switch(type) {
             case 'year':
                 onDateChange(new Date(new Date(date).setFullYear(date.getFullYear() - 1)))
+                break;
+            case 'quarter':
+                onDateChange(new Date(new Date(date).setMonth(date.getMonth() - 3)))
                 break;
             case 'month':
                 onDateChange(new Date(new Date(date).setMonth(date.getMonth() - 1)))
@@ -42,6 +48,8 @@ const DateSlider = ({date, type, onDateChange}) => {
         switch(type) {
             case 'year':
                 return moment(date).format("YYYY")
+            case 'quarter':
+                return 'Q' + moment(date).format("Q YYYY")
             case 'month':
                 return moment(date).format("MMMM YYYY")
             case 'week':

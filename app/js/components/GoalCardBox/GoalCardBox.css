@@ -1,0 +1,11 @@
+.goal-card-box-container {
+    width: 100%;
+    min-height: 115px;
+    position: relative;
+    margin-top: 5px;
+}
+
+.goal-card-box {
+    position: absolute;
+    cursor: move;
+}

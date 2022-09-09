@@ -1,231 +1,407 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
+import axios from "axios";
+import { connect } from 'react-redux';
 
 import Form from 'react-bootstrap/Form'
 import { FiTrash2, FiChevronDown } from "react-icons/fi"
-import { AiFillCaretRight, AiFillCaretDown } from 'react-icons/ai'
-import { MdDragIndicator } from 'react-icons/md'
-import { DndProvider } from "react-dnd";
-import {
-  Tree,
-  MultiBackend,
-  getBackendOptions
-} from "@minoru/react-dnd-treeview";
+import TextareaAutosize from 'react-textarea-autosize';
+
+import
+  SortableTree,
+  {
+    getTreeFromFlatData,
+    changeNodeAtPath,
+    removeNodeAtPath,
+    insertNode,
+    getNodeAtPath,
+    getFlatDataFromTree,
+    getVisibleNodeCount
+  }
+from '@nosferatu500/react-sortable-tree';
+import FileExplorerTheme from 'react-sortable-tree-theme-file-explorer';
+import { setTodos } from "../../actions/todo";
 
 import './Todo.css'
+import 'react-sortable-tree/style.css';
 
 const todoCategories = ["Today", "Done"];
 
-const Todo = ({
-    todoList,
-    onAdd,
-    onUpdate,
-    onUpdateTodoDone,
-    onDelete
-}) => {
-    const [todos, setTodos] = useState(todoList)
-    const [showTodo, setShowTodo] = useState(true)
-    const [newTodo, setNewTodo] = useState("")
-    const [editingTodo, setEditTodo] = useState(null);
-    const [todoCategory, setTodoCategory] = useState("Today")
-    const [showDropdown, setShowDropdown] = useState(false);
-    const handleDrop = (newTreeData) => {
-        for (const newTree of newTreeData) {
-            if (todoList.find(todo => todo.id === newTree.id && (newTree.parent || null) !== todo.parent_id)) {
-                onUpdate({
-                    id: newTree.id,
-                    parent_id: (newTree.parent || null)
-                })
-            }
+const Todo = (props) => {
+  const {todos, setTodos, showTodo, setShowTodo} = props
+  const user_id = props.user.id
+  const [flatTodoList, setFlatTodoList] = useState([])
+  const [newTodo, setNewTodo] = useState("")
+  const [editingTodo, setEditTodo] = useState(null);
+  const [todoCategory, setTodoCategory] = useState("Today")
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [nodesHeight, setNodesHeight] = useState({})
+
+  useEffect(() => {
+    (async () => {
+      const start = new Date();
+      start.setUTCHours(0, 0, 0, 0);
+
+      const end = new Date();
+      end.setUTCHours(23, 59, 59, 999);
+      const flatTodos = await axios('/api/todos/' + user_id, {
+        params: {
+          start,
+          end
         }
-        setTodos(newTreeData)
+      });
+      setFlatTodoList(flatTodos.data)
+    })()
+
+  }, [todoCategory])
+
+  useEffect(() => {
+    if (todoCategory === 'Done') {
+      const doneList = flatTodoList.filter((todo) => todo.done).map(node => ({ ...node, title: node.name }))
+      setTodos(getTreeFromFlatData({
+        flatData: doneList,
+        getKey: (node) => node.id,
+        getParentKey: (node) => node.parent_id,
+        rootKey: null
+      }))
+    } else {
+      const filteredTodoList = flatTodoList.filter((todo) => !todo.done).map(node => ({ ...node, title: node.name }))
+      setTodos(getTreeFromFlatData({
+        flatData: filteredTodoList,
+        getKey: (node) => node.id,
+        getParentKey: (node) => node.parent_id,
+        rootKey: null
+      }))
+    }
+  }, [flatTodoList, todoCategory])
+
+  useEffect(() => {
+    if (editingTodo) {
+      const id = 'todo-input-' + editingTodo
+      const input = document.getElementById(id);
+      if (input) {
+        input.focus()
+      }
+    }
+  }, [editingTodo, nodesHeight])
+
+  const addNewTodo = async (todo) => {
+    const result = await axios.post("/api/todos/" + user_id, todo)
+    return result.data
+  }
+
+  const getNodeKey = ({ treeIndex }) => treeIndex;
+
+  const handleUpdating = (newTreeData)  => {
+    const newFlatData = getFlatDataFromTree({
+      treeData: newTreeData,
+      getNodeKey
+    }).map(({ node, parentNode, treeIndex }) => ({
+      ...node,
+      name: node.title,
+      start_date: new Date(node.start_date),
+      parent_id: parentNode ? parentNode.id : null,
+      priority: treeIndex
+    }));
+
+    setTodos(newTreeData)
+    axios.post("/api/updateTodos", newFlatData)
+  }
+
+  const handleTodoChange = (e, node, path) => {
+    const title = e.target.value;
+
+    const newTreeData = changeNodeAtPath({
+      treeData: todos,
+      path,
+      getNodeKey,
+      newNode: { ...node, title },
+    })
+
+    setTodos(newTreeData)
+  }
+
+  const updateDone = (node, done) => {
+    axios.patch('/api/todos/' + user_id, {
+      id: node.id,
+      done: done
+    });
+
+    if (node.children) {
+      for (const child of node.children) {
+        updateDone(child, done)
+      }
+    }
+  }
+
+  const updateNodeDoneStatus = (node, done) => {
+    node.done = done
+    if (node.children) {
+      for (let i = 0; i < node.children.length; i ++) {
+        updateNodeDoneStatus(node.children[i], done)
+      }
+    }
+  }
+
+  const handleDoneChange = (e, node, path) => {
+    const done = e.target.checked;
+
+    updateDone(node, done)
+
+    const updatedNode = {...node}
+
+    updateNodeDoneStatus(updatedNode, done)
+
+    const newTreeData = changeNodeAtPath({
+      treeData: todos,
+      path,
+      getNodeKey,
+      newNode: updatedNode,
+    })
+
+    handleUpdating(newTreeData)
+  }
+
+  const handleDeleteTodo = (path) => {
+    const nodeItem = getNodeAtPath({
+      treeData: todos,
+      path,
+      getNodeKey
+    })
+    const id = nodeItem.node.id
+    axios.delete('/api/todos/' + id)
+    const newTreeData = removeNodeAtPath({
+      treeData: todos,
+      path,
+      getNodeKey,
+    })
+    handleUpdating(newTreeData)
+  }
+
+  const handleAddNewTodo = (todo) => {
+    let newTreeData = [...todos]
+    newTreeData = newTreeData.concat(todo)
+    handleUpdating(newTreeData)
+    setEditTodo(todo.id)
+  }
+
+  const handleInsertNewTodo = async (path) => {
+    const todo = {
+      name: '',
+      done: (todoCategory === 'Done'),
+      start_date: new Date(),
+    }
+    const id = await addNewTodo(todo)
+    const newTreeInfo = insertNode({
+      treeData: todos,
+      depth: path.length - 1,
+      getNodeKey,
+      minimumTreeIndex: path[path.length - 1] + 1,
+      expandParent: true,
+      newNode: {
+        id,
+        ...todo,
+        title: todo.name
+      }
+    })
+
+    handleUpdating(newTreeInfo.treeData)
+    setEditTodo(id)
+  }
+
+  const handleMoveNode = (node, path, isUp) => {
+    const newTreeData = removeNodeAtPath({
+      treeData: todos,
+      path,
+      getNodeKey,
+    })
+
+    if ((isUp && path.length === 1)) {
+      return;
+    }
+    if (isUp) {
+      let minimumTreeIndex = path[0] + 1
+      const newTreeInfo = insertNode({
+        treeData: newTreeData,
+        depth: path.length - 2,
+        getNodeKey,
+        minimumTreeIndex,
+        expandParent: true,
+        newNode: node
+      })
+      const treeData = newTreeInfo.treeData
+      handleUpdating(treeData)
+    }
+    if (!isUp) {
+
+      if (path[path.length - 1] == 0) return
+      const newTreeInfo = insertNode({
+        treeData: newTreeData,
+        depth: path.length,
+        minimumTreeIndex: path[path.length - 1],
+        getNodeKey,
+        expandParent: true,
+        newNode: node,
+        ignoreCollapsed: true
+      })
+      const treeData = newTreeInfo.treeData
+      handleUpdating(treeData)
+    }
+  }
+
+  const handleKeyDown = async (e) => {
+    if (e.keyCode === 13) {
+      const todo = {
+        name: newTodo,
+        done: (todoCategory === 'Done'),
+        start_date: new Date()
+      }
+      const id = await addNewTodo(todo)
+      handleAddNewTodo({
+        id,
+        ...todo,
+        title: todo.name
+      })
+      setNewTodo('')
+    }
+  }
+
+  const handleTodoKeyDown = async (e, node, path) => {
+    if (e.shiftKey && e.keyCode == 9) {
+      e.preventDefault();
+      handleMoveNode(node, path, true)
+    } else if (e.keyCode === 9) {
+      e.preventDefault()
+      handleMoveNode(node, path, false)
+    } else if (e.keyCode === 13) {
+      e.preventDefault()
+      handleInsertNewTodo(path)
+    }
+  }
+
+  const toggleDropDown = () => {
+    setShowDropdown(!showDropdown)
+  }
+
+  const handleSelectCategory = (todoCategoryItem) => {
+    setTodoCategory(todoCategoryItem)
+    setShowDropdown(!showDropdown)
+  }
+
+  const getNodeHeight = (node) => {
+    let height = Math.ceil(node.title.length / 30) * 24
+    if (node.title.length === 0) {
+      height = 24
+    }
+    if (document.getElementById('todo-input-' + node.id)) {
+      height = document.getElementById('todo-input-' + node.id).scrollHeight
+    }
+    if (node.expanded && node.children) {
+      for (const child of node.children) {
+        height += getNodeHeight(child)
+      }
     }
 
-    const handleKeyDown = (e) => {
-        if (e.keyCode === 13) {
-            onAdd({
-                name: newTodo,
-                done: (todoCategory === 'Done')
-            })
-            setNewTodo('')
-        }
+    return height
+  }
+
+  const treeHeight = useMemo(() => {
+    let height = 0
+    for (const todo of todos) {
+      height += getNodeHeight(todo)
     }
+    return height + 10 > 600 ? 600 : (height + 10)
+  }, [todos, nodesHeight])
 
-    const handleChange = (e, todo) => {
-        onUpdateTodoDone({
-            id: todo.id,
-            done: e.target.checked
-        })
-    }
-
-    const editTodo = (todo) => {
-        setEditTodo(todo)
-    }
-
-    const deleteTodo = (todo) => {
-        onDelete(todo)
-    }
-
-    const handleTodoChange = (e, node) => {
-        onUpdate({
-            id: node.id,
-            name: e.target.value
-        })
-    }
-
-    const handleTodoKeyDown = (e, node) => {
-        if (e.shiftKey && e.keyCode == 9) {
-            e.preventDefault();
-            const parent_id = node.parent || null;
-            if (!parent_id) {
-                return
-            }
-            const parentItem = todoList.find((todoItem) => todoItem.id === parent_id)
-
-            onUpdate({
-                id: node.id,
-                parent_id: parentItem.parent_id
-            })
-        } else if (e.keyCode === 9) {
-            e.preventDefault();
-            const parent_id = node.parent || null;
-            let lastestSibling = null;
-            for (const todoItem of todoList) {
-                if (todoItem.id === node.id) {
-                    break;
+  return (
+    <>
+      <button className="btn-todo-mobile" onClick={() => setShowTodo(!showTodo)}>Todo</button>
+      <div className={`todo-list-view ${showTodo ? "show" : ""}`}>
+        <div className="d-flex align-items-center mb-2 position-relative">
+          <h3 className="todo-title">{todoCategory}</h3>
+          <FiChevronDown color="white" size={22} className="ms-1" onClick={toggleDropDown} />
+          {
+            showDropdown && (
+              <div className="todo-category-selector">
+                {
+                  todoCategories.map((todoCategoryItem, index) => (
+                    <div key={index} onClick={() => handleSelectCategory(todoCategoryItem)}>{todoCategoryItem}</div>
+                  ))
                 }
-                if (todoItem.parent_id === parent_id) {
-                    lastestSibling = todoItem
-                }
-            }
+              </div>
+            )
+          }
+        </div>
+        <div style={{ height: treeHeight, display: getVisibleNodeCount({treeData: todos}) > 0 ? 'block' : 'none' }} className="tree-container">
+          <SortableTree
+            treeData={todos}
+            onChange={treeData => handleUpdating(treeData)}
+            getNodeKey={getNodeKey}
+            // maxDepth={2}
+            theme={FileExplorerTheme}
+            isVirtualized={false}
+            rowHeight={(treeIndex, node, path) => {
+              let height = Math.ceil(node.title.length / 30) * 24
+              if (node.title.length === 0) {
+                height = 24
+              }
 
-            if (!lastestSibling) {
-                return
-            }
-
-            onUpdate({
-                id: node.id,
-                parent_id: (lastestSibling.id || null)
-            })
-        } else if (e.keyCode === 13) {
-            const parent_id = node.parent || null;
-            onAdd({
-                name: "",
-                parent_id,
-                priority: node.priority + 1,
-                done: (todoCategory === 'Done')
-            })
-        }
-    }
-
-    const toggleDropDown = () => {
-        setShowDropdown(!showDropdown)
-    }
-
-    const handleSelectCategory = (todoCategoryItem) => {
-        setTodoCategory(todoCategoryItem)
-        setShowDropdown(!showDropdown)
-    }
-
-    useEffect(() => {
-        if (todoCategory === 'Done') {
-            console.log(todoList.filter((todo) => todo.done))
-            setTodos(todoList.filter((todo) => todo.done).map((todo) => {
-                return {
-                    ...todo,
-                    parent: todo.parent_id || 0,
-                    droppable: true
-                }
-            }))
-        } else {
-            setTodos(todoList.map((todo) => {
-                return {
-                    ...todo,
-                    parent: todo.parent_id || 0,
-                    droppable: true
-                }
-            }))
-        }
-        if (todoList && todoList.length > 0 && todoList[todoList.length - 1].new) {
-            const todo = todoList[todoList.length - 1]
-            setEditTodo({
-                ...todo,
-                parent: todo.parent_id || 0,
-                droppable: true
-            })
-        }
-    }, [todoList, todoCategory])
-
-    return (
-        <>
-            <button className="btn-todo-mobile" onClick={() => setShowTodo(!showTodo)}>Todo</button>
-            <div className={`todo-list-view ${showTodo ? "show": ""}`}>
-                <div className="d-flex align-items-center mb-2 position-relative">
-                    <h3 className="todo-title">{todoCategory}</h3>
-                    <FiChevronDown color="white" size={22} className="ms-1" onClick={toggleDropDown} />
-                    {
-                        showDropdown && (
-                            <div className="todo-category-selector">
-                                {
-                                    todoCategories.map((todoCategoryItem, index) => (
-                                        <div key={index} onClick={() => handleSelectCategory(todoCategoryItem)}>{todoCategoryItem}</div>
-                                    ))
-                                }
-                            </div>
-                        )
-                    }
-                </div>
-
-                <DndProvider backend={MultiBackend} options={getBackendOptions()}>
-                    <Tree
-                        tree={todos}
-                        rootId={0}
-                        render={(node, { depth, isOpen, onToggle }) => {
-                            return (
-                                <div style={{ marginInlineStart: depth * 10 }}>
-
-                                    <div className="todo-item-wrapper">
-                                        {todos.filter(todo => todo.parent === node.id).length > 0 && (
-                                            <div className="todo-item-expandable" onClick={onToggle}>{isOpen ? <AiFillCaretDown /> : <AiFillCaretRight />}</div>
-                                        )}
-                                        <MdDragIndicator />
-                                        <Form.Check
-                                            type="checkbox"
-                                            id={`todo-${node.id}`}
-                                            checked={node.done}
-                                            className={`todo-item ${node.done ? 'done' : ''}`}
-                                            onChange={(e) => handleChange(e, node)}
-                                        />
-                                        <input
-                                            type="text"
-                                            className={`me-auto todo-inline-input ${node.done ? 'text-decoration-line-through': ''}`}
-                                            defaultValue={node.name}
-                                            onChange={(e) => handleTodoChange(e, node)}
-                                            onKeyDown={(e) => handleTodoKeyDown(e, node)}
-                                            onFocus={() => editTodo(node)}
-                                            autoFocus={editingTodo && node.id === editingTodo.id}
-                                        />
-                                        <FiTrash2 className="todo-item-edit" onClick={() => deleteTodo(node)} />
-                                    </div>
-                                </div>
-                            )
-                        }}
-                        dragPreviewRender={(monitorProps) => (
-                            <div className="todo-item-wrapper">
-                                <MdDragIndicator />
-                                {monitorProps.item.name}
-                            </div>
-                        )}
-                        onDrop={handleDrop}
-                        initialOpen={true}
+              if (document.getElementById('todo-input-' + node.id)) {
+                height = document.getElementById('todo-input-' + node.id).scrollHeight
+              }
+              return height
+            }}
+            reactVirtualizedListProps={{
+              autoHeight: "auto"
+            }}
+            scaffoldBlockPxWidth={20}
+            generateNodeProps={({ node, path }) => {
+              return {
+                title: (
+                  <div className="todo-item-wrapper">
+                    <Form.Check
+                      type="checkbox"
+                      id={`todo-${node.id}`}
+                      checked={node.done}
+                      className={`todo-item ${node.done ? 'done' : ''}`}
+                      onChange={(e) => handleDoneChange(e, node, path)}
                     />
-                </DndProvider>
-                <input className="form-control todo-input" placeholder="New Todo" value={newTodo} onChange={(e) => {
-                    setNewTodo(e.target.value)
-                }} onKeyDown={handleKeyDown} />
-            </div>
-            <button className="btn-todo" onClick={() => setShowTodo(!showTodo)}>Todo</button>
-        </>
-    )
+                    <TextareaAutosize
+                      className={`todo-inline-input ${node.done ? 'text-decoration-line-through' : ''}`}
+                      id={"todo-input-" + node.id}
+                      value={node.title}
+                      onChange={(e) => handleTodoChange(e, node, path)}
+                      onKeyDown={(e) => handleTodoKeyDown(e, node, path)}
+                      onFocus={() => setEditTodo(node.id)}
+                      autoFocus={editingTodo === node.id}
+                      onHeightChange={(height, meta) => {setNodesHeight({...nodesHeight, [node.id]: height})}}
+                    />
+                  </div>
+                ),
+                buttons: [
+                  <FiTrash2 className="todo-delete-btn" onClick={() => handleDeleteTodo(path)} />
+                ],
+              }
+            }}
+          />
+        </div>
+
+        <input className="form-control todo-input" placeholder="New Todo" value={newTodo} onChange={(e) => {
+          setNewTodo(e.target.value)
+        }} onKeyDown={handleKeyDown} />
+      </div>
+      <button className="btn-todo" onClick={() => setShowTodo(!showTodo)}>Todo</button>
+    </>
+  )
 }
 
-export default Todo
+const mapStateToProps = (state) => ({
+  user: state.app.user,
+  todos: state.app.todo.todos
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    setTodos
+  }
+)(Todo);

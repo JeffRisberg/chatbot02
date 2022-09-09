@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
@@ -6,15 +6,20 @@ import './TopMenu.css';
 
 import {clear_user} from '../../actions/user';
 import {set_screen} from '../../actions/screen';
+import ProfileModal from '../ProfileModal/ProfileModal';
 
 function TopMenu(props) {
-
+  const [showProfile, setShowProfile] = useState(false)
   function onHome() {
     props.set_screen('home');
   }
 
   function onSetGoal() {
     props.set_screen('set-goal-month')
+  }
+
+  function onSetNewGoal() {
+    props.set_screen('set-goals')
   }
 
   function onMonthly() {
@@ -62,7 +67,16 @@ function TopMenu(props) {
     });
   }
 
+  function onShowProfile() {
+    setShowProfile(true)
+  }
+
+  function onHideProfile() {
+    setShowProfile(false)
+  }
+
   return (
+    <>
     <Dropdown>
       <Dropdown.Toggle id='dropdown-basic' style={{background: 'none', padding: 0, borderWidth: 0}}>
         <i className='bi-list' style={{cursor: 'pointer', fontSize: '2.0rem'}}></i>
@@ -71,15 +85,19 @@ function TopMenu(props) {
       <Dropdown.Menu>
         <Dropdown.Item onClick={onHome}>Home</Dropdown.Item>
         <Dropdown.Item onClick={onSetGoal}>Set Goals</Dropdown.Item>
+        <Dropdown.Item onClick={onSetNewGoal}>Set New Goals</Dropdown.Item>
         <Dropdown.Item onClick={onMonthly}>Talk to Dara</Dropdown.Item>
         <Dropdown.Item className='ps-4' onClick={onMonthly}>Monthly Planning</Dropdown.Item>
         <Dropdown.Item className='ps-4' onClick={onWeekly}>Weekly Planning</Dropdown.Item>
         <Dropdown.Item className='ps-4' onClick={onDaily}>Daily Planning</Dropdown.Item>
         <Dropdown.Item onClick={onCalendar}>Calendar</Dropdown.Item>
         <Dropdown.Divider />
+        <Dropdown.Item onClick={onShowProfile}>My Profile</Dropdown.Item>
         <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
+    <ProfileModal show={showProfile} onHide={onHideProfile} />
+    </>
   )
 }
 

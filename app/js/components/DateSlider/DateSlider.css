@@ -28,3 +28,10 @@
     color: #3C4043;
     margin-bottom: 0;
 }
+
+@media screen {
+    .date-slider-content {
+        font-size: 20px;
+        text-align: center;
+    }
+}

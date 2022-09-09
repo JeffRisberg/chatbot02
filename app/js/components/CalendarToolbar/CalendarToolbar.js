@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import {Button, ButtonGroup} from 'react-bootstrap';
-import {FiChevronLeft, FiChevronRight} from 'react-icons/fi';
+import { Button, ButtonGroup } from 'react-bootstrap';
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import './CalendarToolbar.css';
 
 const CalendarToolbar = (toolbar) => {
@@ -31,21 +31,26 @@ const CalendarToolbar = (toolbar) => {
   };
 
   return (
-    <div className={'d-flex align-items-center justify-content-between'}>
-      <div></div>
-      <div className='d-flex align-items-center h3'>
-        <FiChevronLeft onClick={goToBack}/>
-        {label()}
-        <FiChevronRight onClick={goToNext}/>
-      </div>
-      <div className={''}>
-        <ButtonGroup className="mb-2">
-          {
-            toolbar.views.map((view, key) => (
-              <Button key={key} onClick={() => gotoView(view)} className={"toolbar-view-btn"}>{view}</Button>
-            ))
-          }
-        </ButtonGroup>
+    <div className='container'>
+      <div className='row'>
+        <div className='col-md-6'>
+          <div className='d-flex align-items-center h3 justify-content-center'>
+            <FiChevronLeft onClick={goToBack} />
+            {label()}
+            <FiChevronRight onClick={goToNext} />
+          </div>
+        </div>
+        <div className='col-md-6'>
+          <div className='d-flex align-items-center h3 justify-content-center'>
+            <ButtonGroup className="mb-2">
+              {
+                toolbar.views.map((view, key) => (
+                  <Button key={key} onClick={() => gotoView(view)} className={"toolbar-view-btn"} variant="outline-primary">{view}</Button>
+                ))
+              }
+            </ButtonGroup>
+          </div>
+        </div>
       </div>
     </div>
   );
