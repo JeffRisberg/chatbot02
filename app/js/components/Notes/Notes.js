@@ -10,7 +10,7 @@ const Notes = ({ showNotes, setShowNotes }) => {
   const [notes, setNotes] = useState([])
   const [search, setSearch] = useState('')
   const [selectedNoteId, setSelectedNoteId] = useState(0)
-  const titleEditor = useRef()
+  //const titleEditor = useRef()
   const detailEditor = useRef()
 
   useEffect(() => {
@@ -113,9 +113,9 @@ const Notes = ({ showNotes, setShowNotes }) => {
 
   const getDetail = (selectedNote) => {
     if (selectedNote.details) {
-      return selectedNote.name + selectedNote.details;  
+      return selectedNote.name + selectedNote.details;
     } else if (selectedNote.name) {
-      return selectedNote.name;  
+      return selectedNote.name;
     }
   }
 

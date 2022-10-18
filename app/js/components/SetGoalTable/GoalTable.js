@@ -3,7 +3,7 @@ import axios from "axios";
 import { connect } from 'react-redux';
 
 import Form from 'react-bootstrap/Form'
-import { FiTrash2, FiChevronDown } from "react-icons/fi"
+import { FiTrash2 } from "react-icons/fi"
 import TextareaAutosize from 'react-textarea-autosize';
 import moment from "moment";
 
@@ -177,7 +177,7 @@ const GoalsTable = (props) => {
         switch(node.type) {
             case 'yearly_goal':
                 goal['type'] = 'quarterly_goal'
-                
+
                 for (let i = 1; i <= 4; i ++) {
                     goal['label'] = 'Q' + i + ' ' + year;
                     goal['start_date'] = moment([year]).quarter(i).startOf('quarter').toDate()
@@ -321,7 +321,7 @@ const GoalsTable = (props) => {
             setEditGoal(id)
         } else {
             const siblingPath = [...path]
-            siblingPath[siblingPath.length - 1] += 1; 
+            siblingPath[siblingPath.length - 1] += 1;
             const sibling = getNodeAtPath({
                 treeData: goals,
                 path:siblingPath,
@@ -410,7 +410,7 @@ const GoalsTable = (props) => {
                 }}
                 scaffoldBlockPxWidth={20}
                 canDrag={({node}) => node.type === 'daily_task'}
-                canDrop={({node, prevParent, nextParent}) => prevParent.id === nextParent.id}
+                canDrop={({prevParent, nextParent}) => prevParent.id === nextParent.id}
                 canNodeHaveChildren={(node) => {
                     console.log(node)
                     return node.type !== 'daily_task'
@@ -434,7 +434,7 @@ const GoalsTable = (props) => {
                                     onKeyDown={(e) => handleGoalKeyDown(e, node, path)}
                                     onFocus={() => setEditGoal(node.id)}
                                     autoFocus={editingGoal === node.id}
-                                    onHeightChange={(height, meta) => { setNodesHeight({ ...nodesHeight, [node.id]: height }) }}
+                                    onHeightChange={(height) => { setNodesHeight({ ...nodesHeight, [node.id]: height }) }}
                                 />
                                 {
                                     node.type !== 'daily_task' && (
