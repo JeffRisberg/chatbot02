@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react"
-import axios from "axios";
-import { connect } from 'react-redux';
+import axios from "axios"
+import { connect } from 'react-redux'
 
 import Form from 'react-bootstrap/Form'
 import { FiTrash2, FiChevronDown } from "react-icons/fi"
@@ -339,7 +339,7 @@ const Todo = (props) => {
             // maxDepth={2}
             theme={FileExplorerTheme}
             isVirtualized={false}
-            rowHeight={(treeIndex, node, path) => {
+            rowHeight={(treeIndex, node) => {
               let height = Math.ceil(node.title.length / 30) * 24
               if (node.title.length === 0) {
                 height = 24
@@ -373,7 +373,7 @@ const Todo = (props) => {
                       onKeyDown={(e) => handleTodoKeyDown(e, node, path)}
                       onFocus={() => setEditTodo(node.id)}
                       autoFocus={editingTodo === node.id}
-                      onHeightChange={(height, meta) => {setNodesHeight({...nodesHeight, [node.id]: height})}}
+                      onHeightChange={(height) => {setNodesHeight({...nodesHeight, [node.id]: height})}}
                     />
                   </div>
                 ),
