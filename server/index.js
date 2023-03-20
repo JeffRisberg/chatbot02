@@ -17,22 +17,6 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../app/index.html'));
 });
 
-app.get('/myPlan', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../app/index.html'));
-});
-
-app.get('/dashboard', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../app/index.html'));
-});
-
-app.get('/userDashboard', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../app/index.html'));
-});
-
-app.get('/adminDashboard', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../app/index.html'));
-});
-
 mocks.forEach(function (route) {
   route(app);
 });

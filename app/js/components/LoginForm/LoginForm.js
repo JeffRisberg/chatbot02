@@ -12,14 +12,6 @@ const LoginForm = (props) => {
 
   const {touched, errors} = props;
 
-  function doRegister() {
-    props.set_screen('register');
-  }
-
-  function doReset() {
-    props.set_screen('reset');
-  }
-
   return (
     <div className="loginForm-container">
       <div className="login-wrapper">
