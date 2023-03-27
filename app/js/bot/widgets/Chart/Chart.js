@@ -3,6 +3,17 @@ import React from 'react';
 import {Bar} from 'react-chartjs-2';
 import './Chart.css';
 
+import {CategoryScale, Chart as ChartJS} from 'chart.js';
+
+ChartJS.register(
+  CategoryScale,
+  //LinearScale,
+  //BarElement,
+  //Title,
+  //Tooltip,
+  //Legend
+);
+
 const Chart = (props) => {
 
   const labels = props.payload.labels || [];
