@@ -3,15 +3,15 @@ import React from 'react';
 import {Bar} from 'react-chartjs-2';
 import './Chart.css';
 
-import {CategoryScale, Chart as ChartJS} from 'chart.js';
+import {BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip} from 'chart.js';
 
 ChartJS.register(
   CategoryScale,
-  //LinearScale,
-  //BarElement,
-  //Title,
-  //Tooltip,
-  //Legend
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
 );
 
 const Chart = (props) => {
