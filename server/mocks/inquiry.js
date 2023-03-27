@@ -108,5 +108,6 @@ module.exports = (app) => {
     res.send(answer);
   });
 
+  console.log('setup inquiry');
   app.use('/api/inquiry', inquiryRouter);
 };

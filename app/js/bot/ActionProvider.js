@@ -7,7 +7,7 @@ class ActionProvider {
   }
 
   handleMessage(inquiry) {
-    axios.post('http://localhost:5000/inquiry?inquiry=' + inquiry, null,{
+    axios.post('http://localhost:3000/api/inquiry?inquiry=' + inquiry, null,{
       withCredentials: true,
     })
       .then(resp => {

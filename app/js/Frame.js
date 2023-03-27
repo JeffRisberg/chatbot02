@@ -15,6 +15,8 @@ function Frame(props) {
 
   const [data, setData] = useState([]);
 
+  console.log(data)
+
   const host = '';
 
   useEffect(() => {
@@ -36,7 +38,7 @@ function Frame(props) {
   }, [props]);
 
   return (
-    <Home/>
+    <Home />
   )
 
 }

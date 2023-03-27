@@ -8,6 +8,8 @@ import {set_screen} from '../actions/screen';
 
 function Login(props) {
 
+  console.log(props)
+
   return (
     <div className="login-container">
       <div className="inner">
