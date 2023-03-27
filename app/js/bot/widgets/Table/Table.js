@@ -5,7 +5,7 @@ import './Table.css';
 const Table = (props) => {
   const data = props.payload.data || [];
 
-  return <div className="table-container"><table><tbody>
+  return <div className='table-container'><table><tbody>
     {data.map((row, i) =>
       <tr key={i}>
         {row.map((column, j) =>
