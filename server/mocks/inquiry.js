@@ -49,6 +49,14 @@ module.exports = (app) => {
           {'text': 'Chocolate', id: 3, 'link': 'chocolate'}
         ]
       };
+    } else if (inquiry.includes('jobs')) {
+      answer = {
+        'text': 'Here is the bar chart:',
+        'widget': 'chart',
+        'labels': ["Data Sci I", "Data Sci II", "Senior Data Sci", "Director"],
+        'series': [1, 2, 3, 5],
+        'type': "Bar"
+      };
     } else if (inquiry.includes('jobsC')) {
       answer = {
         'text': 'Here is the column chart:',
@@ -56,15 +64,7 @@ module.exports = (app) => {
         'labels': ["Data Sci I", "Data Sci II", "Senior Data Sci", "Director", "CTO"],
         'series': [[1, 2, 3, 5, 8]],
         'options': {horizontalBars: true, reverseData: true, axisY: {offset: 50}},
-        'type': "Bar",
-      };
-    } else if (inquiry.includes('jobs')) {
-      answer = {
-        'text': 'Here is the bar chart:',
-        'widget': 'chart',
-        'labels': ["Data Sci I", "Data Sci II", "Senior Data Sci", "Director"],
-        'series': [1, 2, 3, 5],
-        'type': "Bar",
+        'type': "Bar"
       };
     } else if (inquiry.includes('sales')) {
       answer = {
@@ -108,6 +108,5 @@ module.exports = (app) => {
     res.send(answer);
   });
 
-  console.log('setup inquiry');
   app.use('/api/inquiry', inquiryRouter);
 };
