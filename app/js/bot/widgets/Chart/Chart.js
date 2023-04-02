@@ -27,7 +27,7 @@ const Chart = (props) => {
       '#2a71d0',
       '#50AF95'
     ]
-  }]
+  }];
 
   return (
     <div className='chart-container'>
