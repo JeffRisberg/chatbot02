@@ -83,8 +83,8 @@
         "redux-actions": "^2.6.5",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.4.2",
-        "sass": "^1.60.0",
-        "webpack": "^5.77.0",
+        "sass": "^1.61.0",
+        "webpack": "^5.78.0",
         "yup": "^0.32.11"
     }
 }
