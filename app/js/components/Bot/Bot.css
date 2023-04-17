@@ -38,12 +38,7 @@
 }
 
 .react-chatbot-kit-chat-message-container {
-  height: 300px;
-}
-
-.react-chatbot-kit-chat-inner-container {
-  min-height: 330px !important;
-  max-height: 370px !important;
+  height: 500px;
 }
 
 .react-chatbot-kit-chat-bot-message {
