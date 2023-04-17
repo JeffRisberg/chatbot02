@@ -70,7 +70,7 @@
         "react-async": "^10.0.1",
         "react-beautiful-dnd": "^13.1.1",
         "react-big-calendar": "^1.6.9",
-        "react-bootstrap": "^2.7.2",
+        "react-bootstrap": "^2.7.4",
         "react-chartjs-2": "^4.3.0",
         "react-chatbot-kit": "^2.1.2",
         "react-dnd": "^16.0.1",
@@ -83,8 +83,8 @@
         "redux-actions": "^2.6.5",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.4.2",
-        "sass": "^1.61.0",
-        "webpack": "^5.78.0",
+        "sass": "^1.62.0",
+        "webpack": "^5.79.0",
         "yup": "^0.32.11"
     }
 }
