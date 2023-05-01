@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Bot from '../components/Bot/Bot';
+import './Home.css';
 
 function Home(props) {
   //const user_id = props.user.id;

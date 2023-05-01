@@ -53,35 +53,35 @@ module.exports = (app) => {
       answer = {
         'text': 'Here is the bar chart:',
         'widget': 'chart',
-        'labels': ["Data Sci I", "Data Sci II", "Senior Data Sci", "Director"],
+        'labels': ['Data Sci I', 'Data Sci II', 'Senior Data Sci', 'Director'],
         'series': [1, 2, 3, 5],
-        'type': "Bar"
+        'type': 'Bar'
       };
     } else if (inquiry.includes('jobsC')) {
       answer = {
         'text': 'Here is the column chart:',
         'widget': 'chart',
-        'labels': ["Data Sci I", "Data Sci II", "Senior Data Sci", "Director", "CTO"],
+        'labels': ['Data Sci I', 'Data Sci II', 'Senior Data Sci', 'Director', 'CTO'],
         'series': [[1, 2, 3, 5, 8]],
         'options': {horizontalBars: true, reverseData: true, axisY: {offset: 50}},
-        'type': "Bar"
+        'type': 'Bar'
       };
     } else if (inquiry.includes('sales')) {
       answer = {
         'text': 'Sales by Region:',
         'widget': 'table',
-        'data': [["North", "South", "East", "West"], [80, 40, 70, 95], ["a", "b", "c", "d"]],
+        'data': [['North', 'South', 'East', 'West'], [80, 40, 70, 95], ['a', 'b', 'c', 'd']],
       };
     } else if (inquiry.includes('eval')) {
       answer = {
         'text': 'Here is your evaluation',
         'widget': 'table',
         'data': [
-          ["", "Before", "After"],
-          ["Speech Organization", "high", "high"],
-          ["Vocal Variety", "medium", "medium"],
-          ["Relevance", "medium", "high"],
-          ["Comfort Level", "low", "medium"]
+          ['', 'Before', 'After'],
+          ['Speech Organization', 'high', 'high'],
+          ['Vocal Variety', 'medium', 'medium'],
+          ['Relevance', 'medium', 'high'],
+          ['Comfort Level', 'low', 'medium']
         ],
       };
     } else if (inquiry.includes('schedule')) {
@@ -89,10 +89,10 @@ module.exports = (app) => {
         'text': 'Here is a table:',
         'widget': 'table',
         'data': [
-          ["Advanced Database", "04-May-2022"],
-          ["Machine Learning", "16-May-2022"],
-          ["Kubernetes", "24-May-2022"],
-          ["Team Management", "06-Jun-2022"]
+          ['Advanced Database', '04-May-2022'],
+          ['Machine Learning', '16-May-2022'],
+          ['Kubernetes', '24-May-2022'],
+          ['Team Management', '06-Jun-2022']
         ]
       };
     } else if (inquiry.includes('dashboard')) {
