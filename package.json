@@ -71,7 +71,7 @@
         "react-beautiful-dnd": "^13.1.1",
         "react-big-calendar": "^1.8.4",
         "react-bootstrap": "^2.8.0",
-        "react-chartjs-2": "^4.3.0",
+        "react-chartjs-2": "^5.2.0",
         "react-chatbot-kit": "^2.1.2",
         "react-dnd": "^16.0.1",
         "react-dom": "^18.2.0",

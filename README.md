@@ -3,7 +3,7 @@
 Technologies used:
 
 - Node v14.19.1
-- React
+- React 18.2
 - Redux
 - ES6
 - Webpack

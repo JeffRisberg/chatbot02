@@ -17,7 +17,7 @@ class ActionProvider {
         const active = resp.data.active;
         var botMessage;
 
-        console.log(resp.data);
+        //console.log(resp.data);
 
         if (widget === 'buttons') {
           botMessage = this.createChatBotMessage(text, {widget: 'buttons',

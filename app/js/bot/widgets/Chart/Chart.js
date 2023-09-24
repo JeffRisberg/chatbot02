@@ -15,8 +15,9 @@ ChartJS.register(
 );
 
 const Chart = (props) => {
-
   const labels = props.payload.labels || [];
+  const options = props.payload.options || {};
+
   const datasets = [{
     data: props.payload.series,
     backgroundColor: [
@@ -29,20 +30,20 @@ const Chart = (props) => {
     ]
   }];
 
+  options.maintainAspectRatio = false;
+  options.plugins = {
+    title: {display: false},
+    legend: {display: false},
+  };
+
   return (
     <div className='chart-container'>
       <Bar
         data={{'labels': labels, 'datasets': datasets}}
-        options={{
-          maintainAspectRatio: false,
-          plugins: {
-            title: {display: false},
-            legend: {display: false},
-          }
-        }}
+        options={options}
       />
     </div>
   );
-};
+}
 
 export default Chart;

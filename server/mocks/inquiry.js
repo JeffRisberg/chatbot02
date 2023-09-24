@@ -49,21 +49,22 @@ module.exports = (app) => {
           {'text': 'Chocolate', id: 3, 'link': 'chocolate'}
         ]
       };
-    } else if (inquiry.includes('jobs')) {
+    } else if (inquiry.includes('jobsC')) {
       answer = {
-        'text': 'Here is the bar chart:',
+        'text': 'Here is the vertical bar chart:',
         'widget': 'chart',
         'labels': ['Data Sci I', 'Data Sci II', 'Senior Data Sci', 'Director'],
         'series': [1, 2, 3, 5],
         'type': 'Bar'
+
       };
-    } else if (inquiry.includes('jobsC')) {
+    } else if (inquiry.includes('jobs')) {
       answer = {
-        'text': 'Here is the column chart:',
+        'text': 'Here is the horizontal bar chart:',
         'widget': 'chart',
         'labels': ['Data Sci I', 'Data Sci II', 'Senior Data Sci', 'Director', 'CTO'],
-        'series': [[1, 2, 3, 5, 8]],
-        'options': {horizontalBars: true, reverseData: true, axisY: {offset: 50}},
+        'series': [1, 2, 3, 5, 8],
+        'options': {'indexAxis': 'y'},
         'type': 'Bar'
       };
     } else if (inquiry.includes('sales')) {
