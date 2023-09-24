@@ -15,7 +15,7 @@ function Frame(props) {
 
   const [data, setData] = useState([]);
 
-  console.log(data)
+  console.log(data);
 
   const host = '';
 
@@ -38,7 +38,7 @@ function Frame(props) {
   }, [props]);
 
   return (
-    <Home />
+    <Home/>
   )
 
 }

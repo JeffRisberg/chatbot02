@@ -27,13 +27,13 @@ const LoginForm = (props) => {
             {touched.password && errors.password && <span className="help-block text-danger">{errors.password}</span>}
           </div>
 
-          <div className="alignleft" style={{cursor: 'pointer'}} onClick={doRegister}>
+          <div className="alignleft" style={{cursor: 'pointer'}} /*onClick={doRegister}*/>
             <span className="text-style small">
               Don't have an account?
             </span>
           </div>
 
-          <div className="alignright" style={{cursor: 'pointer'}} onClick={doReset}>
+          <div className="alignright" style={{cursor: 'pointer'}} /*onClick={doReset}*/>
             <span className="text-style small">
               Forgot Password?
             </span>

@@ -23,7 +23,7 @@ const daysMonth = (date) => {
 };
 
 const dayOfWeek = (date) => {
-  return date.toLocaleDateString("ISO", { weekday: "long" }).toLowerCase(); // STRING DOES NOT RECOGNIZE KEYS AS VALID ONES
+  return date.toLocaleDateString("ISO", {weekday: "long"}).toLowerCase(); // STRING DOES NOT RECOGNIZE KEYS AS VALID ONES
 };
 
 const firstDayOfMonth = (date) => {
@@ -34,7 +34,7 @@ const lastDayOfMonth = (date) => {
 };
 
 const dateMove = (
-    date,
+  date,
   numberOfDays,
   direction
 ) => {
