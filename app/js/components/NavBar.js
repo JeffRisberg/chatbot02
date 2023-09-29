@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 // import {Link, useMatch, useResolvedPath} from 'react-router-dom';
 
 
@@ -17,10 +18,7 @@ function NavBar() {
             padding: "10px"
           }}
         >
-          Past Weekly | {" "}
-          Past Daily | {" "}
-          Daily | {" "}
-          Weekly
+          Events
         </nav>
       </div>
     </div>
