@@ -13,7 +13,7 @@ const my_history = createBrowserHistory({basename: '/'});
 const store = configureStore({initialState: {}, my_history});
 
 const container = document.getElementById('app-root');
-const root = createRoot(container); // createRoot(container!) if you use TypeScript
+const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
