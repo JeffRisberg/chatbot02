@@ -4,7 +4,7 @@ const coursesRouter = express.Router();
 
 const bodyParser = require('body-parser');
 
- const courseList = [
+const courseList = [
   {
     'id': 1,
     'name': 'Machine Learning',
@@ -16,10 +16,10 @@ const bodyParser = require('body-parser');
     'dateCreated': 'March 20, 2022',
   },
   {
-      'id': 3,
-      'name': 'Team Management',
-      'dateCreated': 'March 20, 2022',
-    },
+    'id': 3,
+    'name': 'Team Management',
+    'dateCreated': 'March 20, 2022',
+  },
 
 ];
 

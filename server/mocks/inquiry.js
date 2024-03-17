@@ -105,7 +105,7 @@ module.exports = (app) => {
       answer = {'text': 'Ok, let\'s start over'};
     }
 
-    answer['status'] = 'ok';
+    answer.status = 'ok';
     res.send(answer);
   });
 
