@@ -42,7 +42,7 @@
         "file-loader": "^6.0.0",
         "hoek": "^6.1.3",
         "husky": "^3.1.0",
-        "mini-css-extract-plugin": "^2.8.1",
+        "mini-css-extract-plugin": "^2.9.0",
         "react-hot-loader": "^4.13.1",
         "sass-loader": "^12.6.0",
         "style-loader": "^0.23.1",
@@ -69,7 +69,7 @@
         "react": "^18.2.0",
         "react-async": "^10.0.1",
         "react-beautiful-dnd": "^13.1.1",
-        "react-big-calendar": "^1.11.3",
+        "react-big-calendar": "^1.11.6",
         "react-bootstrap": "^2.10.2",
         "react-chartjs-2": "^5.2.0",
         "react-chatbot-kit": "^2.2.2",
@@ -83,7 +83,7 @@
         "redux-actions": "^2.6.5",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.4.2",
-        "sass": "^1.74.1",
+        "sass": "^1.75.0",
         "webpack": "^5.91.0",
         "yup": "^0.32.11"
     }
