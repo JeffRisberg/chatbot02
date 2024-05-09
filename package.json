@@ -51,7 +51,7 @@
     "dependencies": {
         "@minoru/react-dnd-treeview": "^2.0.2",
         "@react-oauth/google": "^0.2.8",
-        "axios": "^0.26.1",
+        "axios": "^1.6.8",
         "body-parser": "^1.20.2",
         "chart.js": "^3.8.0",
         "debug": "^4.3.4",
