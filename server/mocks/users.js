@@ -4,7 +4,7 @@ const usersRouter = express.Router();
 
 const bodyParser = require('body-parser');
 
- const userList = [
+const userList = [
   {
     'id': 1,
     'firstName': 'John',
@@ -47,10 +47,15 @@ module.exports = (app) => {
   usersRouter.use(bodyParser.json());
 
   usersRouter.get('/', function (req, res) {
-    res.send(userList)
+    res.send(userList);
   });
 
   usersRouter.get('/:id', function (req, res) {
+  });
+
+  usersRouter.post('/login', function (req, res) {
+    const result = {'status': 'ok'};
+    res.send(result);
   });
 
   app.use('/api/users', usersRouter);

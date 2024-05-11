@@ -61,7 +61,8 @@ const LoginFormik = withFormik({
   }),
   handleSubmit: (values, {props}) => {
     try {
-      axios.post("/login", values, {
+      console.log("post login")
+      axios.post("/api/users/login", values, {
         withCredentials: true,
       })
         .then(response => {
